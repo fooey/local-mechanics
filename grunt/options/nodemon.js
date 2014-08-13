@@ -28,6 +28,7 @@ function getOptions(mode) {
 				// 'views/**', 
 				'gruntfile.js', 
 				'grunt/**', 
+				'.git/**', 
 			],
 
 			delay: '100ms',
