@@ -1,0 +1,51 @@
+
+
+/*
+*	pageTitle
+*/
+
+h1.pageTitle {
+	margin: .25em 0 .5em;
+	padding: 0;
+	text-align: center;
+
+	font-size: 18pt;
+	@media(min-width: @screen-xs-min) { font-size: 28pt; }
+	@media(min-width: @screen-md-min) { font-size: 40pt; }
+	@media(min-width: @screen-lg-min) { font-size: 48pt; }
+
+
+	small {
+		display: block;
+		font-size: 40%;
+		margin-top: .5em;
+		line-height: 140%;
+		font-weight: 200;
+	}
+
+	a {
+		color: @text-color;
+	}
+
+
+	@media(max-width: @screen-xs-max) {
+		nobr {
+			white-space: normal;
+		}
+	}
+}
+
+
+
+/*
+*	Panels
+*/
+
+.panel {
+	.panel-heading {
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0;
+			padding: 0;
+		}
+	}
+}

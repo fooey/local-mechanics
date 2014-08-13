@@ -1,0 +1,9 @@
+#browse
+	.row: .col-lg-24
+		header: h1.pageTitle= pageTitle
+		p.description= description
+
+	.row: .col-lg-24
+		#list
+			each place in places
+				!= renderPlace({place: place})

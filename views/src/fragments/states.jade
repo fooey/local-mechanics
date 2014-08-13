@@ -1,0 +1,15 @@
+-var numStates = states.length;
+-var perCol = Math.ceil(numStates / numCols);
+-var colClasses = [];
+-colClasses.push('col-md-' + Math.ceil(24/numCols).toString());
+//- -colClasses.push('col-sm-' + Math.ceil(24/numCols*2).toString());
+
+-var pos = 0;
+
+.stateCols.row
+	while pos < numStates
+		-var colStates = states.slice(pos, pos += perCol);
+		div(class=colClasses)
+			ul.nav.nav-list
+				each state in colStates
+					li: a(href=state.getLink())= state.name
