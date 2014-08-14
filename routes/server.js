@@ -26,8 +26,11 @@ module.exports = function(app, express) {
 	app.get('/:remap(public|bower_components)/:path(*)', function(req, res) {
 		res.redirect(statusFound, '/' + req.params.path);
 	});
-	app.get('/:remap(D:/inet/heroku/local-mechanics)/:path(*)', function(req, res) {
-		res.redirect(statusFound, '/' + req.params.path);
+
+	//localhost:3003/dist/js/D:/inet/heroku/local-mechanics/client.js
+	app.get('/:stuff(*):/inet/heroku/local-mechanics:moreStuff(*)', function(req, res) {
+		var toUrl = req.originalUrl.replace('/D:/inet/heroku/local-mechanics', '');
+		res.redirect(statusFound, toUrl);
 	});
 
 
