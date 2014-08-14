@@ -1,6 +1,6 @@
 if place
 	.place.panel.panel-default
-		.panel-heading: h2= place.name
+		.panel-heading: h2: a(href=place.getLink())= place.name
 		.panel-body
 			address
 				div= place.address.street
@@ -10,5 +10,9 @@ if place
 					a(href=place.geo.state.getLink())= place.geo.state.abbr
 					| 
 					span= place.geo.zip
+			div
+				ul.list-inline
+					li: a(href=place.getLink('reviews')) reviews
+					li: a(href=place.getLink('jobs')) jobs
 else
 	p Error
