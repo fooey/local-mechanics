@@ -26,6 +26,9 @@ module.exports = function(app, express) {
 	app.get('/:remap(public|bower_components)/:path(*)', function(req, res) {
 		res.redirect(statusFound, '/' + req.params.path);
 	});
+	app.get('/:remap(D:/inet/heroku/local-mechanics)/:path(*)', function(req, res) {
+		res.redirect(statusFound, '/' + req.params.path);
+	});
 
 
 
