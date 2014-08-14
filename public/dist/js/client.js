@@ -680,6 +680,7 @@ module.exports = function(){
 	return self.init();
 }
 },{"./globalRequire":4}],7:[function(require,module,exports){
+'use strict';
 
 var globalRequire = require('./globalRequire');
 var $ = globalRequire('jquery');
@@ -689,24 +690,115 @@ var responsiveMin = 10;
 
 
 module.exports = function(){
+
+	/*
+	*	Module 'Globals'
+	*/
+
 	var $responsiveCols = $('ul.responsive-cols');
 	var $responsiveColTabs = $('ul.responsive-col-tabs');
+	var $tabs = $responsiveColTabs.find('li');
+	var $items = $responsiveCols.find('li');
+	var $links = $items.find('a');
+	
 
 	if($responsiveCols.length && $responsiveColTabs.length) {
-		var $tabs = $responsiveColTabs.find('li');
-		var $items = $responsiveCols.find('li');
-		var $links = $items.find('a');
+
+		/*
+		*	Init
+		*/
+
+		async.series([
+			initTabs,
+			smartResponsive.bind(null, 'All'),
+		]);
 
 
-		initTabs($tabs, $items);
-		smartResponsive($items, $responsiveCols);
+
+		/*
+		*	Behaviors
+		*/
 
 		$responsiveColTabs.on('click', 'a', function(e){
 			e.preventDefault();
 			var $tabAnchor = $(this);
-			onTabClick($tabAnchor, $items, $responsiveCols);
-			smartResponsive($items, $responsiveCols);
+
+			async.series([
+				setTab.bind(null, $tabAnchor),
+				smartResponsive.bind(null, $tabAnchor.text()),
+			]);
 		});
+	}
+
+
+
+	/*
+	*	Private Methods
+	*/
+
+	function initTabs(fnCallback){
+		// default tabs to disabled except the "All" tab
+		$tabs.filter(':gt(0)').addClass('disabled');
+
+		// enable tabs for which there is an associated list item
+		async.forEach(
+			$items,
+			function(item, next){
+				var initial = $(item).data('initial');
+				var tabSelector = '.disabled.tab-' + initial;
+
+				$tabs.filter(tabSelector).removeClass('disabled');
+			},
+			fnCallback
+		);
+	}
+
+
+
+	function smartResponsive(selectedTab, fnCallback){
+		var numVisible = (selectedTab === 'All')
+			? $items.length
+			: $items.filter('.list-' + selectedTab).length;
+
+		if (numVisible > responsiveMin) {
+			$responsiveCols.addClass('responsive-cols');
+		}
+		else {
+			$responsiveCols.removeClass('responsive-cols');
+		}
+
+
+		$responsiveCols.fadeIn(300, fnCallback);
+	}
+
+
+
+	function setTab($tabAnchor, fnCallback){
+		var $tab = $tabAnchor.closest('li');
+
+		$responsiveCols.fadeOut(150, function(){
+			var initial = $tabAnchor.text();
+			$tab.addClass('active').siblings().removeClass('active');
+
+			if($tab.hasClass('disabled')){
+				fnCallback(1);
+			}
+
+			if (initial === 'All') {
+				$items.show();
+			}
+			else {
+				var selector = '.list-' + initial;
+
+				$items
+					.not(selector).hide().end()
+					.filter(selector).show().end()
+			}
+
+
+			fnCallback(null);
+		});
+
 	}
 };
 
@@ -714,64 +806,6 @@ module.exports = function(){
 
 
 
-function initTabs($tabs, $items){
-	// default tabs to disabled except the "All" tab
-	$tabs.filter(':gt(0)').addClass('disabled');
-
-	// enable tabs for which there is an associated list item
-	async.forEach(
-		$items,
-		function(item, next){
-			var initial = $(item).data('initial');
-			var tabSelector = '.disabled.tab-' + initial;
-
-			$tabs.filter(tabSelector).removeClass('disabled');
-		}
-	);
-}
-
-
-
-function smartResponsive($items, $responsiveCols){
-	var numVisible = $items.filter(':visible').length;
-
-	if (numVisible > responsiveMin) {
-		$responsiveCols.addClass('responsive-cols');
-	}
-	else {
-		$responsiveCols.removeClass('responsive-cols');
-	}
-}
-
-
-
-function onTabClick($tabAnchor, $items, $responsiveCols){
-	var $tab = $tabAnchor.closest('li');
-
-	if($tab.hasClass('disabled')){
-		return;
-	}
-
-	$responsiveCols.fadeOut(150, function(){
-		var initial = $tabAnchor.text();
-		$tab.addClass('active').siblings().removeClass('active');
-
-		if (initial === 'All') {
-			$items.show();
-		}
-		else {
-			var selector = '.list-' + initial;
-
-			$items
-				.not(selector).hide().end()
-				.filter(selector).show().end()
-		}
-
-
-		$responsiveCols.fadeIn(300);
-	});
-
-}
 },{"./globalRequire":4}],8:[function(require,module,exports){
 'use strict';
 
