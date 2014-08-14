@@ -3,7 +3,7 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 ;var locals_for_with = (locals || {});(function (pageTitle, description, places, renderPlace) {
-buf.push("<div id=\"browse\"><div class=\"row\"><div class=\"col-lg-24\"><header><h1 class=\"pageTitle\">" + (jade.escape(null == (jade_interp = pageTitle) ? "" : jade_interp)) + "</h1></header><p class=\"description\">" + (jade.escape(null == (jade_interp = description) ? "" : jade_interp)) + "</p></div></div><div class=\"row\"><div class=\"col-lg-24\"><div id=\"list\">");
+buf.push("<div id=\"browse\"><div class=\"row\"><div class=\"col-lg-24\"><header><h1 class=\"pageTitle\">" + (jade.escape(null == (jade_interp = pageTitle) ? "" : jade_interp)) + "</h1></header><div class=\"alert alert-info\"><p class=\"description\">" + (jade.escape(null == (jade_interp = description) ? "" : jade_interp)) + "</p></div></div></div><div class=\"row\"><div class=\"col-lg-24\"><div id=\"list\">");
 // iterate places
 ;(function(){
   var $$obj = places;
