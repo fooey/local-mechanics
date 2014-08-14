@@ -44,6 +44,6 @@
     "longjohn": "^0.2.4"
   },
   "scripts": {
-    "postinstall": "./node_modules/grunt-cli/bin/grunt install"
+    "postinstall": "grunt install"
   }
 }
