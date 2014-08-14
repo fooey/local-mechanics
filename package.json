@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "async": "^0.9.0",
-    "bower": "^1.3.9",
     "browserify": "^5.10.0",
     "browserify-jade": "^0.1.1",
     "compression": "^1.0.11",
@@ -45,6 +44,6 @@
     "longjohn": "^0.2.4"
   },
   "scripts": {
-    "postinstall": "node ./node_modules/grunt-cli/bin/grunt install"
+    "postinstall": "./node_modules/grunt-cli/bin/grunt install"
   }
 }
