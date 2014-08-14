@@ -1,9 +1,8 @@
 module.exports = {
 	options: {
-		bundleOptions: {
+		browserifyOptions: {
 			debug: true,
 		},
-		debug: true,
 		ignore: ['buffer', 'request', 'zlib'],
 		external: ['async', 'bootstrap', 'jade', 'jquery', 'lodash', 'page', 'templates'],
 	},
