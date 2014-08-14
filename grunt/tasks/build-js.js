@@ -1,3 +1,3 @@
 module.exports = function(grunt) {
-	grunt.registerTask('build-js', ['browserify', 'uglify:appJs']);
+	grunt.registerTask('build-js', ['browserify', 'exorcise', 'uglify:appJs']);
 };

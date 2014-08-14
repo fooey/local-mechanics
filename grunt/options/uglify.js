@@ -11,6 +11,9 @@ module.exports = {
 		preserveComments: false,
 	},
 	appJs: {
+		options: {
+			sourceMapIn: 'public/dist/js/client.js.map',
+		},
 		files: {
 			'public/dist/js/client.min.js': [
 				'public/dist/js/client.js',
