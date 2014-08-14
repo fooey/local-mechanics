@@ -10,7 +10,7 @@ module.exports = {
 	getModule: __getPath.bind(null, 'node_modules'),
 	getPublic: __getPath.bind(null, 'public'),
 	getRoute: __getPath.bind(null, 'routes'),
-	getView: __getPath.bind(null, 'views/src'),
+	getView: __getPath.bind(null, 'views'),
 };
 
 function __getPath(pathRoot, partialPath) {

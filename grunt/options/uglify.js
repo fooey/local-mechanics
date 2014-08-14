@@ -22,9 +22,9 @@ module.exports = {
 	},
 	jadeJs: {
 		files: {
-			'views/compiled.min.js': [
-				'views/compiled/init.js',
-				'views/compiled/**/*.js',
+			'public/dist/views/compiled.min.js': [
+				'public/dist/views/compiled/init.js',
+				'public/dist/views/compiled/**/*.js',
 			]
 		}
 	},
