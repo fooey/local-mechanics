@@ -15,6 +15,21 @@ module.exports = function(app, express) {
 
 
 	/*
+	*	system
+	*/
+
+	app.get('/robots.txt', require('./server/robots.js').bind(null, app));
+	app.get('/favicon.ico', function(req, res){
+		res.redirect(301, '/img/car.png');
+	});
+	// css maps
+	app.get('/:remap(public|bower_components)/:path(*)', function(req, res) {
+		res.redirect(statusFound, '/' + req.params.path);
+	});
+
+
+
+	/*
 	*	mount shared routes
 	*/
 
@@ -28,24 +43,7 @@ module.exports = function(app, express) {
 
 
 
-	/*
-	*	system
-	*/
 
-	app.get('/robots.txt', require('./server/robots.js').bind(null, app));
-	app.get('/favicon.ico', function(req, res){
-		res.redirect(301, '/img/car.png');
-	});
-
-
-
-
-	/*
-	*	css maps
-	*/
-	app.get('/:remap(public|bower_components)/:path(*)', function(req, res) {
-		res.redirect(statusFound, '/' + req.params.path);
-	});
 
 	
 
