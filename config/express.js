@@ -59,6 +59,11 @@ module.exports = function(app, express) {
 			'map',
 		]
 	});
+	express.static.mime.define({
+		'text/css': [
+			'less',
+		]
+	});
 
 	app.use('/views', express.static(process.cwd() + '/views', staticOptions));
 	app.use('/src/js/lib', express.static(process.cwd() + '/lib', staticOptions));
