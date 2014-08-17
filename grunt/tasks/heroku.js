@@ -1,3 +1,3 @@
 module.exports = function(grunt) {
-	grunt.registerTask('heroku', ['bower:install', 'build']);
+	grunt.registerTask('heroku', ['install']);
 };
