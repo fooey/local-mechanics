@@ -25,7 +25,6 @@ module.exports = function(app, express) {
 
 	const compression = require('compression');
 	const errorHandler = require('errorhandler');
-	const favicon = require('serve-favicon');
 	const morgan = require('morgan');
 	const slashes = require('connect-slashes');
 
