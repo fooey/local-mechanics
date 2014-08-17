@@ -2,14 +2,14 @@
 
 module.exports = [{
 	path: '/',
-	render: require('./shared/home')
+	getView: require('./shared/home')
 }, {
 	path: '/:stateSlug([a-z-]+)',
-	render: require('./shared/browse/state')
+	getView: require('./shared/browse/state')
 }, {
 	path: '/:stateSlug([a-z-]+)/:citySlug([a-z-]+)',
-	render: require('./shared/browse/city')
+	getView: require('./shared/browse/city')
 }, {
 	path: '*',
-	render: require('./shared/errors').bind(null, new Error(404)),
+	getView: require('./shared/errors').bind(null, new Error(404)),
 }];

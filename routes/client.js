@@ -9,8 +9,9 @@ var $ = globalRequire('jQuery');
 var page = globalRequire('page');
 
 var sharedRoutes = require('./shared');
+var libTemplates = require('../lib/templates');
+var templateRenderer = libTemplates(window.templates);
 
-var ProgressBar = require('../lib/progressBar.js');
 
 
 
@@ -36,14 +37,14 @@ module.exports = function(rootNode, prerendered) {
 
 function attachRoute(rootNode, route) {
 	console.log('attachRoute()', route);
+	// var progressBar = globalRequire('progressBar');
 
 	page(route.path, function(context) {
 		if (window.wasPrerendered) {
 			window.wasPrerendered = false;
 			return;
 		}
-		var progressBar = new ProgressBar();
-		progressBar.addTask();
+		// progressBar.addTask();
 
 
 
@@ -52,23 +53,22 @@ function attachRoute(rootNode, route) {
 			: $('#content').wrap('<div class="contentWrapper"></div>').closest('.contentWrapper');
 
 		// provide immediate user feedback via fadeout
-		progressBar.addTask();
+		// progressBar.addTask();
 		$oldContent.fadeOut(transitionTime, function(){
-			progressBar.taskComplete();
+			// progressBar.taskComplete();
 			$(this).remove()
 		});
 
-		var renderParams = {
+		var requestProps = {
 			query: qs.parse(context.querystring),
 			params: context.params,
-			templates: templates,
-			progressBar: progressBar,
 		};
 
+
 		var loadStart = Date.now();
-		progressBar.addTask();
-		route.render(renderParams, function(err, results) {
-			progressBar.taskComplete();
+		// progressBar.addTask();
+		route.getView(templateRenderer, requestProps, function(err, results) {
+			// progressBar.taskComplete();
 			// console.log('results', results);
 
 			var $newContent = $(results.content).wrap('<div class="contentWrapper"><div id="content" class="container"></div></div>').closest('.contentWrapper').hide();
@@ -84,8 +84,8 @@ function attachRoute(rootNode, route) {
 			$newContent
 				.appendTo('body')
 				.fadeIn(fadeInTime, function(){
-					progressBar.taskComplete();
-					progressBar.done();
+					// progressBar.taskComplete();
+					// progressBar.done();
 					
 					$(window).trigger('hashchange');
 				});

@@ -5,9 +5,11 @@ var globalRequire = require('../lib/globalRequire');
 var _ = globalRequire('lodash');
 
 var sharedRoutes = require('./shared');
+var libTemplates = require('../lib/templates');
 
 
 module.exports = function(app, express) {
+	const templateRenderer = libTemplates(app.locals.templates);
 	
 	const cacheTime = 60 * 15; // 15 minutes
 	const statusFound = 302;
@@ -34,6 +36,9 @@ module.exports = function(app, express) {
 	});
 
 
+	app.get('/:pubId([a-z-]+)/:page([a-z-]+)?.html', dumpRoute);
+
+
 
 	/*
 	*	mount shared routes
@@ -42,7 +47,7 @@ module.exports = function(app, express) {
 	_.forEach(sharedRoutes, function(route) {
 		app.get(
 			route.path,
-			render.bind(null, route.render)
+			render.bind(null, route.getView)
 			// route.render.bind(null, renderLayout)
 		);
 	});
@@ -66,24 +71,26 @@ module.exports = function(app, express) {
 
 
 	function render(routeRenderer, req, res) {
-		var renderParams = {
+		var requestProps = {
 			query: req.query,
 			params: req.params,
-			templates: req.app.locals.templates,
 		};
 
-		routeRenderer(renderParams, renderLayout.bind(null, req, res));
-	}
+		routeRenderer(
+			templateRenderer, 
+			requestProps, 
+			function(err, props) {
+				var statusCode = props.statusCode || 200;
 
+				res.set({
+					'Cache-Control': 'public, max-age=' + (cacheTime),
+					'Expires': new Date(Date.now() + (cacheTime * 1000)).toUTCString(),
+				});
 
-	function renderLayout(req, res, err, props) {
-		var statusCode = props.statusCode || 200;
-
-		res.set({
-			'Cache-Control': 'public, max-age=' + (cacheTime),
-			'Expires': new Date(Date.now() + (cacheTime * 1000)).toUTCString(),
-		});
-
-		res.status(statusCode).send(app.locals.templates['/layout'](props));
+				res.status(statusCode).send(
+					templateRenderer('/layout', props)
+				);
+			}
+		);
 	}
 };

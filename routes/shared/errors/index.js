@@ -13,77 +13,63 @@ var errorMappings = {
 };
 
 
-module.exports = function(err, options, fnCallback){
-	options.progressBar && options.progressBar.addTask();
+module.exports = function(err, render, requestProps, fnCallback){
 	var errorHandler = errorMappings[err.message] || errorMappings['unhandled'];
 
-	errorHandler(options, fnCallback);
-	options.progressBar && options.progressBar.taskComplete();
+	errorHandler(
+		requestProps, 
+		renderHtml.bind(null, render, fnCallback)
+	);
 };
 
 
 
-function getProps(options, props, fnCallback) {
-	options.progressBar && options.progressBar.addTask();
-
-	options.progressBar && options.progressBar.addTask();
-	var html = options.templates['/errors/generic'](_.defaults({
+function renderHtml(render, fnCallback, props) {
+	var html = render('/errors/generic', {
 		pageTitle: props.pageTitle,
 		description: props.description,
-	}, options.templates.props));
-	options.progressBar && options.progressBar.taskComplete();
+	});
 
-	options.progressBar && options.progressBar.addTask();
-	var props = _.defaults({
+	var props = {
 		statusCode: props.statusCode,
 		meta: {
 			title: props.metaTitle,
 			description: props.metaDescription,
 		},
 		content: html,
-	}, options.templates.props);
-	options.progressBar && options.progressBar.taskComplete();
+	};
 
 	fnCallback(null, props);
-	options.progressBar && options.progressBar.taskComplete();
 }
 
 
 
-function unhandled(options, fnCallback) {
-	options.progressBar && options.progressBar.addTask();
-	console.log("ERROR:unhandled", options.params, options.query);
+function unhandled(requestProps, fnCallback) {
+	console.log("ERROR:unhandled", requestProps.params, requestProps.query);
 	
-	options.progressBar && options.progressBar.addTask();
 	var customProps = {
 		statusCode: 500,
 		metaTitle: 'Error',
 		metaDescription: 'The server has encountered an error.',
 		pageTitle: 'Error!',
-		description: 'The server has encountered an error.'
+		description: 'The server has encountered an error.',
 	};
-	options.progressBar && options.progressBar.taskComplete();
 
-	getProps(options, customProps, fnCallback);
-	options.progressBar && options.progressBar.taskComplete();
+	fnCallback(customProps);
 }
 
 
 
-function notFound(options, fnCallback) {
-	options.progressBar && options.progressBar.addTask();
-	console.log("ERROR:notFound", options.params, options.query);
+function notFound(requestProps, fnCallback) {
+	console.log("ERROR:notFound", requestProps.params, requestProps.query);
 	
-	options.progressBar && options.progressBar.addTask();
 	var customProps = {
 		statusCode: 404,
 		metaTitle: 'Not Found!',
 		metaDescription: 'The server could not find the requested resource.',
 		pageTitle: 'Not Found!',
-		description: 'The server could not find the requested resource.'
+		description: 'The server could not find the requested resource.',
 	};
-	options.progressBar && options.progressBar.taskComplete();
 
-	getProps(options, customProps, fnCallback);
-	options.progressBar && options.progressBar.taskComplete();
+	fnCallback(customProps);
 }

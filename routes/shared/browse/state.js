@@ -9,18 +9,15 @@ var libCG = require('../../../lib/citygrid');
 var libUtil = require('../../../lib/util');
 
 var errorReroutes = require('../errors');
-var progressBar;
 
 
-module.exports = function(options, fnCallback){
-	progressBar = options.progressBar;
-	progressBar && progressBar.addTask();
+module.exports = function(render, requestProps, fnCallback){
 	// console.log('getProps()', arguments);
 	// var requestUrl = getRequestUrl(params);
 
 	async.auto({
-		state: getState.bind(null, options.params.stateSlug),
-		cities: getCities.bind(null, options.params.stateSlug),
+		state: getState.bind(null, requestProps.params.stateSlug),
+		cities: getCities.bind(null, requestProps.params.stateSlug),
 	}, function(err, results) {
 		var state = (_.isArray(results.state) && results.state.length) ? results.state[0] : null;
 		var cities = (_.isArray(results.cities) && results.cities.length) ? results.cities : null;
@@ -29,7 +26,7 @@ module.exports = function(options, fnCallback){
 
 		if (err || !hasResults) {
 			err = err || new Error(404);
-			errorReroutes(err, options, fnCallback);
+			errorReroutes(err, render, requestProps, fnCallback);
 		}
 		else {
 			var pageTitle = state.name + ' Mechanics';
@@ -39,27 +36,26 @@ module.exports = function(options, fnCallback){
 			var metaDescription = description;
 			
 
-			var citiesHtml = options.templates['/fragments/geo-list'](_.defaults({
+			var citiesHtml = render('/fragments/geo-list', {
 				places: cities
-			}, options.templates.props));
+			});
 
 
-			var html = options.templates['/browse/state'](_.defaults({
+			var html = render('/browse/state', {
 				pageTitle: pageTitle,
 				description: description,
 				cities: cities,
 				citiesHtml: citiesHtml,
-			}, options.templates.props));
+			});
 
-			var props = _.defaults({
+			var props = {
 				meta: {
 					title: metaTitle,
 					description: metaDescription,
 				},
 				content: html,
-			}, options.templates.props);
+			};
 
-			progressBar && progressBar.taskComplete();
 			fnCallback(null, props);
 		}
 
@@ -68,18 +64,14 @@ module.exports = function(options, fnCallback){
 
 
 function getState(stateSlug, fnCallback) {
-	progressBar && progressBar.addTask();
 	libGeo.getState(stateSlug, function(err, results) {
-		progressBar && progressBar.taskComplete();
 		fnCallback(err, results);
 	});
 }
 
 
 function getCities(stateSlug, fnCallback) {
-	progressBar && progressBar.addTask();
 	libGeo.getCities(stateSlug, function(err, results) {
-		progressBar && progressBar.taskComplete();
 		fnCallback(err, results);
 	});
 }

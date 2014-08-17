@@ -9,19 +9,16 @@ var libCG = require('../../../lib/citygrid');
 var libUtil = require('../../../lib/util');
 
 var errorReroutes = require('../errors');
-var progressBar;
 
 
-module.exports = function(options, fnCallback){
-	progressBar = options.progressBar;
-	progressBar && progressBar.addTask();
+module.exports = function(render, requestProps, fnCallback){
 	// console.log('getProps()', arguments);
 	// var requestUrl = getRequestUrl(params);
 
 	async.auto({
-		state: getState.bind(null, options.params.stateSlug),
-		city: getCity.bind(null, options.params.stateSlug, options.params.citySlug),
-		places: ['city', 'state', getPlaces.bind(null, options.query)],
+		state: getState.bind(null, requestProps.params.stateSlug),
+		city: getCity.bind(null, requestProps.params.stateSlug, requestProps.params.citySlug),
+		places: ['city', 'state', getPlaces.bind(null, requestProps.query)],
 		placesCities: ['places', getPlacesCities]
 	}, function(err, results) {
 		var state = (_.isArray(results.state) && results.state.length) ? results.state[0] : null;
@@ -30,9 +27,14 @@ module.exports = function(options, fnCallback){
 
 		var hasResults = (!!state && !!city && !!places && !!places.length);
 
+		console.log('hasResults', hasResults);
+		console.log('state', state);
+		console.log('city', city);
+		console.log('places', places.length);
+
 		if (err || !hasResults) {
 			err = err || new Error(404);
-			errorReroutes(err, options, fnCallback);
+			errorReroutes(err, render, requestProps, fnCallback);
 		}
 		else {
 			var pageTitle = city.name + ', ' + state.name + ' Mechanics';
@@ -40,24 +42,24 @@ module.exports = function(options, fnCallback){
 
 			var metaTitle = pageTitle;
 			var metaDescription = description;
+
 			
 
-			var html = options.templates['/browse/city'](_.defaults({
+			var html = render('/browse/city', {
 				pageTitle: pageTitle,
 				description: description,
 				places: places,
-				renderPlace: options.templates['/browse/place']
-			}, options.templates.props));
+				renderPlace: render('/browse/place')
+			});
 
-			var props = _.defaults({
+			var props = {
 				meta: {
 					title: metaTitle,
 					description: metaDescription,
 				},
 				content: html,
-			}, options.templates.props);
+			};
 
-			progressBar && progressBar.taskComplete();
 			fnCallback(null, props);
 		}
 
@@ -66,18 +68,14 @@ module.exports = function(options, fnCallback){
 
 
 function getState(stateSlug, fnCallback) {
-	progressBar && progressBar.addTask();
 	libGeo.getState(stateSlug, function(err, results) {
-		progressBar && progressBar.taskComplete();
 		fnCallback(err, results);
 	});
 }
 
 
 function getCity(stateSlug, citySlug, fnCallback) {
-	progressBar && progressBar.addTask();
 	libGeo.getCity(stateSlug, citySlug, function(err, results) {
-		progressBar && progressBar.taskComplete();
 		fnCallback(err, results);
 	});
 }
@@ -85,17 +83,15 @@ function getCity(stateSlug, citySlug, fnCallback) {
 
 
 function getPlaces(query, fnCallback, results) {
-	progressBar && progressBar.addTask();
 
 	var city = results.city[0];
 	var state = results.state[0];
 
 	libCG.getPlaces(
-		state.abbr,
-		city.name,
+		city.avgLatitude,
+		city.avgLongitude,
 		query,
 		function(err, results) {
-			progressBar && progressBar.taskComplete();
 			fnCallback(err, results);
 		}
 	);
@@ -104,7 +100,6 @@ function getPlaces(query, fnCallback, results) {
 
 
 function getPlacesCities(fnCallback, results) {
-	progressBar && progressBar.addTask();
 	
 	var _places = results.places;
 	var zips = _.map(_places, function(place) {
@@ -126,17 +121,14 @@ function getPlacesCities(fnCallback, results) {
 			});
 			// console.log(_places);
 
-			progressBar && progressBar.taskComplete();
 			fnCallback(null, _places);
 		}
 	);
 }
 
 function getZip(geoZips, zip, fnCallback) {
-	progressBar && progressBar.addTask();
 	libGeo.getZip(zip, function(err, result){
 		geoZips[zip] = result[0];
-		progressBar && progressBar.taskComplete();
 		fnCallback();
 	})
 }
