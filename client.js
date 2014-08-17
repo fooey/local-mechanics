@@ -4,15 +4,13 @@ var globalRequire = require('./lib/globalRequire');
 var $ = globalRequire('jquery');
 var page = globalRequire('page');
 
-/* Routes */
-var routes = require('./routes/client.js');
 
-
-var responsiveTabs = require('./lib/responsiveTabs.js');
 
 $(function() {
 	'use strict';
 	console.log('App Started');
+
+	var responsiveTabs = require('./lib/responsiveTabs.js');
 
 	window.templates.props = {
 		isServer: false,
