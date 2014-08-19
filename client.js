@@ -2,7 +2,6 @@
 
 var globalRequire = require('./lib/globalRequire');
 var $ = globalRequire('jquery');
-var page = globalRequire('page');
 
 
 
@@ -10,36 +9,35 @@ $(function() {
 	'use strict';
 	console.log('App Started');
 
-	var responsiveTabs = require('./lib/responsiveTabs.js');
+
+	/*
+	*	Routing
+	*/
 
 	window.templates.props = {
 		isServer: false,
 		isClient: true,
-		// isDev: (app.get('env') === 'development') ? true : false,
-		// isProd: (app.get('env') !== 'development') ? true : false,
 	};
-
-	/* Routes */
 	var routes = require('./routes/client.js');
 
 	var rootNode = 'content';
 	var prerendered = true;
 	routes(rootNode, prerendered);
 
-	// console.log(templates["/fragments/states"]({numCols: 4, states: []}));
-	// console.log(templates["/home"]({}));
-
-	// init page
-	page.start({
-		click: true,
-	});
 
 
+
+	/*
+	*	Behaviors
+	*/
+	
 	$(window)
-		.bind('hashchange', function() {
-			responsiveTabs();
-		})
+		.on('hashchange', require('./lib/client/responsiveTabs.js'))
+		.on('hashchange', function(){console.log('on hashchange')})
 		.trigger('hashchange');
+
+
+
 
 
 	console.log('App Ready');
