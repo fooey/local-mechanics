@@ -7,3 +7,20 @@
 		}
 	}	
 }
+
+#browse #places {
+	.place {
+		& + .place {
+			margin-top: 2em;
+		}
+
+		h2 {
+			border-bottom: 1px solid @gray-lighter;
+			padding-bottom: .1em;
+			margin: 0 0 .2em;
+		}
+		img {
+			max-width: 100%;
+		}
+	}
+}
