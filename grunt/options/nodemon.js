@@ -21,17 +21,23 @@ function getOptions(mode) {
 		script: './server.js',
 		options: {
 			nodeArgs: ['--harmony'],
-			ext: 'js,json,jade',
+			ext: 'js,jade',
 			ignore: [
-				'**/node_modules/**', 
-				'**/dist/**', 
-				// 'views/**', 
-				'gruntfile.js', 
-				'grunt/**', 
-				'.git/**', 
+				'.git/**',
+				'.rebooted',
+
+				'node_modules/**',
+				'bower_components/**',
+
+				'gruntfile.js',
+				'grunt/**',
+				
+				// 'public/dist/**',
+				// 'client.js',
+				// 'lib/client/**',
 			],
 
-			delay: '100ms',
+			delay: 3000,
 			env: {
 				PORT: '3003',
 				NODE_ENV: NODE_ENV,

@@ -29,7 +29,7 @@ module.exports = {
 		tasks: ['build-js'],
 		options: {
 			livereload: false,
-			debounceDelay: 250,
+			// debounceDelay: 100,
 		},
 	},
 
@@ -37,28 +37,28 @@ module.exports = {
 	jadeSrc: {
 		files: [
 			'lib/compile/client.js',
-			'views/src/**/*.jade',
+			'views/**/*.jade',
 		],
 		// tasks: ['uglify:appJs'],
 		tasks: ['build-templates'],
 		options: {
 			livereload: false,
-			debounceDelay: 250,
+			// debounceDelay: 100,
 		},
 	},
 
 
 
-	reloadJS: {
-		files: [
-			'public/dist/js/app.js',
-			'public/dist/js/app.min.js',
-		],
-		options: {
-			livereload: true,
-			debounceDelay: 250,
-		},
-	},
+	// reloadJS: {
+	// 	files: [
+	// 		'public/dist/js/client.js',
+	// 		'public/dist/js/client.min.js',
+	// 	],
+	// 	options: {
+	// 		livereload: true,
+			// debounceDelay: 100,
+	// 	},
+	// },
 
 	reloadCSS: {
 		files: [
@@ -71,12 +71,12 @@ module.exports = {
 		},
 	},
 
-	reloadJade: {
-		files: [
-			'views/compiled.min.js',
-		],
-		options: {
-			livereload: true,
-		},
-	},
+	// reloadJade: {
+	// 	files: [
+	// 		'views/compiled.min.js',
+	// 	],
+	// 	options: {
+	// 		livereload: true,
+	// 	},
+	// },
 }
