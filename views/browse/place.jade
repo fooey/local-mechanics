@@ -1,18 +1,46 @@
-if place
-	.place.panel.panel-default
-		.panel-heading: h2: a(href=place.getLink())= place.name
-		.panel-body
-			address
-				div= place.address.street
+
+if props.place
+	.place
+		h2: a(href=props.place.getLink())= props.place.name
+		.row
+						
+
+			.col-sm-12
+				address
+					//- div
+					//- 	span= props.place.latitude
+					//- 	span= props.place.longitude
+					div= props.place.address.street
+					div
+						a(href=props.place.geo.city.getLink())= props.place.geo.city.name
+						|, 
+						a(href=props.place.geo.state.getLink())= props.place.geo.state.abbr
+						| 
+						span= props.place.geo.zip
+
+				if(props.place.has_offers)
+					div: span.label.label-danger Special Offers Available!
+
+				if props.place.tags && props.place.tags.length
+					div Primary Service: 
+						ul.list-inline
+							each tag in props.place.tags.filter(function(tag){return tag.primary})
+								li= tag.name
+					div Additional Services: 
+						ul.list-inline.small
+							li!= props.place.tags.filter(function(tag){return !tag.primary}).map(function(tag){return tag.name}).join('</li><li>')
+
 				div
-					a(href=place.geo.city.getLink())= place.geo.city.name
-					|, 
-					a(href=place.geo.state.getLink())= place.geo.state.abbr
-					| 
-					span= place.geo.zip
-			div
-				ul.list-inline
-					li: a(href=place.getLink('reviews')) reviews
-					li: a(href=place.getLink('jobs')) jobs
+					ul.list-inline
+						li: a(href=props.place.getLink('reviews')) reviews
+						li: a(href=props.place.getLink('jobs')) jobs
+
+			.col-sm-12.text-center
+				a(href=props.place.mapHref)
+					img(src=props.place.getMapSrc('400x300'))
+
+
+			//- pre= JSON.stringify(props, null, '\t')
 else
-	p Error
+	.place
+		h2 Error

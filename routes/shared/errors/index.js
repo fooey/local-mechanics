@@ -25,7 +25,7 @@ module.exports = function(err, render, requestProps, fnCallback){
 
 
 function renderHtml(render, fnCallback, props) {
-	var html = render('/errors/generic', {
+	var contentHtml = render('/errors/generic', {
 		pageTitle: props.pageTitle,
 		description: props.description,
 	});
@@ -36,7 +36,7 @@ function renderHtml(render, fnCallback, props) {
 			title: props.metaTitle,
 			description: props.metaDescription,
 		},
-		content: html,
+		contentHtml: contentHtml,
 	};
 
 	fnCallback(null, props);

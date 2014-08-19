@@ -1,4 +1,4 @@
--var numStates = states.length;
+-var numStates = props.states.length;
 -var perCol = Math.ceil(numStates / numCols);
 -var colClasses = [];
 -colClasses.push('col-md-' + Math.ceil(24/numCols).toString());
@@ -8,7 +8,7 @@
 
 .stateCols.row
 	while pos < numStates
-		-var colStates = states.slice(pos, pos += perCol);
+		-var colStates = props.states.slice(pos, pos += perCol);
 		div(class=colClasses)
 			ul.nav.nav-list
 				each state in colStates

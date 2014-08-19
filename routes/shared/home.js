@@ -30,7 +30,7 @@ module.exports = function(render, requestProps, fnCallback){
 		});
 
 
-		var html = render('/home', {
+		var contentHtml = render('/home', {
 			pageTitle: 'Welcome to Local-Mechanics.com!',
 			description: 'Finding the right local mechanic just got easier! Don\'t pick a mechanic randomly out of the phonebook. Whether your car needs maintenance work, or if you have damage that needs repaired, we\'ll help you find the perfect local mechanic!',
 			statesHtml: statesHtml,
@@ -42,7 +42,7 @@ module.exports = function(render, requestProps, fnCallback){
 				title: 'Local Mechanics!',
 				description: 'Finding the right local mechanic just got easier! Don\'t pick a mechanic randomly out of the phonebook. Whether your car needs maintenance work, or if you have damage that needs repaired, we\'ll help you find the perfect local mechanic!',
 			},
-			content: html,
+			contentHtml: contentHtml,
 		});
 	});
 };

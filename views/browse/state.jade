@@ -1,6 +1,6 @@
-#browse
+#browse.state
 	.row: .col-lg-24
-		header: h1.pageTitle= pageTitle
-		.alert.alert-info: p.description= description
+		header: h1.pageTitle= props.pageTitle
+		.alert.alert-info: p.description= props.description
 
-	!= citiesHtml
+	!= props.citiesHtml

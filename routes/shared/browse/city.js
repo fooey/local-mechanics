@@ -8,7 +8,7 @@ var libGeo = require('../../../lib/geo');
 var libCG = require('../../../lib/citygrid');
 var libUtil = require('../../../lib/util');
 
-var errorReroutes = require('../errors');
+var errorReroute = require('../errors');
 
 
 module.exports = function(render, requestProps, fnCallback){
@@ -18,23 +18,18 @@ module.exports = function(render, requestProps, fnCallback){
 	async.auto({
 		state: getState.bind(null, requestProps.params.stateSlug),
 		city: getCity.bind(null, requestProps.params.stateSlug, requestProps.params.citySlug),
-		places: ['city', 'state', getPlaces.bind(null, requestProps.query)],
-		placesCities: ['places', getPlacesCities]
+		places: ['city', getPlaces.bind(null, requestProps.query)],
+		// placesCities: ['places', getPlacesCities]
 	}, function(err, results) {
 		var state = (_.isArray(results.state) && results.state.length) ? results.state[0] : null;
 		var city = (_.isArray(results.city) && results.city.length) ? results.city[0] : null;
-		var places = (_.isArray(results.placesCities) && results.placesCities.length) ? results.placesCities : null;
+		var places = (_.isArray(results.places.locations) && results.places.locations.length) ? results.places.locations : [];
 
 		var hasResults = (!!state && !!city && !!places && !!places.length);
 
-		console.log('hasResults', hasResults);
-		console.log('state', state);
-		console.log('city', city);
-		console.log('places', places.length);
-
-		if (err || !hasResults) {
+		if (err) {
 			err = err || new Error(404);
-			errorReroutes(err, render, requestProps, fnCallback);
+			errorReroute(err, render, requestProps, fnCallback);
 		}
 		else {
 			var pageTitle = city.name + ', ' + state.name + ' Mechanics';
@@ -43,13 +38,39 @@ module.exports = function(render, requestProps, fnCallback){
 			var metaTitle = pageTitle;
 			var metaDescription = description;
 
-			
+			var browseConfig = {
+				city: city,
 
-			var html = render('/browse/city', {
+				first: null,
+				page: 1,
+				radius: 5,
+				rpp: 20,
+				sort: 'alpha',
+				hasOffers: false,
+
+				totalHits: results.places.total_hits,
+				callId: results.call_id,
+			};
+
+
+			var placesHtml = render('/browse/places', {
+				places: places,
+				browseConfig: browseConfig,
+				renderPlace: render('/browse/place'),
+			});
+
+			var optionsHtml = render('/browse/options', {
+				browseConfig: browseConfig,
+			});
+
+
+			var contentHtml = render('/browse/city', {
 				pageTitle: pageTitle,
 				description: description,
-				places: places,
-				renderPlace: render('/browse/place')
+
+				browseConfig: browseConfig,
+				placesHtml: placesHtml,
+				optionsHtml: optionsHtml,
 			});
 
 			var props = {
@@ -57,7 +78,7 @@ module.exports = function(render, requestProps, fnCallback){
 					title: metaTitle,
 					description: metaDescription,
 				},
-				content: html,
+				contentHtml: contentHtml,
 			};
 
 			fnCallback(null, props);
@@ -83,52 +104,12 @@ function getCity(stateSlug, citySlug, fnCallback) {
 
 
 function getPlaces(query, fnCallback, results) {
-
 	var city = results.city[0];
-	var state = results.state[0];
 
 	libCG.getPlaces(
 		city.avgLatitude,
 		city.avgLongitude,
 		query,
-		function(err, results) {
-			fnCallback(err, results);
-		}
+		fnCallback
 	);
-}
-
-
-
-function getPlacesCities(fnCallback, results) {
-	
-	var _places = results.places;
-	var zips = _.map(_places, function(place) {
-		return place.address.postal_code;
-	});
-
-	var geoZips = {};
-
-	zips = _.uniq(zips);
-	// console.log('browse::getPlacesCities()', zips);
-
-	async.each(
-		zips,
-		getZip.bind(null, geoZips),
-		function(err) {
-			geoZips = _.map(_places, function(place) {
-				place.geo = geoZips[place.address.postal_code];
-				return place;
-			});
-			// console.log(_places);
-
-			fnCallback(null, _places);
-		}
-	);
-}
-
-function getZip(geoZips, zip, fnCallback) {
-	libGeo.getZip(zip, function(err, result){
-		geoZips[zip] = result[0];
-		fnCallback();
-	})
 }

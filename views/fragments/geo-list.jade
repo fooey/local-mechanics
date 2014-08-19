@@ -7,6 +7,6 @@
 
 .row:.col-lg-24
 	ul.list-unstyled.geo-list.responsive-cols
-		each place in places
+		each place in props.places
 			li(class="list-" + place.name.charAt(0), data-initial=place.name.charAt(0))
 				a(href=place.getLink())= place.name

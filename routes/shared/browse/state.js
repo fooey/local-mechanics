@@ -8,7 +8,7 @@ var libGeo = require('../../../lib/geo');
 var libCG = require('../../../lib/citygrid');
 var libUtil = require('../../../lib/util');
 
-var errorReroutes = require('../errors');
+var errorReroute = require('../errors');
 
 
 module.exports = function(render, requestProps, fnCallback){
@@ -26,7 +26,7 @@ module.exports = function(render, requestProps, fnCallback){
 
 		if (err || !hasResults) {
 			err = err || new Error(404);
-			errorReroutes(err, render, requestProps, fnCallback);
+			errorReroute(err, render, requestProps, fnCallback);
 		}
 		else {
 			var pageTitle = state.name + ' Mechanics';
@@ -41,7 +41,7 @@ module.exports = function(render, requestProps, fnCallback){
 			});
 
 
-			var html = render('/browse/state', {
+			var contentHtml = render('/browse/state', {
 				pageTitle: pageTitle,
 				description: description,
 				cities: cities,
@@ -53,7 +53,7 @@ module.exports = function(render, requestProps, fnCallback){
 					title: metaTitle,
 					description: metaDescription,
 				},
-				content: html,
+				contentHtml: contentHtml,
 			};
 
 			fnCallback(null, props);

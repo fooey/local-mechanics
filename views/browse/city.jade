@@ -1,9 +1,13 @@
-#browse
+#browse.city
 	.row: .col-lg-24
-		header: h1.pageTitle= pageTitle
-		.alert.alert-info: p.description= description
+		header: h1.pageTitle= props.pageTitle
+		.alert.alert-info: p.description= props.description
 
-	.row: .col-lg-24
-		#list
-			each place in places
-				!= renderPlace({place: place})
+	.row
+		.col-sm-6
+			!= props.optionsHtml
+		.col-sm-18
+			!= props.placesHtml
+
+	script.
+		var browseConfig = !{JSON.stringify(props.browseConfig)};
