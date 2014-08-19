@@ -4,7 +4,7 @@ module.exports = {
 			debug: true,
 		},
 		ignore: ['buffer', 'request', 'zlib'],
-		external: ['async', 'bootstrap', 'jade', 'jquery', 'lodash', 'page', 'templates'],
+		external: ['async', 'bootstrap', 'jade', 'jquery', 'lodash', 'templates'],
 	},
 	app: {
 		src: './client.js',
