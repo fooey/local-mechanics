@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 
-var nodemon = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
 
 var rename = require('gulp-rename');
@@ -315,6 +314,8 @@ gulp.task('heroku', ['build', 'bower'], function(cb) {
 
 
 gulp.task('default', ['build', 'watch'], function(cb) {
+	var nodemon = require('gulp-nodemon');
+	
 	livereload.listen({
 		silent: false,
 		auto: true,
