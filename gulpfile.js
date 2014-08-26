@@ -307,7 +307,7 @@ gulp.task('build', ['build-js', 'build-css'], function(cb) {
 
 
 
-gulp.task('heroku', ['build', 'bower'], function(cb) {
+gulp.task('heroku:production', ['build', 'bower'], function(cb) {
 	console.log('build complete');
 	cb();
 });
