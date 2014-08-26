@@ -19,6 +19,7 @@ html(lang='en')
 			link(rel="stylesheet", type="text/css", href='/dist/css/app.min.css')
 		else
 			link(rel="stylesheet", type="text/css", href='/dist/css/app.css')
+
 	body
 
 		nav.navbar.navbar-default()
@@ -40,11 +41,8 @@ html(lang='en')
 		script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js')
 		script(src='//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js')
 		script(src='//cdnjs.cloudflare.com/ajax/libs/jade/1.3.1/runtime.min.js')
-		script(src='/dist/views/compiled.min.js')
 
 		if props.isProd
 			script(src='/dist/js/client.min.js')
 		else
 			script(src='/dist/js/client.js')
-		//- script.
-		//- 	var props = !{JSON.stringify(props || null)};

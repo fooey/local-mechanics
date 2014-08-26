@@ -8,9 +8,14 @@ var globalRequire = require('../lib/globalRequire');
 var _ = globalRequire('lodash');
 var $ = globalRequire('jQuery');
 
+/*
+*	Templates
+*/
+var templates = require('../public/dist/views');
+console.log('templates!', templates);
 var sharedRoutes = require('./shared');
 var libTemplates = require('../lib/templates');
-var templateRenderer = libTemplates(window.templates);
+var templateRenderer = libTemplates(templates);
 
 
 var transitionTime = 300;

@@ -1,7 +1,8 @@
 'use strict';
 
-var globalRequire = require('./lib/globalRequire');
-var $ = globalRequire('jquery');
+// var globalRequire = require('./lib/globalRequire');
+// var $ = globalRequire('jquery');
+
 
 
 
@@ -14,10 +15,6 @@ $(function() {
 	*	Routing
 	*/
 
-	window.templates.props = {
-		isServer: false,
-		isClient: true,
-	};
 	var routes = require('./routes/client.js');
 
 	var rootNode = 'content';
