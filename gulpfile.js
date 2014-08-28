@@ -188,13 +188,28 @@ gulp.task('clean-templates', function(cb) {
 
 
 gulp.task('templates', ['clean-templates'], function(cb) {
+	var htmlmin = require('gulp-htmlmin');
 	var jst = require('gulp-jst');
 
 	var stream = gulp
 		.src(jstSrc)
-		.pipe(jst())
-		.pipe(insert.prepend("var _ = require('lodash');\nmodule.exports = "))
-		.pipe(gulp.dest(jstDist))
+		// .pipe(cache('templates'))
+			.pipe(htmlmin({
+				removeComments: true,
+				collapseWhitespace: true,
+				removeAttributeQuotes: true,
+				removeRedundantAttributes: true,
+				useShortDoctype: true,
+				removeEmptyAttributes: true,
+				removeScriptTypeAttributes: true,
+				removeStyleLinkTypeAttributes: true,
+				// removeOptionalTags: true,
+				keepClosingSlash: false,
+			}))
+			.pipe(jst())
+			.pipe(insert.prepend("var _ = require('lodash');\nmodule.exports = "))
+			.pipe(gulp.dest(jstDist))
+		// .pipe(remember('templates'))
 		.pipe(dir2module('./index.js'))
 		.pipe(gulp.dest(jstDist))
 

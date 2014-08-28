@@ -10469,15 +10469,15 @@ module.exports = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="browse" class="city">\r\n\t<div class="row"><div class="col-lg-24">\r\n\t\t<header>\r\n\t\t\t<h1 class="pageTitle">' +
+__p += '<div id=browse class=city><div class=row><div class=col-lg-24><header><h1 class=pageTitle>' +
 ((__t = ( props.pageTitle )) == null ? '' : __t) +
-'</h1>\r\n\t\t</header>\r\n\t\t<div class="alert alert-info">\r\n\t\t\t<p class="description">' +
+'</h1></header><div class="alert alert-info"><p class=description>' +
 ((__t = ( props.description )) == null ? '' : __t) +
-'</p>\r\n\t\t</div>\r\n\t</div></div>\r\n\t\r\n\t<div class="row">\r\n\t\t<div class="col-sm-6">\r\n\t\t\t' +
+'</p></div></div></div><div class=row><div class=col-sm-6>' +
 ((__t = ( props.optionsHtml )) == null ? '' : __t) +
-'\r\n\t\t</div>\r\n\t\t<div class="col-sm-18">\r\n\t\t\t' +
+'</div><div class=col-sm-18>' +
 ((__t = ( props.placesHtml )) == null ? '' : __t) +
-'\r\n\t\t</div>\r\n\t</div>\r\n</div>';
+'</div></div></div>';
 
 }
 return __p
@@ -10488,7 +10488,7 @@ module.exports = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="options" class="well well-sm">\r\n\t<h1>Options</h1>\r\n\r\n\t<div class="meta"></div>\r\n\t<ul class="offers list-inline"></ul>\r\n\t<ul class="sorts list-inline"></ul>\r\n\t<ul class="radius list-inline"></ul>\r\n\t<ul class="rpp list-inline"></ul>\r\n\t<ul class="paging pagination"></ul>\r\n</div>';
+__p += '<div id=options class="well well-sm"><h1>Options</h1><div class=meta></div><ul class="offers list-inline"></ul><ul class="sorts list-inline"></ul><ul class="radius list-inline"></ul><ul class="rpp list-inline"></ul><ul class="paging pagination"></ul></div>';
 
 }
 return __p
@@ -10502,13 +10502,13 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  for(var ixPage=1; ixPage <= props.numPages; ixPage++) { ;
-__p += '\r\n\t<li class="' +
+__p += '<li class="' +
 ((__t = ( (ixPage === browseConfig.page) ? 'active' : '' )) == null ? '' : __t) +
-'">\r\n\t\t<a data-page="' +
+'"><a data-page="' +
 ((__t = ( ixPage )) == null ? '' : __t) +
 '">' +
 ((__t = ( ixPage )) == null ? '' : __t) +
-'</a>\r\n\t</li>\r\n';
+'</a></li>';
  } ;
 
 
@@ -10524,53 +10524,49 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  if (!props.place) { ;
-__p += '\r\n\t<h2>Error!</h2>\r\n';
+__p += '<h2>Error!</h2>';
  } else { ;
-__p += '\r\n\t<div class="place">\r\n\t\t<h2>\r\n\t\t\t<a href="' +
+__p += '<div class=place><h2><a href="' +
 ((__t = ( props.place.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( props.place.name )) == null ? '' : __t) +
-'</a>\r\n\t\t</h2>\r\n\r\n\t\t<div class="row">\r\n\t\t\t<div class="col-sm-12">\r\n\t\t\t\t<address>\r\n\t\t\t\t\t<div>' +
+'</a></h2><div class=row><div class=col-sm-12><address><div>' +
 ((__t = ( props.place.address.street )) == null ? '' : __t) +
-'</div>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\t<a href="' +
+'</div><div><a href="' +
 ((__t = ( props.place.geo.city.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( props.place.geo.city.name )) == null ? '' : __t) +
-'</a>,\r\n\t\t\t\t\t\t<a href="' +
+'</a>, <a href="' +
 ((__t = ( props.place.geo.state.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( props.place.geo.state.abbr )) == null ? '' : __t) +
-'</a>\r\n\t\t\t\t\t\t<span>' +
+'</a> <span>' +
 ((__t = ( props.place.geo.zip )) == null ? '' : __t) +
-'</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</address>\r\n\t\t\t\t';
+'</span></div></address>';
  if (props.place.has_offers) { ;
-__p += '\r\n\t\t\t\t\t<div><span class="label label-danger">Special Offers Available!</span>.</div>\r\n\t\t\t\t';
+__p += '<div><span class="label label-danger">Special Offers Available!</span>.</div>';
  } ;
-__p += '\r\n\t\t\t\t';
+
  if (props.place.tags && props.place.tags.length) { ;
-__p += '\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\tPrimary Service: \r\n\t\t\t\t\t\t<ul class="list-inline">\r\n\t\t\t\t\t\t\t';
+__p += '<div>Primary Service:<ul class=list-inline>';
  _.each(_.filter(props.place.tags, function(tag){return tag.primary}), function(tag) { ;
-__p += '\r\n\t\t\t\t\t\t\t\t<li> ' +
-__e( tag.name ) +
-'\r\n\t\t\t\t\t\t\t';
+__p += '<li>' +
+__e( tag.name );
  }) ;
-__p += '\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div>\r\n\t\t\t\t\t\tAdditional Services: \r\n\t\t\t\t\t\t<ul class="list-inline">\r\n\t\t\t\t\t\t\t';
+__p += '</li></ul></div><div>Additional Services:<ul class=list-inline>';
  _.each(_.filter(props.place.tags, function(tag){return !tag.primary}), function(tag) { ;
-__p += '\r\n\t\t\t\t\t\t\t\t<li> ' +
-__e( tag.name ) +
-'\r\n\t\t\t\t\t\t\t';
+__p += '<li>' +
+__e( tag.name );
  }) ;
-__p += '\r\n\t\t\t\t\t\t</ul>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t';
+__p += '</li></ul></div>';
  } ;
-__p += '\r\n\t\t\t\t<div>\r\n\t\t\t\t\t<ul class="list-inline">\r\n\t\t\t\t\t\t<li><a href="' +
+__p += '<div><ul class=list-inline><li><a href="' +
 ((__t = ( props.place.getLink('reviews') )) == null ? '' : __t) +
-'"> reviews</a></li>\r\n\t\t\t\t\t\t<li><a href="' +
+'">reviews</a></li><li><a href="' +
 ((__t = ( props.place.getLink('jobs') )) == null ? '' : __t) +
-'"> jobs</a></li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\t\t\t<div class="col-sm-12 text-center">\r\n\t\t\t\t<!-- <img src="' +
-((__t = ( props.place.getMapSrc('400x300') )) == null ? '' : __t) +
-'" /> -->\r\n\t\t\t\t<img src="http://nosrc.net/400x300" />\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n';
+'">jobs</a></li></ul></div></div><div class="col-sm-12 text-center"><img src=http://nosrc.net/400x300></div></div></div>';
  } ;
-__p += '\r\n';
+
 
 }
 return __p
@@ -10582,21 +10578,20 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id="places">\r\n\t';
+__p += '<div id=places>';
  if (props.places.length) { ;
-__p += '\r\n\r\n\t\t' +
+__p +=
 ((__t = ( _.map(props.places, function(place){
 			return props.renderPlace({place: place})
-		}) )) == null ? '' : __t) +
-'\r\n\r\n\t';
+		}) )) == null ? '' : __t);
  } else { ;
-__p += '\r\n\t\t<div class="alert alert-warning">\r\n\t\t\t<h1>No Results</h1>\r\n\t\t\t<p>\r\n\t\t\t\tTry a bigger search radius, or check somewhere else in \r\n\t\t\t\t<a class="alert-link" href="' +
+__p += '<div class="alert alert-warning"><h1>No Results</h1><p>Try a bigger search radius, or check somewhere else in <a class=alert-link href="' +
 ((__t = ( props.browseConfig.city.state.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( props.browseConfig.city.state.name )) == null ? '' : __t) +
-'</a>\r\n\t\t\t</p>\r\n\t\t\t\r\n\t\t</div>\r\n\t';
+'</a></p></div>';
  } ;
-__p += '\r\n</div>';
+__p += '</div>';
 
 }
 return __p
@@ -10607,13 +10602,13 @@ module.exports = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="browse" class="state">\r\n\t<div class="row"><div class="col-lg-24">\r\n\t\t<header>\r\n\t\t\t<h1 class="pageTitle">' +
+__p += '<div id=browse class=state><div class=row><div class=col-lg-24><header><h1 class=pageTitle>' +
 ((__t = ( props.pageTitle )) == null ? '' : __t) +
-'</h1>\r\n\t\t</header>\r\n\t\t<div class="alert alert-info">\r\n\t\t\t<p class="description">' +
+'</h1></header><div class="alert alert-info"><p class=description>' +
 ((__t = ( props.description )) == null ? '' : __t) +
-'</p>\r\n\t\t</div>\r\n\t</div></div>\r\n\t\r\n\t<div class="row"><div class="col-lg-24">\r\n\t\t' +
+'</p></div></div></div><div class=row><div class=col-lg-24>' +
 ((__t = ( props.citiesHtml )) == null ? '' : __t) +
-'\r\n\t</div></div>\r\n</div>';
+'</div></div></div>';
 
 }
 return __p
@@ -10624,11 +10619,11 @@ module.exports = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="error">\r\n\t<div class="row"><div class="col-lg-24">\r\n\t\t<header>\r\n\t\t\t<h1 class="pageTitle">' +
+__p += '<div id=error><div class=row><div class=col-lg-24><header><h1 class=pageTitle>' +
 ((__t = ( props.pageTitle )) == null ? '' : __t) +
-'</h1>\r\n\t\t</header>\r\n\t\t<div class="alert alert-info">\r\n\t\t\t<p class="description">' +
+'</h1></header><div class="alert alert-info"><p class=description>' +
 ((__t = ( props.description )) == null ? '' : __t) +
-'</p>\r\n\t\t</div>\r\n\t</div></div>\r\n</div>';
+'</p></div></div></div></div>';
 
 }
 return __p
@@ -10642,27 +10637,27 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  var alpha = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'.split(',') ;
-__p += '\r\n\r\n<div class="row">\r\n\t<div class="col-lg-24">\r\n\t\t<ul class="nav nav-tabs responsive-col-tabs">\r\n\t\t\t<li class="active"><a>All</a></li>\r\n\t\t\t';
+__p += '<div class=row><div class=col-lg-24><ul class="nav nav-tabs responsive-col-tabs"><li class=active><a>All</a></li>';
  _.each(alpha, function(letter){ ;
-__p += '\r\n\t\t\t\t<li class="tab-' +
+__p += '<li class="tab-' +
 ((__t = ( letter )) == null ? '' : __t) +
-'">\r\n\t\t\t\t\t<a>' +
+'"><a>' +
 ((__t = ( letter )) == null ? '' : __t) +
-'</a>\r\n\t\t\t\t</li>\r\n\t\t\t';
+'</a></li>';
  }) ;
-__p += '\r\n\t\t</ul>\r\n\t</div>\r\n</div>\r\n<div class="row">\r\n\t<div class="col-lg-24">\r\n\t\t<ul class="list-unstyled geo-list responsive-cols">\r\n\t\t\t';
+__p += '</ul></div></div><div class=row><div class=col-lg-24><ul class="list-unstyled geo-list responsive-cols">';
  _.each(props.places, function(place){ ;
-__p += '\r\n\t\t\t\t<li class="list-' +
+__p += '<li class="list-' +
 ((__t = ( place.name.charAt(0) )) == null ? '' : __t) +
 '" data-initial="' +
 ((__t = ( place.name.charAt(0) )) == null ? '' : __t) +
-'">\r\n\t\t\t\t\t<a href="' +
+'"><a href="' +
 ((__t = ( place.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( place.name )) == null ? '' : __t) +
-'\r\n\t\t\t\t</li>\r\n\t\t\t';
+'</a></li>';
  }) ;
-__p += '\r\n\t\t</ul>\r\n\t</div>\r\n</div>';
+__p += '</ul></div></div>';
 
 }
 return __p
@@ -10683,23 +10678,23 @@ with (obj) {
 
 	var pos = 0;
 ;
-__p += '\r\n\r\n<div class="stateCols">\r\n\t<div class="row">\r\n\t\t';
+__p += '<div class=stateCols><div class=row>';
  while (pos < numStatess) { ;
-__p += '\r\n\t\t\t';
+
  var colStates = props.states.slice(pos, pos += perCol); ;
-__p += '\r\n\t\t\t<div class="' +
+__p += '<div class="' +
 ((__t = ( colStates.join(' ') )) == null ? '' : __t) +
-'">\r\n\t\t\t\t<ul class="nav nav-list">\r\n\t\t\t\t\t';
+'"><ul class="nav nav-list">';
  _.each(colStates, function(state){ ;
-__p += '\r\n\t\t\t\t\t\t<li>\r\n\t\t\t\t\t\t\t<a href="' +
+__p += '<li><a href="' +
 ((__t = ( state.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( state.name )) == null ? '' : __t) +
-'</a>\r\n\t\t\t\t\t\t</li>\r\n\t\t\t\t\t';
+'</a></li>';
  }) ;
-__p += '\r\n\t\t\t\t</ul>\r\n\t\t\t</div>\r\n\t\t';
+__p += '</ul></div>';
  } ;
-__p += '\r\n\t</div>\r\n</div>';
+__p += '</div></div>';
 
 }
 return __p
@@ -10710,13 +10705,13 @@ module.exports = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
-__p += '<div id="home">\r\n\t<div class="row"><div class="col-lg-24">\r\n\t\t<header>\r\n\t\t\t<h1 class="pageTitle">' +
+__p += '<div id=home><div class=row><div class=col-lg-24><header><h1 class=pageTitle>' +
 ((__t = ( props.pageTitle )) == null ? '' : __t) +
-'</h1>\r\n\t\t</header>\r\n\t\t<div class="alert alert-info">\r\n\t\t\t<p class="description">' +
+'</h1></header><div class="alert alert-info"><p class=description>' +
 ((__t = ( props.description )) == null ? '' : __t) +
-'</p>\r\n\t\t</div>\r\n\t</div></div>\r\n\r\n\t<div class="row"><div class="col-lg-24">\r\n\t\t' +
+'</p></div></div></div><div class=row><div class=col-lg-24>' +
 ((__t = ( props.statesHtml )) == null ? '' : __t) +
-'\r\n\t</div></div>\r\n</div>\r\n\r\n';
+'</div></div></div>';
 
 }
 return __p
@@ -10726,14 +10721,14 @@ return __p
 module.exports = {
   '/home': require('./home'),
   '/layout': require('./layout'),
+  '/errors/generic': require('./errors/generic'),
+  '/fragments/geo-list': require('./fragments/geo-list'),
+  '/fragments/states': require('./fragments/states'),
   '/browse/city': require('./browse/city'),
   '/browse/options': require('./browse/options'),
   '/browse/place': require('./browse/place'),
   '/browse/places': require('./browse/places'),
   '/browse/state': require('./browse/state'),
-  '/errors/generic': require('./errors/generic'),
-  '/fragments/geo-list': require('./fragments/geo-list'),
-  '/fragments/states': require('./fragments/states'),
   '/browse/options/pagination': require('./browse/options/pagination')
 };
 },{"./browse/city":25,"./browse/options":26,"./browse/options/pagination":27,"./browse/place":28,"./browse/places":29,"./browse/state":30,"./errors/generic":31,"./fragments/geo-list":32,"./fragments/states":33,"./home":34,"./layout":36}],36:[function(require,module,exports){
@@ -10743,31 +10738,31 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<!DOCTYPE html>\r\n<html lang="en">\r\n\t<head>\r\n\t\t<meta charSet="utf-8">\r\n\r\n\t\t<title>' +
+__p += '<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>' +
 ((__t = ( props.meta.title )) == null ? '' : __t) +
-'</title>\r\n\t\t<meta name="description" itemProp="description" content="' +
+'</title><meta name=description itemprop=description content="' +
 ((__t = ( props.meta.description )) == null ? '' : __t) +
-'">\r\n\r\n\t\t<meta name="viewport" content="width=device-width, initial-scale=1.0">\r\n\t\t<meta itemProp="isFamilyFriendly" content="true">\r\n\t\t<meta itemProp="inLanguage" content="en-US">\r\n\t\t<link rel="apple-touch-icon" href="/img/car.png">\r\n\t\t<link rel="shortcut icon" href="/img/car.png" itemProp="image">\r\n\t\t<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css">\r\n\t\t<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Raleway:400,700|Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Source+Sans+Pro:400,700">\r\n\r\n\t\t';
+'"><meta name=viewport content="width=device-width,initial-scale=1"><meta itemprop=isFamilyFriendly content=true><meta itemprop=inLanguage content=en-US><link rel=apple-touch-icon href=/img/car.png><link rel="shortcut icon" href=/img/car.png itemprop=image><link rel=stylesheet href=http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css><link rel=stylesheet href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Raleway:400,700|Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Source+Sans+Pro:400,700">';
  if(props.isProd) { ;
-__p += '\r\n\t\t\t<link rel="stylesheet" type="text/css" href="/dist/css/app.min.css">\r\n\t\t';
+__p += '<link rel=stylesheet href=/dist/css/app.min.css>';
  } else { ;
-__p += '\r\n\t\t\t<link rel="stylesheet" type="text/css" href="/dist/css/app.css">\r\n\t\t';
+__p += '<link rel=stylesheet href=/dist/css/app.css>';
  } ;
-__p += '\r\n\r\n\t</head>\r\n\t<body>\r\n\r\n\t\t<nav class="navbar navbar-default">\r\n\t\t\t<div class="navbar-header">\r\n\t\t\t\t<a href="/" class="navbar-brand">\r\n\t\t\t\t<img src="/img/car.white.32.png">Local Mechanics</a>\r\n\t\t\t</div>\r\n\t\t</nav>\r\n\r\n\t\t<div id="loading" class="navbar navbar-default hidden">\r\n\t\t\t<div class="progress"> \r\n\t\t\t\t<div class="progress-bar progress-bar-striped active"></div> \r\n\t\t\t</div> \r\n\t\t</div>\r\n\r\n\t\t<div id="content" class="container">' +
+__p += '</head><body><nav class="navbar navbar-default"><div class=navbar-header><a href="/" class=navbar-brand><img src=/img/car.white.32.png>Local Mechanics</a></div></nav><div id=loading class="navbar navbar-default hidden"><div class=progress><div class="progress-bar progress-bar-striped active"></div></div></div><div id=content class=container>' +
 ((__t = ( props.contentHtml )) == null ? '' : __t) +
-'</div>\r\n\r\n\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js"></script>\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js"></script>\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js"></script>\r\n\t\t<script src="//cdnjs.cloudflare.com/ajax/libs/jade/1.3.1/runtime.min.js"></script>\r\n\r\n\t\t';
+'</div><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jade/1.3.1/runtime.min.js></script>';
  if(props.isProd) { ;
-__p += '\r\n\t\t\t<script src="/dist/js/client.min.js"></script>\r\n\t\t';
+__p += '<script src=/dist/js/client.min.js></script>';
  } else { ;
-__p += '\r\n\t\t\t<script src="/dist/js/client.js"></script>\r\n\t\t';
+__p += '<script src=/dist/js/client.js></script>';
  } ;
-__p += '\r\n\t\t\r\n\t\t';
+
  if (props.exports){ ;
-__p += '\r\n\t\t\t<script>_.assign(window, ' +
+__p += '<script>_.assign(window, ' +
 ((__t = ( JSON.stringify(props.exports) )) == null ? '' : __t) +
-');</script>\r\n\t\t';
+');</script>';
  } ;
-__p += '\r\n\t</body>\r\n</html>';
+__p += '</body></html>';
 
 }
 return __p
