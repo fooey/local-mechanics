@@ -66,7 +66,7 @@ module.exports = function(app, express) {
 
 	app.use('/lib', express.static(process.cwd() + '/lib', staticOptions));
 	app.use('/routes', express.static(process.cwd() + '/routes', staticOptions));
-	app.use('/views', express.static(process.cwd() + '/views', staticOptions));
+	app.use('/views', express.static(process.cwd() + '/views/dist', staticOptions));
 	
 	app.use(express.static(GLOBAL.paths.getPublic(), staticOptions));
 	app.use(express.static(GLOBAL.paths.getBower(), staticOptions));

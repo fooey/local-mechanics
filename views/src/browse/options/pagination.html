@@ -1,0 +1,5 @@
+<% for(var ixPage=1; ixPage <= props.numPages; ixPage++) { %>
+	<li class="<%= (ixPage === browseConfig.page) ? 'active' : '' %>">
+		<a data-page="<%= ixPage %>"><%= ixPage %></a>
+	</li>
+<% } %>

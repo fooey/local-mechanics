@@ -5,11 +5,13 @@ var globalRequire = require('../lib/globalRequire');
 var _ = globalRequire('lodash');
 
 var sharedRoutes = require('./shared');
+
+var templates = require('../views/dist');
 var libTemplates = require('../lib/templates');
 
 
 module.exports = function(app, express) {
-	const templateRenderer = libTemplates(app.locals.templates);
+	const templateRenderer = libTemplates(templates);
 	
 	const cacheTime = 60 * 15; // 15 minutes
 	const statusFound = 302;

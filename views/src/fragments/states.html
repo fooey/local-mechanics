@@ -1,0 +1,25 @@
+<%
+	var numStates = props.states.length;
+	var perCol = Math.ceil(numStates / numCols);
+	var colClasses = [];
+	colClasses.push('col-md-' + Math.ceil(24/numCols).toString());
+
+	var pos = 0;
+%>
+
+<div class="stateCols">
+	<div class="row">
+		<% while (pos < numStatess) { %>
+			<% var colStates = props.states.slice(pos, pos += perCol); %>
+			<div class="<%= colStates.join(' ') %>">
+				<ul class="nav nav-list">
+					<% _.each(colStates, function(state){ %>
+						<li>
+							<a href="<%= state.getLink() %>"><%= state.name %></a>
+						</li>
+					<% }) %>
+				</ul>
+			</div>
+		<% } %>
+	</div>
+</div>

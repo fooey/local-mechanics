@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var livereload = require('gulp-livereload');
 
 var rename = require('gulp-rename');
-var rimraf = require('gulp-rimraf');
+var rimraf = require('rimraf');
 var insert = require('gulp-insert');
 var dir2module  = require('./lib/gulp/gulp-dir2module');
 
@@ -29,18 +29,18 @@ var cssDist = pubDist + '/css';
 
 var jsDist = pubDist +  '/js';
 
-var jadeSrc = './views';
-var jadeDist = pubDist + '/views';
+// var jadeSrc = './views/**/*.jade';
+// var jadeDist = pubDist + '/views';
 
-var bowerJson = './bower.json';
-var bowerDist = './bower_components';
+var jstSrc = './views/src/**/*.html';
+var jstDist = './views/dist';
 
 
 // Nodemon Options
 var nodemonOptions = {
 	script: './server.js',
 	nodeArgs: ['--harmony'],
-	ext: 'js,jade',
+	ext: 'js,html',
 	ignore: [
 		'.git/**',
 		'.rebooted',
@@ -70,10 +70,9 @@ var nodemonOptions = {
 *
 */
 
-gulp.task('clean-css', function() {
-	console.log('clean-js', cssDist);
-	var stream = gulp
-		.src(cssDist, { read: false }).pipe(rimraf());
+gulp.task('clean-css', function(cb) {
+	// console.log('clean-css', cssDist);
+	rimraf(cssDist, cb);
 });
 
 gulp.task('less', ['clean-css'], function() {
@@ -100,12 +99,12 @@ gulp.task('cssmin', ['less'], function() {
 
 	var stream = gulp
 		.src(entry)
-		.pipe(sourcemaps.init({loadMaps: true}))
+		// .pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(cssmin())
 		.pipe(rename({suffix: '.min'}))
-		.pipe(sourcemaps.write('./'))
+		// .pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(cssDist))
-		.pipe(livereload({auto: false}))
+		.pipe(livereload())
 
 	stream.on('error', console.error.bind(console));
 	return stream;
@@ -120,18 +119,14 @@ gulp.task('cssmin', ['less'], function() {
 */
 
 gulp.task('clean-js', function() {
-	console.log('clean-js', jsDist);
-	var stream = gulp
-		.src(jsDist, { read: false }).pipe(rimraf());
-
-	stream.on('error', console.error.bind(console));
-	return stream;
+	// console.log('clean-js', jsDist);
+	rimraf(jsDist, cb);
 });
 
-gulp.task('browserify', [/*'clean-js', */'jade'], function() {
+gulp.task('browserify', [/*'clean-js',*/ 'templates'], function() {
 	var browserify = require('gulp-browserify');
 	var jsEntry = 'client.js';
-	console.log('browserify', jsEntry);
+	// console.log('browserify', jsEntry);
 
 	var stream = gulp
 		.src(jsEntry)
@@ -139,7 +134,7 @@ gulp.task('browserify', [/*'clean-js', */'jade'], function() {
 			insertGlobals: false,
 			debug: true,
 			ignore: ['buffer', 'request', 'zlib'],
-			external: ['async', 'bootstrap', 'jade', 'jquery', 'lodash', 'templates'],
+			external: ['async', 'bootstrap', 'jquery', 'templates'],
 		}))
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(sourcemaps.write('./', {includeContent: true}))
@@ -156,7 +151,7 @@ gulp.task('uglify', ['browserify'], function() {
 	var dest = 'client.min.js';
 	var map = 'client.js.map';
 
-	console.log('uglify', entry, jsDist);
+	// console.log('uglify', entry, jsDist);
 
 	var stream = gulp
 		.src(entry)
@@ -183,43 +178,25 @@ gulp.task('uglify', ['browserify'], function() {
 
 /*
 *
-*	Jade Tasks
+*	Templates
 *
 */
 
-gulp.task('clean-jade', function() {
-	console.log('clean-jade', jadeDist);
-	var stream = gulp
-		.src(jadeDist, { read: false }).pipe(rimraf());
-
-	stream.on('error', console.error.bind(console));
-	return stream;
+gulp.task('clean-templates', function(cb) {
+	rimraf(jstDist, cb);
 });
 
 
-gulp.task('jade'/*, ['clean-jade']*/, function() {
-	var jade = require('gulp-jade');
-	var entry = jadeSrc + '/**/*.jade';
-	var dest = jadeDist;
+gulp.task('templates', ['clean-templates'], function(cb) {
+	var jst = require('gulp-jst');
 
-	console.log('jade', entry, jadeDist);
-
-	return gulp
-		.src(entry)
-		.pipe(cache('jade'))
-		.pipe(jade({
-			client: true,
-			debug: false,
-			self: false,
-			compileDebug: false,
-		}))
-
-		.pipe(insert.prepend('module.exports = '))
-		.pipe(gulp.dest(dest))
-
-		.pipe(remember('jade'))
+	var stream = gulp
+		.src(jstSrc)
+		.pipe(jst())
+		.pipe(insert.prepend("var _ = require('lodash');\nmodule.exports = "))
+		.pipe(gulp.dest(jstDist))
 		.pipe(dir2module('./index.js'))
-		.pipe(gulp.dest(dest))
+		.pipe(gulp.dest(jstDist))
 
 	stream.on('error', console.error.bind(console));
 	return stream;
@@ -235,44 +212,32 @@ gulp.task('jade'/*, ['clean-jade']*/, function() {
 *
 */
 
-gulp.task('watch', function(callback) {
-	console.log('start livereload');
+gulp.task('watch', function(cb) {
+	// console.log('start livereload');
+	livereload.listen({
+		silent: false,
+		auto: true,
+	});
 	
-	console.log('start watchers');
-	var watchJs = gulp
-		.watch([
+	// console.log('start watchers');
+	var watchJs = gulp.watch([
 			'./client.js',
 			'./lib/**/*.js',
 			'./routes/**/*.js',
-			'./views/**/*.jade',
-		], ['build-js']);
+			'./views/src/**/*.html',
+			]
+		, {debounceDelay: 100}, ['build-js'])
+		// .on('change', livereload.changed);
 
-	var watchCss = gulp
-		.watch([
+	var watchCss = gulp.watch([
 			cssSrc + '/**/*.less'
-		], ['build-css']);
-	// var watchJade = gulp.watch(jadeSrc + '/**/*.jade', ['build-templates']);
+		], {debounceDelay: 100}, ['build-css'])
+		// .on('change', function () {
+			console.log('nodemon::restart');
+		// 	setTimeout(livereload.changed, 1000)
+		// });
 
-	// var watchJade = gulp.watch('./rebooted');
-
-	callback();
-});
-
-
-
-/*
-*
-*	Bower
-*
-*/
-
-gulp.task('bower', function() {
-	// var mainBowerFiles = require('main-bower-files');
-	var bower = require('gulp-bower');
-
-	var stream = bower()
-    	.pipe(gulp.dest(bowerDist))
-	return stream;
+	cb();
 });
 
 
@@ -284,23 +249,23 @@ gulp.task('bower', function() {
 */
 
 gulp.task('build-css', ['cssmin'], function(cb) {
-	console.log('build-css complete');
+	// console.log('build-css complete');
 	cb();
 });
 
 gulp.task('build-js', ['uglify'], function(cb) {
-	console.log('build-js complete');
+	// console.log('build-js complete');
 	cb();
 });
 
-gulp.task('build-templates', ['jade'], function(cb) {
-	console.log('build-templates complete');
+gulp.task('build-templates', ['templates'], function(cb) {
+	// console.log('build-templates complete');
 	cb();
 });
 
 
 gulp.task('build', ['build-js', 'build-css'], function(cb) {
-	console.log('build complete');
+	// console.log('build complete');
 	cb();
 });
 
@@ -308,7 +273,7 @@ gulp.task('build', ['build-js', 'build-css'], function(cb) {
 
 
 gulp.task('heroku:production', ['build', 'bower'], function(cb) {
-	console.log('build complete');
+	// console.log('build complete');
 	cb();
 });
 
@@ -316,19 +281,14 @@ gulp.task('heroku:production', ['build', 'bower'], function(cb) {
 gulp.task('default', ['build', 'watch'], function(cb) {
 	var nodemon = require('gulp-nodemon');
 	
-	livereload.listen({
-		silent: false,
-		auto: true,
-	});
-
 	nodemon(nodemonOptions)
 		.on('start', livereload.changed)
 		.on('restart', function () {
-			console.log('nodemon::restart');
+			// console.log('nodemon::restart');
 			setTimeout(livereload.changed, 500)
 		});
 
-	console.log('default task complete');
+	// console.log('default task complete');
 	cb();
 });
 

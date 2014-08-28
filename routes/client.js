@@ -11,7 +11,7 @@ var $ = globalRequire('jQuery');
 /*
 *	Templates
 */
-var templates = require('../public/dist/views');
+var templates = require('../views/dist');
 console.log('templates!', templates);
 var sharedRoutes = require('./shared');
 var libTemplates = require('../lib/templates');
@@ -86,12 +86,17 @@ function attachRoute(rootNode, route) {
 			window.scrollTo(0, 0);
 			$newContent
 				.appendTo('body')
-				.fadeIn(fadeInTime, function(){
-					$('title').text(results.meta.title);
-					$('meta[name="description"]').attr('content', results.meta.description);
+				.fadeIn(fadeInTime);
 
-					$(window).trigger('hashchange');
-				});
+
+			if (results.exports) {
+				_.assign(window, results.exports);
+			}
+			
+			$('title').text(results.meta.title);
+			$('meta[name="description"]').attr('content', results.meta.description);
+
+			$(window).trigger('hashchange');
 
 
 

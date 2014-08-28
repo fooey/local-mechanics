@@ -1,0 +1,25 @@
+<% var alpha = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'.split(',') %>
+
+<div class="row">
+	<div class="col-lg-24">
+		<ul class="nav nav-tabs responsive-col-tabs">
+			<li class="active"><a>All</a></li>
+			<% _.each(alpha, function(letter){ %>
+				<li class="tab-<%= letter %>">
+					<a><%= letter %></a>
+				</li>
+			<% }) %>
+		</ul>
+	</div>
+</div>
+<div class="row">
+	<div class="col-lg-24">
+		<ul class="list-unstyled geo-list responsive-cols">
+			<% _.each(props.places, function(place){ %>
+				<li class="list-<%= place.name.charAt(0) %>" data-initial="<%= place.name.charAt(0) %>">
+					<a href="<%= place.getLink() %>"><%= place.name %>
+				</li>
+			<% }) %>
+		</ul>
+	</div>
+</div>

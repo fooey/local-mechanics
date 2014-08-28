@@ -9,5 +9,6 @@ module.exports = {
   '/browse/state': require('./browse/state'),
   '/errors/generic': require('./errors/generic'),
   '/fragments/geo-list': require('./fragments/geo-list'),
-  '/fragments/states': require('./fragments/states')
+  '/fragments/states': require('./fragments/states'),
+  '/browse/options/pagination': require('./browse/options/pagination')
 };

@@ -1,0 +1,54 @@
+<% if (!props.place) { %>
+	<h2>Error!</h2>
+<% } else { %>
+	<div class="place">
+		<h2>
+			<a href="<%= props.place.getLink() %>"><%= props.place.name %></a>
+		</h2>
+
+		<div class="row">
+			<div class="col-sm-12">
+				<address>
+					<div><%= props.place.address.street %></div>
+					<div>
+						<a href="<%= props.place.geo.city.getLink() %>"><%= props.place.geo.city.name %></a>,
+						<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.abbr %></a>
+						<span><%= props.place.geo.zip %></span>
+					</div>
+				</address>
+				<% if (props.place.has_offers) { %>
+					<div><span class="label label-danger">Special Offers Available!</span>.</div>
+				<% } %>
+				<% if (props.place.tags && props.place.tags.length) { %>
+					<div>
+						Primary Service: 
+						<ul class="list-inline">
+							<% _.each(_.filter(props.place.tags, function(tag){return tag.primary}), function(tag) { %>
+								<li> <%- tag.name %>
+							<% }) %>
+						</ul>
+					</div>
+					<div>
+						Additional Services: 
+						<ul class="list-inline">
+							<% _.each(_.filter(props.place.tags, function(tag){return !tag.primary}), function(tag) { %>
+								<li> <%- tag.name %>
+							<% }) %>
+						</ul>
+					</div>
+				<% } %>
+				<div>
+					<ul class="list-inline">
+						<li><a href="<%= props.place.getLink('reviews') %>"> reviews</a></li>
+						<li><a href="<%= props.place.getLink('jobs') %>"> jobs</a></li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="col-sm-12 text-center">
+				<!-- <img src="<%= props.place.getMapSrc('400x300') %>" /> -->
+				<img src="http://nosrc.net/400x300" />
+			</div>
+		</div>
+	</div>
+<% } %>

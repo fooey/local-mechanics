@@ -1,7 +1,6 @@
 'use strict';
 var globalRequire = require('../../lib/globalRequire');
 var _ = globalRequire('lodash');
-// var progressBar = globalRequire('progressBar');
 
 var libGeo = require('../../lib/geo');
 var libUtil = require('../../lib/util');
@@ -19,11 +18,7 @@ var whitelist = [
 
 
 module.exports = function(render, requestProps, fnCallback){
-	// progressBar && progressBar.addTask();
-
 	getStates(function(err, states) {
-		// progressBar && progressBar.taskComplete();
-
 
 		var statesHtml = render('/fragments/geo-list', {
 			places: states
@@ -35,7 +30,6 @@ module.exports = function(render, requestProps, fnCallback){
 			description: 'Finding the right local mechanic just got easier! Don\'t pick a mechanic randomly out of the phonebook. Whether your car needs maintenance work, or if you have damage that needs repaired, we\'ll help you find the perfect local mechanic!',
 			statesHtml: statesHtml,
 		});
-
 
 		fnCallback(null, {
 			meta: {

@@ -29,8 +29,9 @@ $(function() {
 	*/
 	
 	$(window)
-		.on('hashchange', require('./lib/client/responsiveTabs.js'))
 		.on('hashchange', function(){console.log('on hashchange')})
+		.on('hashchange', require('./lib/client/responsiveTabs.js'))
+		.on('hashchange', require('./lib/client/cityBrowser.js'))
 		.trigger('hashchange');
 
 

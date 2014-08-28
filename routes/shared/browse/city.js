@@ -46,21 +46,22 @@ module.exports = function(render, requestProps, fnCallback){
 				radius: 5,
 				rpp: 20,
 				sort: 'alpha',
-				hasOffers: false,
+				has_offers: false,
 
 				totalHits: results.places.total_hits,
-				callId: results.call_id,
+				baseLink: city.getLink(),
+				callId: results.places.call_id,
+				urlLib: require('url'),
 			};
 
 
 			var placesHtml = render('/browse/places', {
 				places: places,
-				browseConfig: browseConfig,
 				renderPlace: render('/browse/place'),
 			});
 
 			var optionsHtml = render('/browse/options', {
-				browseConfig: browseConfig,
+				renderPagination: render('/util/pagination'),
 			});
 
 
@@ -79,6 +80,7 @@ module.exports = function(render, requestProps, fnCallback){
 					description: metaDescription,
 				},
 				contentHtml: contentHtml,
+				exports: {browseConfig: browseConfig},
 			};
 
 			fnCallback(null, props);

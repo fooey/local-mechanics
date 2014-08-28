@@ -1,0 +1,18 @@
+<div id="places">
+	<% if (props.places.length) { %>
+
+		<%= _.map(props.places, function(place){
+			return props.renderPlace({place: place})
+		}) %>
+
+	<% } else { %>
+		<div class="alert alert-warning">
+			<h1>No Results</h1>
+			<p>
+				Try a bigger search radius, or check somewhere else in 
+				<a class="alert-link" href="<%= props.browseConfig.city.state.getLink() %>"><%= props.browseConfig.city.state.name %></a>
+			</p>
+			
+		</div>
+	<% } %>
+</div>
