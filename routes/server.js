@@ -11,10 +11,16 @@ var libTemplates = require('../lib/templates');
 
 
 module.exports = function(app, express) {
-	const templateRenderer = libTemplates(templates);
+	templates.props = {
+		isServer: true,
+		isClient: false,
+		isDev: (app.get('env') === 'development') ? true : false,
+		isProd: (app.get('env') !== 'development') ? true : false,
+	};
+	var templateRenderer = libTemplates(templates);
 	
-	const cacheTime = 60 * 15; // 15 minutes
-	const statusFound = 302;
+	var cacheTime = 60 * 15; // 15 minutes
+	var statusFound = 302;
 
 
 
