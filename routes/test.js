@@ -2,7 +2,7 @@
 var view = 'home';
 
 var globalRequire = require('../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 
 var libGeo = require('../lib/geo');
 var libUtil = require('../lib/util');

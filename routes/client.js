@@ -5,7 +5,7 @@ var page = require('page');
 
 
 var globalRequire = require('../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var $ = globalRequire('jQuery');
 
 /*

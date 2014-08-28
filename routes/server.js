@@ -2,7 +2,7 @@
 
 
 var globalRequire = require('../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 
 var sharedRoutes = require('./shared');
 

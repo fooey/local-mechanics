@@ -1,7 +1,7 @@
 'use strict';
 
 var globalRequire = require('../../../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var async = globalRequire('async');
 
 var libGeo = require('../../../lib/geo');
@@ -38,7 +38,7 @@ module.exports = function(render, requestProps, fnCallback){
 			var metaTitle = pageTitle;
 			var metaDescription = description;
 
-			var browseConfig = {
+			var appState = {
 				city: city,
 
 				first: null,
@@ -69,7 +69,7 @@ module.exports = function(render, requestProps, fnCallback){
 				pageTitle: pageTitle,
 				description: description,
 
-				browseConfig: browseConfig,
+				appState: appState,
 				placesHtml: placesHtml,
 				optionsHtml: optionsHtml,
 			});
@@ -80,7 +80,7 @@ module.exports = function(render, requestProps, fnCallback){
 					description: metaDescription,
 				},
 				contentHtml: contentHtml,
-				exports: {browseConfig: browseConfig},
+				exports: {appState: appState},
 			};
 
 			fnCallback(null, props);

@@ -66,7 +66,7 @@ $(function() {
 var url = require('url');
 
 var globalRequire = require('./globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var async = globalRequire('async');
 
 var net = require('./net');
@@ -209,14 +209,14 @@ function getUrlPlaces(lat, lon, query) {
 	var endpoint = '/lm/places/' + lat + ',' + lon;
 	return getUrl(endpoint, query);
 }
-},{"./geo":5,"./globalRequire":6,"./net":7,"url":15}],3:[function(require,module,exports){
+},{"./geo":5,"./globalRequire":6,"./net":7,"lodash":16,"url":15}],3:[function(require,module,exports){
 'use strict';
 
 var url = require('url');
 
 var globalRequire = require('../globalRequire');
 var $ = globalRequire('jquery');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var async = globalRequire('async');
 
 var libCG = require('../citygrid');
@@ -237,7 +237,7 @@ module.exports = function(){
 
 
 	if($cityBrowser.length) {
-		console.log('lib:client:cityBrowser', browseConfig);
+		console.log('lib:client:cityBrowser', appState);
 
 
 		writeMeta('.meta');
@@ -257,7 +257,7 @@ module.exports = function(){
 	function writeMeta(selector){
 		$cityBrowser.find(selector)
 			.empty()
-			.append($('<div>', {text: 'Results: '+ browseConfig.totalHits}))
+			.append($('<div>', {text: 'Results: '+ appState.totalHits}))
 
 	}
 
@@ -275,9 +275,9 @@ module.exports = function(){
 			}))
 			.off()
 			.on('click', 'a', function(e){
-				browseConfig.page = 1;
-				browseConfig.callId = null;
-				browseConfig.has_offers = $(this).data('has_offers');
+				appState.page = 1;
+				appState.callId = null;
+				appState.has_offers = $(this).data('has_offers');
 
 				updateResults();
 			});
@@ -297,9 +297,9 @@ module.exports = function(){
 			}))
 			.off()
 			.on('click', 'a', function(e){
-				browseConfig.page = 1;
-				browseConfig.callId = null;
-				browseConfig.radius = $(this).data('radius');
+				appState.page = 1;
+				appState.callId = null;
+				appState.radius = $(this).data('radius');
 
 				updateResults();
 			});
@@ -319,8 +319,8 @@ module.exports = function(){
 			}))
 			.off()
 			.on('click', 'a', function(e){
-				browseConfig.page = 1;
-				browseConfig.rpp = $(this).data('rpp');
+				appState.page = 1;
+				appState.rpp = $(this).data('rpp');
 
 				updateResults();
 			});
@@ -341,9 +341,9 @@ module.exports = function(){
 			}))
 			.off()
 			.on('click', 'a', function(e){
-				browseConfig.page = 1;
-				browseConfig.callId = null;
-				browseConfig.sort = $(this).data('sort');
+				appState.page = 1;
+				appState.callId = null;
+				appState.sort = $(this).data('sort');
 
 				updateResults();
 			});
@@ -352,8 +352,8 @@ module.exports = function(){
 	function writePagination(selector){
 		var $pagination = $cityBrowser.find(selector);
 
-		var numPages = Math.ceil(browseConfig.totalHits / browseConfig.rpp);
-		var urlBase = url.parse(browseConfig.baseLink);
+		var numPages = Math.ceil(appState.totalHits / appState.rpp);
+		var urlBase = url.parse(appState.baseLink);
 
 		var links = [];
 		for(var ixPage = 1; ixPage <= numPages; ixPage++){
@@ -372,7 +372,7 @@ module.exports = function(){
 		}
 
 		var pageHtml = templateRenderer('/browse/options/pagination', {
-			page: browseConfig.page,
+			page: appState.page,
 			numPages: numPages,
 		});
 
@@ -382,7 +382,7 @@ module.exports = function(){
 			.append(pageHtml)
 			.off()
 			.on('click', 'a', function(e){
-				browseConfig.page = $(this).data('page');
+				appState.page = $(this).data('page');
 
 				updateResults();
 			});
@@ -400,21 +400,21 @@ module.exports = function(){
 
 		var query = []
 		_.each(libCG.defaultBrowseOptions, function(defaultVal, key) {
-			if(defaultVal !== browseConfig[key]){
-				query.push([key, browseConfig[key]]);
+			if(defaultVal !== appState[key]){
+				query.push([key, appState[key]]);
 			}
 		});
 
 		query = _.object(query);
 
-		var newUrl = url.format({pathname: browseConfig.baseLink, query: query});
+		var newUrl = url.format({pathname: appState.baseLink, query: query});
 		history && history.pushState && history.pushState(null, null, newUrl);
 
-		browseConfig.callId && (query.call_id = browseConfig.callId);
+		appState.callId && (query.call_id = appState.callId);
 
 		libCG.getPlaces(
-			browseConfig.city.avgLatitude,
-			browseConfig.city.avgLongitude,
+			appState.city.avgLatitude,
+			appState.city.avgLongitude,
 			query,
 			function(err, results) {
 				var places = (_.isArray(results.locations) && results.locations.length) ? results.locations : [];
@@ -424,8 +424,8 @@ module.exports = function(){
 					renderPlace: templateRenderer('/browse/place'),
 				});
 
-				browseConfig.totalHits = results.total_hits;
-				browseConfig.callId = results.call_id;
+				appState.totalHits = results.total_hits;
+				appState.callId = results.call_id;
 
 				$('#loading').stop().fadeOut();
 				$('#places').replaceWith(newPlaces);
@@ -437,7 +437,7 @@ module.exports = function(){
 	}
 };
 
-},{"../../views/dist":35,"../citygrid":2,"../globalRequire":6,"../templates":8,"url":15}],4:[function(require,module,exports){
+},{"../../views/dist":35,"../citygrid":2,"../globalRequire":6,"../templates":8,"lodash":16,"url":15}],4:[function(require,module,exports){
 'use strict';
 
 var globalRequire = require('../globalRequire');
@@ -584,7 +584,7 @@ function setTab($tabAnchor, fnCallback){
 var url = require('url');
 
 var globalRequire = require('./globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var async = globalRequire('async');
 
 var net = require('./net');
@@ -827,7 +827,7 @@ function getUrlZips(partial) {
 	return getUrl(['/zips', partial].join('/'));
 }
 
-},{"./globalRequire":6,"./net":7,"url":15}],6:[function(require,module,exports){
+},{"./globalRequire":6,"./net":7,"lodash":16,"url":15}],6:[function(require,module,exports){
 'use strict';
 
 module.exports = function globalRequire(name) {
@@ -848,12 +848,12 @@ module.exports = function globalRequire(name) {
 			? window.jQuery
 			: require('jquery');
 	}
-	else if (name === 'lodash') {
-		// return isWindowVar('_')
-		// 	? window._
-		// 	: require('lodash');
-		return require('lodash');
-	}
+	// else if (name === 'lodash') {
+	// 	// return isWindowVar('_')
+	// 	// 	? window._
+	// 	// 	: require('lodash');
+	// 	return require('lodash');
+	// }
 	else {
 		console.log('Undefined library: ', name);
 	}
@@ -875,12 +875,12 @@ module.exports = function globalRequire(name) {
 	}
 };
 
-},{"async":"ANdDVg","lodash":16}],7:[function(require,module,exports){
+},{"async":"ANdDVg"}],7:[function(require,module,exports){
 (function (Buffer){
 "use strict";
 
 var globalRequire = require('./globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 
 var cache = require('lru-cache')({
 	max: 256,
@@ -1024,11 +1024,11 @@ function parseJson(data) {
 	return results;
 }
 }).call(this,require("buffer").Buffer)
-},{"./globalRequire":6,"buffer":10,"lru-cache":17,"request":10,"zlib":10}],8:[function(require,module,exports){
+},{"./globalRequire":6,"buffer":10,"lodash":16,"lru-cache":17,"request":10,"zlib":10}],8:[function(require,module,exports){
 'use strict';
 
 var globalRequire = require('./globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 
 
 
@@ -1048,7 +1048,7 @@ var render = _.curry(function(templates, key, props) {
 	return templates[key]({props: _.defaults(props, templates.props)}, {variable: 'props'});
 })
 
-},{"./globalRequire":6}],9:[function(require,module,exports){
+},{"./globalRequire":6,"lodash":16}],9:[function(require,module,exports){
 'use strict';
 
 
@@ -9981,7 +9981,7 @@ var page = require('page');
 
 
 var globalRequire = require('../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var $ = globalRequire('jQuery');
 
 /*
@@ -10120,7 +10120,7 @@ function postRender(rootNode, fnCallback, results) {
 	$(rootNode).fadeIn(transitionTime);
 }
 
-},{"../lib/globalRequire":6,"../lib/templates":8,"../views/dist":35,"./shared":20,"page":18,"querystring":14}],20:[function(require,module,exports){
+},{"../lib/globalRequire":6,"../lib/templates":8,"../views/dist":35,"./shared":20,"lodash":16,"page":18,"querystring":14}],20:[function(require,module,exports){
 'use strict';
 
 module.exports = [{
@@ -10140,7 +10140,7 @@ module.exports = [{
 'use strict';
 
 var globalRequire = require('../../../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var async = globalRequire('async');
 
 var libGeo = require('../../../lib/geo');
@@ -10177,7 +10177,7 @@ module.exports = function(render, requestProps, fnCallback){
 			var metaTitle = pageTitle;
 			var metaDescription = description;
 
-			var browseConfig = {
+			var appState = {
 				city: city,
 
 				first: null,
@@ -10208,7 +10208,7 @@ module.exports = function(render, requestProps, fnCallback){
 				pageTitle: pageTitle,
 				description: description,
 
-				browseConfig: browseConfig,
+				appState: appState,
 				placesHtml: placesHtml,
 				optionsHtml: optionsHtml,
 			});
@@ -10219,7 +10219,7 @@ module.exports = function(render, requestProps, fnCallback){
 					description: metaDescription,
 				},
 				contentHtml: contentHtml,
-				exports: {browseConfig: browseConfig},
+				exports: {appState: appState},
 			};
 
 			fnCallback(null, props);
@@ -10254,11 +10254,11 @@ function getPlaces(query, fnCallback, results) {
 		fnCallback
 	);
 }
-},{"../../../lib/citygrid":2,"../../../lib/geo":5,"../../../lib/globalRequire":6,"../../../lib/util":9,"../errors":23,"url":15}],22:[function(require,module,exports){
+},{"../../../lib/citygrid":2,"../../../lib/geo":5,"../../../lib/globalRequire":6,"../../../lib/util":9,"../errors":23,"lodash":16,"url":15}],22:[function(require,module,exports){
 'use strict';
 
 var globalRequire = require('../../../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 var async = globalRequire('async');
 
 var libGeo = require('../../../lib/geo');
@@ -10332,11 +10332,10 @@ function getCities(stateSlug, fnCallback) {
 		fnCallback(err, results);
 	});
 }
-},{"../../../lib/citygrid":2,"../../../lib/geo":5,"../../../lib/globalRequire":6,"../../../lib/util":9,"../errors":23}],23:[function(require,module,exports){
+},{"../../../lib/citygrid":2,"../../../lib/geo":5,"../../../lib/globalRequire":6,"../../../lib/util":9,"../errors":23,"lodash":16}],23:[function(require,module,exports){
 'use strict';
 var globalRequire = require('../../../lib/globalRequire');
-var _ = globalRequire('lodash');
-var jade = globalRequire('jade');
+var _ = require('lodash');
 
 
 var errorMappings = {
@@ -10408,10 +10407,10 @@ function notFound(requestProps, fnCallback) {
 
 	fnCallback(customProps);
 }
-},{"../../../lib/globalRequire":6}],24:[function(require,module,exports){
+},{"../../../lib/globalRequire":6,"lodash":16}],24:[function(require,module,exports){
 'use strict';
 var globalRequire = require('../../lib/globalRequire');
-var _ = globalRequire('lodash');
+var _ = require('lodash');
 
 var libGeo = require('../../lib/geo');
 var libUtil = require('../../lib/util');
@@ -10463,7 +10462,7 @@ function getStates(fnCallback) {
 		fnCallback(null, states);
 	});
 }
-},{"../../lib/geo":5,"../../lib/globalRequire":6,"../../lib/util":9}],25:[function(require,module,exports){
+},{"../../lib/geo":5,"../../lib/globalRequire":6,"../../lib/util":9,"lodash":16}],25:[function(require,module,exports){
 var _ = require('lodash');
 module.exports = function(obj) {
 obj || (obj = {});
@@ -10503,7 +10502,7 @@ with (obj) {
 
  for(var ixPage=1; ixPage <= props.numPages; ixPage++) { ;
 __p += '<li class="' +
-((__t = ( (ixPage === browseConfig.page) ? 'active' : '' )) == null ? '' : __t) +
+((__t = ( (ixPage === appState.page) ? 'active' : '' )) == null ? '' : __t) +
 '"><a data-page="' +
 ((__t = ( ixPage )) == null ? '' : __t) +
 '">' +
@@ -10586,9 +10585,9 @@ __p +=
 		}) )) == null ? '' : __t);
  } else { ;
 __p += '<div class="alert alert-warning"><h1>No Results</h1><p>Try a bigger search radius, or check somewhere else in <a class=alert-link href="' +
-((__t = ( props.browseConfig.city.state.getLink() )) == null ? '' : __t) +
+((__t = ( props.appState.city.state.getLink() )) == null ? '' : __t) +
 '">' +
-((__t = ( props.browseConfig.city.state.name )) == null ? '' : __t) +
+((__t = ( props.appState.city.state.name )) == null ? '' : __t) +
 '</a></p></div>';
  } ;
 __p += '</div>';
@@ -10742,27 +10741,27 @@ __p += '<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>' +
 ((__t = ( props.meta.title )) == null ? '' : __t) +
 '</title><meta name=description itemprop=description content="' +
 ((__t = ( props.meta.description )) == null ? '' : __t) +
-'"><meta name=viewport content="width=device-width,initial-scale=1"><meta itemprop=isFamilyFriendly content=true><meta itemprop=inLanguage content=en-US><link rel=apple-touch-icon href=/img/car.png><link rel="shortcut icon" href=/img/car.png itemprop=image><link rel=stylesheet href=http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css><link rel=stylesheet href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Raleway:400,700|Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Source+Sans+Pro:400,700">';
- if(props.isProd) { ;
-__p += '<link rel=stylesheet href=/dist/css/app.min.css>';
- } else { ;
-__p += '<link rel=stylesheet href=/dist/css/app.css>';
- } ;
-__p += '</head><body><nav class="navbar navbar-default"><div class=navbar-header><a href="/" class=navbar-brand><img src=/img/car.white.32.png>Local Mechanics</a></div></nav><div id=loading class="navbar navbar-default hidden"><div class=progress><div class="progress-bar progress-bar-striped active"></div></div></div><div id=content class=container>' +
+'"><meta name=viewport content="width=device-width,initial-scale=1"><meta itemprop=isFamilyFriendly content=true><meta itemprop=inLanguage content=en-US><link rel=apple-touch-icon href=/img/car.png><link rel="shortcut icon" href=/img/car.png itemprop=image><link rel=stylesheet href=http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.css><link rel=stylesheet href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Raleway:400,700|Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic|Source+Sans+Pro:400,700"><link rel=stylesheet href="/dist/css/app' +
+((__t = ( (props.isProd) ? '.min': '' )) == null ? '' : __t) +
+'.css">' +
+((__t = ( props.appendToHead && _.isArray(props.appendToHead) && _.map(props.appendToHead, function(output){
+		return output;
+	}) )) == null ? '' : __t) +
+'</head><body><nav class="navbar navbar-default"><div class=navbar-header><a href="/" class=navbar-brand><img src=/img/car.white.32.png>Local Mechanics</a></div></nav><div id=loading class="navbar navbar-default hidden"><div class=progress><div class="progress-bar progress-bar-striped active"></div></div></div><div id=content class=container>' +
 ((__t = ( props.contentHtml )) == null ? '' : __t) +
-'</div><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script>';
- if(props.isProd) { ;
-__p += '<script src=/dist/js/client.min.js></script>';
- } else { ;
-__p += '<script src=/dist/js/client.js></script>';
- } ;
-
+'</div><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script><script src="/dist/js/client' +
+((__t = ( (props.isProd) ? '.min': '' )) == null ? '' : __t) +
+'.js"></script>';
  if (props.exports){ ;
 __p += '<script>_.assign(window, ' +
 ((__t = ( JSON.stringify(props.exports) )) == null ? '' : __t) +
 ');</script>';
  } ;
-__p += '</body></html>';
+__p +=
+((__t = ( props.appendToBody && _.isArray(props.appendToBody) && _.map(props.appendToBody, function(output){
+		return output;
+	}) )) == null ? '' : __t) +
+'</body></html>';
 
 }
 return __p

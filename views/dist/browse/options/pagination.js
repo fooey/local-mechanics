@@ -7,7 +7,7 @@ with (obj) {
 
  for(var ixPage=1; ixPage <= props.numPages; ixPage++) { ;
 __p += '<li class="' +
-((__t = ( (ixPage === browseConfig.page) ? 'active' : '' )) == null ? '' : __t) +
+((__t = ( (ixPage === appState.page) ? 'active' : '' )) == null ? '' : __t) +
 '"><a data-page="' +
 ((__t = ( ixPage )) == null ? '' : __t) +
 '">' +

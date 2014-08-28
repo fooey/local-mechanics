@@ -1,7 +1,6 @@
 'use strict';
 var globalRequire = require('../../../lib/globalRequire');
-var _ = globalRequire('lodash');
-var jade = globalRequire('jade');
+var _ = require('lodash');
 
 
 var errorMappings = {
