@@ -45,14 +45,13 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jade/1.3.1/runtime.min.js"></script>
 
 		<% if(props.isProd) { %>
 			<script src="/dist/js/client.min.js"></script>
 		<% } else { %>
 			<script src="/dist/js/client.js"></script>
 		<% } %>
-		
+
 		<% if (props.exports){ %>
 			<script>_.assign(window, <%= JSON.stringify(props.exports) %>);</script>
 		<% } %>

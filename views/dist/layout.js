@@ -16,7 +16,7 @@ __p += '<link rel=stylesheet href=/dist/css/app.css>';
  } ;
 __p += '</head><body><nav class="navbar navbar-default"><div class=navbar-header><a href="/" class=navbar-brand><img src=/img/car.white.32.png>Local Mechanics</a></div></nav><div id=loading class="navbar navbar-default hidden"><div class=progress><div class="progress-bar progress-bar-striped active"></div></div></div><div id=content class=container>' +
 ((__t = ( props.contentHtml )) == null ? '' : __t) +
-'</div><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jade/1.3.1/runtime.min.js></script>';
+'</div><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script>';
  if(props.isProd) { ;
 __p += '<script src=/dist/js/client.min.js></script>';
  } else { ;
