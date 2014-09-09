@@ -10,5 +10,6 @@ module.exports = {
   '/errors/generic': require('./errors/generic'),
   '/fragments/geo-list': require('./fragments/geo-list'),
   '/fragments/states': require('./fragments/states'),
+  '/util/pager': require('./util/pager'),
   '/browse/options/pagination': require('./browse/options/pagination')
 };

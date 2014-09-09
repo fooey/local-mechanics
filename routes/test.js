@@ -1,7 +1,7 @@
 'use strict';
 var view = 'home';
 
-var globalRequire = require('../lib/globalRequire');
+//var /*global*/require = require('../lib//*global*/require');
 var _ = require('lodash');
 
 var libGeo = require('../lib/geo');

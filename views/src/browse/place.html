@@ -10,11 +10,20 @@
 			<div class="col-sm-12">
 				<address>
 					<div><%= props.place.address.street %></div>
-					<div>
-						<a href="<%= props.place.geo.city.getLink() %>"><%= props.place.geo.city.name %></a>,
-						<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.abbr %></a>
-						<span><%= props.place.geo.zip %></span>
-					</div>
+
+					<% if(props.place.geo) { %>
+						<div>
+							<a href="<%= props.place.geo.city.getLink() %>"><%= props.place.geo.city.name %></a>, 
+							<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.abbr %></a> 
+							<span><%= props.place.geo.zip %></span>
+						</div>
+					 <% } else { %>
+						<div>
+							<span><%= props.place.address.city %>, </span>
+							<span><%= props.place.address.state %> </span>
+							<span><%= props.place.address.postal_code %></span>
+						</div>
+					 <% } %>
 				</address>
 				<% if (props.place.has_offers) { %>
 					<div><span class="label label-danger">Special Offers Available!</span>.</div>

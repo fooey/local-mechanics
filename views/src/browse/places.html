@@ -2,8 +2,8 @@
 	<% if (props.places.length) { %>
 
 		<%= _.map(props.places, function(place){
-			return props.renderPlace({place: place})
-		}) %>
+			return props.renderPlace({place: place});
+		}).join('') %>
 
 	<% } else { %>
 		<div class="alert alert-warning">

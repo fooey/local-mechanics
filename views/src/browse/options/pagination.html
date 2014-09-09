@@ -1,5 +1,49 @@
-<% for(var ixPage=1; ixPage <= props.numPages; ixPage++) { %>
-	<li class="<%= (ixPage === appState.page) ? 'active' : '' %>">
-		<a data-page="<%= ixPage %>"><%= ixPage %></a>
-	</li>
-<% } %>
+<%
+	var firstPage = 1;
+	var prevPage = Math.max(1, appState.page - 1);
+	var nextPage = Math.min(appState.numPages, appState.page + 1);
+	var lastPage = appState.numPages;
+%>
+
+<div class="btn-group text-center">
+	<div class="btn-group">
+		<a class="btn btn-sm <%= (firstPage === appState.page) ? 'disabled' : '' %>" 
+			data-page="<%= firstPage %>" 
+			title="First Page">
+			<i class="fa fa-angle-double-left"></i>
+		</a>
+	</div>
+	<div class="btn-group">
+		<a class="btn btn-sm <%= (prevPage === appState.page) ? 'disabled' : '' %>" 
+			data-page="<%= prevPage %>" 
+			title="Previous Page (<%= prevPage %>)">
+			<i class="fa fa-angle-left"></i>
+		</a>
+	</div>
+	<!-- <div class="btn-group">
+		<button type="button" class="btn btn-sm dropdown-toggle"  data-toggle="dropdown"> 
+			Page <%= appState.page %>/<%= appState.numPages %><span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<% for(var ixPage=1; ixPage <= appState.numPages; ixPage++) { %>
+				<li class="<%= (ixPage === appState.page) ? 'active' : '' %>">
+					<a data-page="<%= ixPage %>"><%= ixPage %></a>
+				</li>
+			<% } %>
+		</ul>
+	</div> -->
+	<div class="btn-group">
+		<a class="btn btn-sm <%= (nextPage === appState.page) ? 'disabled' : '' %>" 
+			data-page="<%= nextPage %>"
+			title="Next Page (<%= nextPage %>)">
+			<i class="fa fa-angle-right"></i>
+		</a>
+	</div>
+	<div class="btn-group">
+		<a class="btn btn-sm <%= (lastPage === appState.page) ? 'disabled' : '' %>" 
+			data-page="<%= lastPage %>" 
+			title="Last Page (<%= lastPage %>)">
+			<i class="fa fa-angle-double-right"></i>
+		</a>
+	</div>
+</div>

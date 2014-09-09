@@ -1,8 +1,7 @@
 var _ = require('lodash');
 module.exports = function(obj) {
 obj || (obj = {});
-var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
-function print() { __p += __j.call(arguments, '') }
+var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>' +
 ((__t = ( props.meta.title )) == null ? '' : __t) +
@@ -16,15 +15,9 @@ __p += '<!DOCTYPE html><html lang=en><head><meta charset=utf-8><title>' +
 	}) )) == null ? '' : __t) +
 '</head><body><nav class="navbar navbar-default"><div class=navbar-header><a href="/" class=navbar-brand><img src=/img/car.white.32.png>Local Mechanics</a></div></nav><div id=loading class="navbar navbar-default hidden"><div class=progress><div class="progress-bar progress-bar-striped active"></div></div></div><div id=content class=container>' +
 ((__t = ( props.contentHtml )) == null ? '' : __t) +
-'</div><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script><script src="/dist/js/client' +
+'</div><script src=//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/velocity/0.11.9/jquery.velocity.min.js></script><script src=//cdn.rawgit.com/julianshapiro/velocity/master/velocity.ui.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/async/0.9.0/async.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/json2/20130526/json2.min.js></script><script src="/dist/js/client' +
 ((__t = ( (props.isProd) ? '.min': '' )) == null ? '' : __t) +
-'.js"></script>';
- if (props.exports){ ;
-__p += '<script>_.assign(window, ' +
-((__t = ( JSON.stringify(props.exports) )) == null ? '' : __t) +
-');</script>';
- } ;
-__p +=
+'.js"></script>' +
 ((__t = ( props.appendToBody && _.isArray(props.appendToBody) && _.map(props.appendToBody, function(output){
 		return output;
 	}) )) == null ? '' : __t) +

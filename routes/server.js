@@ -1,12 +1,12 @@
 'use strict';
 
 
-var globalRequire = require('../lib/globalRequire');
+//var /*global*/require = require('../lib//*global*/require');
 var _ = require('lodash');
 
 var sharedRoutes = require('./shared');
 
-var templates = require('../views/dist');
+var templates = require('../views/dist/index.js');
 var libTemplates = require('../lib/templates');
 
 
@@ -82,6 +82,7 @@ module.exports = function(app, express) {
 		var requestProps = {
 			query: req.query,
 			params: req.params,
+			originalUrl: req.originalUrl,
 		};
 
 		routeRenderer(

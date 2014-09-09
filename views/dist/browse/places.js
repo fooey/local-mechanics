@@ -8,8 +8,8 @@ __p += '<div id=places>';
  if (props.places.length) { ;
 __p +=
 ((__t = ( _.map(props.places, function(place){
-			return props.renderPlace({place: place})
-		}) )) == null ? '' : __t);
+			return props.renderPlace({place: place});
+		}).join('') )) == null ? '' : __t);
  } else { ;
 __p += '<div class="alert alert-warning"><h1>No Results</h1><p>Try a bigger search radius, or check somewhere else in <a class=alert-link href="' +
 ((__t = ( props.appState.city.state.getLink() )) == null ? '' : __t) +

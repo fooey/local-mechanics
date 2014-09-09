@@ -1,8 +1,8 @@
 'use strict';
 
-var globalRequire = require('../../../lib/globalRequire');
+//var /*global*/require = require('../../../lib//*global*/require');
 var _ = require('lodash');
-var async = globalRequire('async');
+var async = /*global*/require('async');
 
 var libGeo = require('../../../lib/geo');
 var libCG = require('../../../lib/citygrid');

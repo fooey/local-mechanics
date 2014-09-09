@@ -1,8 +1,8 @@
 'use strict';
 
-var globalRequire = require('../../../lib/globalRequire');
+//var /*global*/require = require('../../../lib//*global*/require');
 var _ = require('lodash');
-var async = globalRequire('async');
+var async = /*global*/require('async');
 
 var libGeo = require('../../../lib/geo');
 var libCG = require('../../../lib/citygrid');
@@ -38,6 +38,8 @@ module.exports = function(render, requestProps, fnCallback){
 			var metaTitle = pageTitle;
 			var metaDescription = description;
 
+			console.log('originalUrl', requestProps.originalUrl);
+
 			var appState = {
 				city: city,
 
@@ -49,9 +51,9 @@ module.exports = function(render, requestProps, fnCallback){
 				has_offers: false,
 
 				totalHits: results.places.total_hits,
+				numPages: Math.ceil(results.places.total_hits / 20),
 				baseLink: city.getLink(),
-				callId: results.places.call_id,
-				urlLib: require('url'),
+				callId: results.places.call_id
 			};
 
 
@@ -61,7 +63,8 @@ module.exports = function(render, requestProps, fnCallback){
 			});
 
 			var optionsHtml = render('/browse/options', {
-				renderPagination: render('/util/pagination'),
+				appState: appState,
+				render: render,
 			});
 
 
@@ -80,7 +83,8 @@ module.exports = function(render, requestProps, fnCallback){
 					description: metaDescription,
 				},
 				contentHtml: contentHtml,
-				exports: {appState: appState},
+				appendToHead: ['<link rel="canonical" href="' + city.getLink() + '" />'],
+				// appState: appState,
 			};
 
 			fnCallback(null, props);

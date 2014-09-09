@@ -14,7 +14,9 @@ __p += '<div class=place><h2><a href="' +
 ((__t = ( props.place.name )) == null ? '' : __t) +
 '</a></h2><div class=row><div class=col-sm-12><address><div>' +
 ((__t = ( props.place.address.street )) == null ? '' : __t) +
-'</div><div><a href="' +
+'</div>';
+ if(props.place.geo) { ;
+__p += '<div><a href="' +
 ((__t = ( props.place.geo.city.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( props.place.geo.city.name )) == null ? '' : __t) +
@@ -24,7 +26,17 @@ __p += '<div class=place><h2><a href="' +
 ((__t = ( props.place.geo.state.abbr )) == null ? '' : __t) +
 '</a> <span>' +
 ((__t = ( props.place.geo.zip )) == null ? '' : __t) +
-'</span></div></address>';
+'</span></div>';
+ } else { ;
+__p += '<div><span>' +
+((__t = ( props.place.address.city )) == null ? '' : __t) +
+',</span> <span>' +
+((__t = ( props.place.address.state )) == null ? '' : __t) +
+'</span> <span>' +
+((__t = ( props.place.address.postal_code )) == null ? '' : __t) +
+'</span></div>';
+ } ;
+__p += '</address>';
  if (props.place.has_offers) { ;
 __p += '<div><span class="label label-danger">Special Offers Available!</span>.</div>';
  } ;

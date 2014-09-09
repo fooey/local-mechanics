@@ -1,10 +1,5 @@
 'use strict';
 
-// var globalRequire = require('./lib/globalRequire');
-// var $ = globalRequire('jquery');
-
-
-
 
 $(function() {
 	'use strict';
@@ -23,33 +18,20 @@ $(function() {
 
 
 
-
 	/*
 	*	Behaviors
 	*/
+
+
+	var responsiveTabs = require('./lib/client/responsiveTabs.js');
+	
 	
 	$(window)
-		.on('hashchange', function(){console.log('on hashchange')})
-		.on('hashchange', require('./lib/client/responsiveTabs.js'))
-		.on('hashchange', require('./lib/client/cityBrowser.js'))
+		.on('hashchange', function(){console.log('window::hashchange')})
+		.on('hashchange', responsiveTabs)
 		.trigger('hashchange');
-
-
 
 
 
 	console.log('App Ready');
 });
-
-
-
-// function pushAds() {
-// 	$.each($('.adsbygoogle'), function() {
-// 		if (adsEnabled) {
-// 			(adsbygoogle = window.adsbygoogle || []).push({});
-// 		}
-// 		else {
-// 			$(this).addClass('placeholder');
-// 		}
-// 	});
-// }

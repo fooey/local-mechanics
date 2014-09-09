@@ -4,9 +4,9 @@ var qs = require('querystring');
 var page = require('page');
 
 
-var globalRequire = require('../lib/globalRequire');
+//var /*global*/require = require('../lib//*global*/require');
 var _ = require('lodash');
-var $ = globalRequire('jQuery');
+var $ = /*global*/require('jquery');
 
 /*
 *	Templates
@@ -18,7 +18,7 @@ var libTemplates = require('../lib/templates');
 var templateRenderer = libTemplates(templates);
 
 
-var transitionTime = 300;
+var transitionTime = 600;
 
 
 module.exports = function(rootNode, prerendered) {
@@ -54,16 +54,17 @@ function attachRoute(rootNode, route) {
 			? $('.contentWrapper')
 			: $('#content').wrap('<div class="contentWrapper"></div>').closest('.contentWrapper');
 
-		$('#loading').stop().fadeIn(transitionTime/2);
+		$('#loading').velocity('stop').velocity('transition.fadeIn', {duration: transitionTime/2});
 
 		// provide immediate user feedback via fadeout
-		$oldContent.fadeOut(transitionTime, function(){
+		$oldContent.velocity('transition.fadeOut', {duration: transitionTime, complete: function(){
 			$(this).remove()
-		});
+		}});
 
 		var requestProps = {
 			query: qs.parse(context.querystring),
 			params: context.params,
+			originalUrl: context.canonicalPath,
 		};
 
 
@@ -81,12 +82,12 @@ function attachRoute(rootNode, route) {
 			var fadeInTime = Math.max(transitionRemaining, transitionTime / 2);
 
 
-			$('#loading').stop().fadeOut(fadeInTime);
+			$('#loading').velocity('stop').velocity('transition.fadeOut', {duration: fadeInTime});
 
 			window.scrollTo(0, 0);
 			$newContent
 				.appendTo('body')
-				.fadeIn(fadeInTime);
+				.velocity('transition.fadeIn', {duration: fadeInTime});
 
 
 			if (results.exports) {

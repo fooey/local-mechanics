@@ -6,5 +6,9 @@
 	<ul class="sorts list-inline"></ul>
 	<ul class="radius list-inline"></ul>
 	<ul class="rpp list-inline"></ul>
-	<ul class="paging pagination"></ul>
+	<ul class="pager"></ul>
+
+	<%= props.render('/util/pager', props) %>
+
+	<pre><%- JSON.stringify(props, null, '\t') %></pre>
 </div>

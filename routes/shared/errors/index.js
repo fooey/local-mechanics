@@ -1,5 +1,5 @@
 'use strict';
-var globalRequire = require('../../../lib/globalRequire');
+//var /*global*/require = require('../../../lib//*global*/require');
 var _ = require('lodash');
 
 
