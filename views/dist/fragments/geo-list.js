@@ -6,11 +6,13 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  var alpha = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'.split(',') ;
-__p += '<div class=row><div class=col-lg-24><ul class="nav nav-tabs responsive-col-tabs"><li class=active><a>All</a></li>';
+__p += '<div class=row><div class=col-lg-24><ul class="nav nav-tabs responsive-col-tabs"><li class=active><a data-initial=All>All</a></li>';
  _.each(alpha, function(letter){ ;
 __p += '<li class="tab-' +
 ((__t = ( letter )) == null ? '' : __t) +
-'"><a>' +
+'"><a data-initial="' +
+((__t = ( letter )) == null ? '' : __t) +
+'">' +
 ((__t = ( letter )) == null ? '' : __t) +
 '</a></li>';
  }) ;
