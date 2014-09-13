@@ -68,7 +68,7 @@ __p += ' <div class=responsive-pagination> <ul class=pagination> <li class="' +
 ((__t = ( (props.page <= 1) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a href="' +
 ((__t = ( getLink(Math.max(1, props.page - 1)) )) == null ? '' : __t) +
-'"> <i class="fa fa-angle-left"></i> </a> </li> ';
+'" rel=nofollow> <i class="fa fa-angle-left"></i> </a> </li> ';
  for(var ixPage = 1; ixPage <= props.numPages; ixPage++) { ;
 __p += ' ';
  var gap = getGap(ixPage) ;
@@ -82,7 +82,7 @@ __p += ' <li class="' +
 ((__t = ( getClass(ixPage, gap) )) == null ? '' : __t) +
 '"> <a href="' +
 ((__t = ( getLink(ixPage) )) == null ? '' : __t) +
-'">' +
+'" rel=nofollow>' +
 ((__t = ( ixPage )) == null ? '' : __t) +
 '</a> </li> ';
  if (props.numPages > 3 && ixPage === props.numPages - 1) { ;
@@ -96,7 +96,7 @@ __p += ' <li class="' +
 ((__t = ( (props.page >= props.numPages) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a href="' +
 ((__t = ( getLink(Math.min(props.numPages, props.page + 1)) )) == null ? '' : __t) +
-'"> <i class="fa fa-angle-right"></i> </a> </li> </ul> </div>';
+'" rel=nofollow> <i class="fa fa-angle-right"></i> </a> </li> </ul> </div>';
 
 }
 return __p

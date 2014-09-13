@@ -25,9 +25,12 @@
 	<div class="btn-group btn-group-justified">
 		<% _.each(sorts, function(sort) { %>
 			<div class="btn-group">
-				<a class="btn btn-sm btn-info <%= (props.sort === sort.key) ? 'active' : '' %>"
+				<a 
+					class="btn btn-sm btn-info <%= (props.sort === sort.key) ? 'active' : '' %>"
 					title="<%= sort.label %>"
-					href="<%= getLink(sort.key) %>">
+					href="<%= getLink(sort.key) %>"
+					rel="nofollow"
+				>
 					<i class="fa fa-<%= sort.icon %>"></i>
 				</a>
 			</div>

@@ -23,7 +23,7 @@ __p += ' <div class=btn-group> <a href="' +
 ((__t = ( getLink(rpp) )) == null ? '' : __t) +
 '" class="btn btn-sm btn-info ' +
 ((__t = ( (props.rpp === rpp) ? 'active' : '' )) == null ? '' : __t) +
-'"> ' +
+'" rel=nofollow> ' +
 ((__t = ( rpp )) == null ? '' : __t) +
 ' </a> </div> ';
  }) ;

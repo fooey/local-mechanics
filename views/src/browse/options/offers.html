@@ -14,19 +14,21 @@
 	<h5>Special Offers:  <%= !!props.has_offers %></h5>
 	<div class="btn-group btn-group-justified">
 		<div class="btn-group">
-			<a	class="btn btn-sm btn-<%= (props.has_offers) ? 'info' : 'default' %>"
-				href="<%= getLink(1) %>">
-
+			<a	
+				class="btn btn-sm btn-<%= (props.has_offers) ? 'info' : 'default' %>"
+				href="<%= getLink(1) %>"
+				rel="nofollow"
+			>
 				On
-
 			</a>
 		</div>
 		<div class="btn-group">
-			<a	class="btn btn-sm btn-<%= (!props.has_offers) ? 'danger' : 'default' %>"
-				href="<%= getLink(0) %>">
-
+			<a	
+				class="btn btn-sm btn-<%= (!props.has_offers) ? 'danger' : 'default' %>"
+				href="<%= getLink(0) %>"
+				rel="nofollow"
+			>
 				Off
-
 			</a>
 		</div>
 	</div>

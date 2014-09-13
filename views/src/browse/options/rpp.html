@@ -14,7 +14,11 @@
 	<div class="btn-group btn-group-justified">
 		<% _.each(rppOptions, function(rpp){ %>
 			<div class="btn-group">
-				<a href="<%= getLink(rpp) %>" class="btn btn-sm btn-info <%= (props.rpp === rpp) ? 'active' : '' %>">
+				<a 
+					href="<%= getLink(rpp) %>" 
+					class="btn btn-sm btn-info <%= (props.rpp === rpp) ? 'active' : '' %>"
+					rel="nofollow"
+				>
 					<%= rpp %>
 				</a>
 			</div>

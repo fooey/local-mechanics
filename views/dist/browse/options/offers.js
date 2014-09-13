@@ -21,11 +21,11 @@ __p += ' <div class=option-group> <h5>Special Offers: ' +
 ((__t = ( (props.has_offers) ? 'info' : 'default' )) == null ? '' : __t) +
 '" href="' +
 ((__t = ( getLink(1) )) == null ? '' : __t) +
-'"> On </a> </div> <div class=btn-group> <a class="btn btn-sm btn-' +
+'" rel=nofollow> On </a> </div> <div class=btn-group> <a class="btn btn-sm btn-' +
 ((__t = ( (!props.has_offers) ? 'danger' : 'default' )) == null ? '' : __t) +
 '" href="' +
 ((__t = ( getLink(0) )) == null ? '' : __t) +
-'"> Off </a> </div> </div> </div>';
+'" rel=nofollow> Off </a> </div> </div> </div>';
 
 }
 return __p

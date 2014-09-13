@@ -23,7 +23,7 @@ __p += ' <div class=btn-group> <a href="' +
 ((__t = ( getLink(radius) )) == null ? '' : __t) +
 '" class="btn btn-sm btn-info ' +
 ((__t = ( (props.radius === radius) ? 'active' : '' )) == null ? '' : __t) +
-'"> ' +
+'" rel=nofollow> ' +
 ((__t = ( radius )) == null ? '' : __t) +
 ' </a> </div> ';
  }) ;

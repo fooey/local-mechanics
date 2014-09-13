@@ -32,7 +32,7 @@ __p += ' <div class=btn-group> <a class="btn btn-sm btn-info ' +
 ((__t = ( sort.label )) == null ? '' : __t) +
 '" href="' +
 ((__t = ( getLink(sort.key) )) == null ? '' : __t) +
-'"> <i class="fa fa-' +
+'" rel=nofollow> <i class="fa fa-' +
 ((__t = ( sort.icon )) == null ? '' : __t) +
 '"></i> </a> </div> ';
  }) ;

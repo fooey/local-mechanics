@@ -14,7 +14,11 @@
 	<div class="btn-group btn-group-justified">
 		<% _.each(radii, function(radius){ %>
 			<div class="btn-group">
-				<a href="<%= getLink(radius) %>" class="btn btn-sm btn-info <%= (props.radius === radius) ? 'active' : '' %>">
+				<a 
+					href="<%= getLink(radius) %>" 
+					class="btn btn-sm btn-info <%= (props.radius === radius) ? 'active' : '' %>"
+					rel="nofollow"
+				>
 					<%= radius %>
 				</a>
 			</div>

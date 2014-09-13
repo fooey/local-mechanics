@@ -25,25 +25,25 @@ __p += ' <ul class=pager> <li class="previous ' +
 ((__t = ( firstPage )) == null ? '' : __t) +
 '" title="First Page" href="' +
 ((__t = ( getLink(firstPage) )) == null ? '' : __t) +
-'"> <i class="fa fa-angle-double-left"></i> </a> </li> <li class="previous ' +
+'" rel=nofollow> <i class="fa fa-angle-double-left"></i> </a> </li> <li class="previous ' +
 ((__t = ( (prevPage == props.page) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a data-page="' +
 ((__t = ( prevPage )) == null ? '' : __t) +
 '" title="Previous Page" href="' +
 ((__t = ( getLink(prevPage) )) == null ? '' : __t) +
-'"> <i class="fa fa-angle-left"></i> Prev </a> </li> <li class="next ' +
+'" rel=nofollow> <i class="fa fa-angle-left"></i> Prev </a> </li> <li class="next ' +
 ((__t = ( (lastPage == props.page) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a data-page="' +
 ((__t = ( lastPage )) == null ? '' : __t) +
 '" title="Last Page" href="' +
 ((__t = ( getLink(lastPage) )) == null ? '' : __t) +
-'"> <i class="fa fa-angle-double-right"></i> </a> </li> <li class="next ' +
+'" rel=nofollow> <i class="fa fa-angle-double-right"></i> </a> </li> <li class="next ' +
 ((__t = ( (nextPage == props.page) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a data-page="' +
 ((__t = ( nextPage )) == null ? '' : __t) +
 '" title="Next Page" href="' +
 ((__t = ( getLink(nextPage) )) == null ? '' : __t) +
-'"> Next <i class="fa fa-angle-right"></i> </a> </li> </ul>';
+'" rel=nofollow> Next <i class="fa fa-angle-right"></i> </a> </li> </ul>';
 
 }
 return __p
