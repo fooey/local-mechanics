@@ -1,49 +1,93 @@
 <%
-	var firstPage = 1;
-	var prevPage = Math.max(1, appState.page - 1);
-	var nextPage = Math.min(appState.numPages, appState.page + 1);
-	var lastPage = appState.numPages;
+	var breakpoints = [
+		{size: 'xs', gap: 1},
+		{size: 'sm', gap: 2},
+		{size: 'md', gap: 5},
+		{size: 'lg', gap: 7},
+	];
+
+
+	var getLink = function(pageNum) {
+		return props.getLink({
+			call_id: props.call_id,
+			page: pageNum,
+		});
+	};
+
+	var getGap = function(pageNum) {
+		return Math.abs(pageNum - props.page);
+	}
+
+	var getClass = function(pageNum, gap) {
+		var className = [];
+
+		if (pageNum == props.page) {
+			className.push('active');
+		}
+
+		if (pageNum !== 1 && pageNum !== props.numPages && pageNum !== props.page) {
+
+			_.each(breakpoints, function(bp) {
+				if (gap <= bp.gap) {
+					className.push('visible-' + bp.size + '-inline');
+				}
+			});
+
+			if (className.length === 0) {
+				className.push('hide');
+			}
+		}
+		
+		return className.join(' ');
+	}
+
+	var getDividerClass = function(pageNum, gap) {
+		var className = [];
+
+		_.each(breakpoints, function(bp) {
+			if (gap > bp.gap) {
+				className.push('visible-' + bp.size + '-inline');
+			}
+		});
+
+		if (className.length === 0) {
+			className.push('hide');
+		}
+
+		return className.join(' ');
+	}
 %>
 
-<div class="btn-group text-center">
-	<div class="btn-group">
-		<a class="btn btn-sm <%= (firstPage === appState.page) ? 'disabled' : '' %>" 
-			data-page="<%= firstPage %>" 
-			title="First Page">
-			<i class="fa fa-angle-double-left"></i>
-		</a>
-	</div>
-	<div class="btn-group">
-		<a class="btn btn-sm <%= (prevPage === appState.page) ? 'disabled' : '' %>" 
-			data-page="<%= prevPage %>" 
-			title="Previous Page (<%= prevPage %>)">
-			<i class="fa fa-angle-left"></i>
-		</a>
-	</div>
-	<!-- <div class="btn-group">
-		<button type="button" class="btn btn-sm dropdown-toggle"  data-toggle="dropdown"> 
-			Page <%= appState.page %>/<%= appState.numPages %><span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<% for(var ixPage=1; ixPage <= appState.numPages; ixPage++) { %>
-				<li class="<%= (ixPage === appState.page) ? 'active' : '' %>">
-					<a data-page="<%= ixPage %>"><%= ixPage %></a>
-				</li>
+<div class="responsive-pagination">
+	<ul class="pagination">
+		<li class="<%= (props.page <= 1) ? 'disabled' : '' %>">
+			<a href="<%= getLink(Math.max(1, props.page - 1)) %>">
+				<i class="fa fa-angle-left"></i>
+			</a>
+		</li>
+
+		<% for(var ixPage = 1; ixPage <= props.numPages; ixPage++) { %>
+			<% var gap = getGap(ixPage) %>
+
+			<% if (ixPage === 2) { %> 
+				<li class="<%= getDividerClass(ixPage, gap) %>"><span>&hellip;</span></li>
 			<% } %>
-		</ul>
-	</div> -->
-	<div class="btn-group">
-		<a class="btn btn-sm <%= (nextPage === appState.page) ? 'disabled' : '' %>" 
-			data-page="<%= nextPage %>"
-			title="Next Page (<%= nextPage %>)">
-			<i class="fa fa-angle-right"></i>
-		</a>
-	</div>
-	<div class="btn-group">
-		<a class="btn btn-sm <%= (lastPage === appState.page) ? 'disabled' : '' %>" 
-			data-page="<%= lastPage %>" 
-			title="Last Page (<%= lastPage %>)">
-			<i class="fa fa-angle-double-right"></i>
-		</a>
-	</div>
+
+
+			<li class="<%= getClass(ixPage, gap) %>">
+				<a href="<%= getLink(ixPage) %>"><%= ixPage %></a>
+			</li>
+
+
+			<% if (props.numPages > 3 && ixPage === props.numPages - 1) { %> 
+				<li class="<%= getDividerClass(ixPage, gap) %>"><span>&hellip;</span></li>
+			<% } %>
+		<% } %>
+
+		<li class="<%= (props.page >= props.numPages) ? 'disabled' : '' %>">
+			<a href="<%= getLink(Math.min(props.numPages, props.page + 1)) %>">
+				<i class="fa fa-angle-right"></i>
+			</a>
+		</li>
+	</ul>
 </div>

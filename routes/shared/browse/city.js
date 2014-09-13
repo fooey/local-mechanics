@@ -1,8 +1,9 @@
 'use strict';
 
-//var /*global*/require = require('../../../lib//*global*/require');
+var url = require('url');
+
 var _ = require('lodash');
-var async = /*global*/require('async');
+var async = require('async');
 
 var libGeo = require('../../../lib/geo');
 var libCG = require('../../../lib/citygrid');
@@ -38,34 +39,29 @@ module.exports = function(render, requestProps, fnCallback){
 			var metaTitle = pageTitle;
 			var metaDescription = description;
 
-			console.log('originalUrl', requestProps.originalUrl);
 
-			var appState = {
-				city: city,
+			var urlObj = url.parse(requestProps.originalUrl, true);
 
-				first: null,
-				page: 1,
-				radius: 5,
-				rpp: 20,
-				sort: 'alpha',
-				has_offers: false,
+			var appState = _.defaults(requestProps.query, libCG.defaultBrowseOptions);
+			// console.log('params', requestProps.query);
+			// console.log('appState', appState);
+
+			var appState = _.defaults({
+				// city: city,
 
 				totalHits: results.places.total_hits,
-				numPages: Math.ceil(results.places.total_hits / 20),
-				baseLink: city.getLink(),
-				callId: results.places.call_id
-			};
+				numPages: Math.ceil(results.places.total_hits / appState.rpp),
+				// baseLink: city.getLink(),
+				call_id: results.places.call_id,
 
+				getLink: urlSetParams.bind(null, urlObj),
+			}, appState);
 
-			var placesHtml = render('/browse/places', {
-				places: places,
-				renderPlace: render('/browse/place'),
-			});
+			appState.page = _.parseInt(appState.page);
+			appState.rpp = _.parseInt(appState.rpp);
+			appState.radius = _.parseInt(appState.radius);
 
-			var optionsHtml = render('/browse/options', {
-				appState: appState,
-				render: render,
-			});
+			console.log('appState', appState);
 
 
 			var contentHtml = render('/browse/city', {
@@ -73,9 +69,21 @@ module.exports = function(render, requestProps, fnCallback){
 				description: description,
 
 				appState: appState,
-				placesHtml: placesHtml,
-				optionsHtml: optionsHtml,
+				places: places,
 			});
+
+			var appendToHead = ['<link rel="canonical" href="' + city.getLink() + '" />'];
+			if (requestProps.originalUrl !== city.getLink()) {
+				appendToHead.push('<meta name="robots" content="noindex" />');
+			}
+			if (appState.numPages > 1) {
+				if (appState.page > 1) {
+					appendToHead.push('<link rel="prev" href="' + urlSetParams(urlObj, {page: appState.page - 1}) + '" />');
+				}
+				if (appState.page < appState.numPages) {
+					appendToHead.push('<link rel="next" href="' + urlSetParams(urlObj, {page: appState.page + 1}) + '" />');
+				}
+			}
 
 			var props = {
 				meta: {
@@ -83,7 +91,7 @@ module.exports = function(render, requestProps, fnCallback){
 					description: metaDescription,
 				},
 				contentHtml: contentHtml,
-				appendToHead: ['<link rel="canonical" href="' + city.getLink() + '" />'],
+				appendToHead: appendToHead,
 				// appState: appState,
 			};
 
@@ -92,6 +100,33 @@ module.exports = function(render, requestProps, fnCallback){
 
 	});
 };
+
+
+function urlSetParams(urlObj, newParams) {
+	var paramDefaults = libCG.defaultBrowseOptions;
+
+	var newQuery = _.assign(_.cloneDeep(urlObj.query), newParams);
+
+	_.each(newQuery, function(val, key) {
+		var isBlank = (val == '' || val == null);
+		var isDefaultValue = (val == paramDefaults[key]);
+		var isInvalidParam = !_.has(paramDefaults, key);
+		// console.log(key, val, isBlank, isDefaultValue, isInvalidParam);
+
+		if (isBlank || isDefaultValue || isInvalidParam) {
+			delete newQuery[key];
+		}
+	});
+	
+	// console.log('urlSetParams:newParams', newParams);
+	// console.log('urlSetParams:newQuery', newQuery);
+
+	return url.format({
+		pathname: urlObj.pathname, 
+		query: newQuery
+	});
+}
+
 
 
 function getState(stateSlug, fnCallback) {

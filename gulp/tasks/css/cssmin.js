@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var cssmin = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
-// var livereload = require('gulp-livereload');
+var livereload = require('gulp-livereload');
 
 
 
@@ -18,7 +18,7 @@ gulp.task('cssmin', ['less'], function() {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(dest))
-		// .pipe(livereload())
+		.pipe(livereload())
 
 	
 	stream.on('error', function (err) {

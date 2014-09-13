@@ -13,23 +13,23 @@ with (obj) {
 
 	var pos = 0;
 ;
-__p += '<div class=stateCols><div class=row>';
+__p += ' <div class=stateCols> <div class=row> ';
  while (pos < numStatess) { ;
-
+__p += ' ';
  var colStates = props.states.slice(pos, pos += perCol); ;
-__p += '<div class="' +
+__p += ' <div class="' +
 ((__t = ( colStates.join(' ') )) == null ? '' : __t) +
-'"><ul class="nav nav-list">';
+'"> <ul class="nav nav-list"> ';
  _.each(colStates, function(state){ ;
-__p += '<li><a href="' +
+__p += ' <li> <a href="' +
 ((__t = ( state.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( state.name )) == null ? '' : __t) +
-'</a></li>';
+'</a> </li> ';
  }) ;
-__p += '</ul></div>';
+__p += ' </ul> </div> ';
  } ;
-__p += '</div></div>';
+__p += ' </div> </div>';
 
 }
 return __p

@@ -16,8 +16,10 @@
     "express": "~4.8.5",
     "lodash": "~2.4.1",
     "lru-cache": "~2.5.0",
+    "moment": "^2.8.3",
     "morgan": "~1.2.3",
     "node-dir": "~0.1.5",
+    "numeral": "^1.5.3",
     "request": "^2.39.0"
   },
   "devDependencies": {
@@ -50,11 +52,15 @@
     "underscore": "^1.7.0"
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
-    "async": "global:async",
     "jquery": "global:$",
-    "lodash": "global:_"
+    "lodash": "global:_",
+    "async": "global:async",
+    "numeral": "global:numeral",
+    "moment": "global:moment"
   }
 }

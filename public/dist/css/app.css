@@ -7244,5 +7244,22 @@ ul.responsive-cols li {
 #browse #options a {
   cursor: pointer;
 }
+#browse #options .meta {
+  margin-bottom: 1em;
+}
+#browse #options .option-group + .option-group {
+  margin-top: 1em;
+}
+#browse #options .option-group h5 {
+  font-size: 12pt;
+  margin: 0 0 .5em;
+}
+#browse .top-pagination ul.pagination {
+  margin-top: 0;
+}
+ul.pagination li > * {
+  font-size: 10pt;
+  padding: .4em .6em;
+}
 
 /*# sourceMappingURL=app.css.map */

@@ -30,4 +30,31 @@
 	a {
 		cursor: pointer;
 	}
+
+	.meta {
+		margin-bottom: 1em;
+	}
+
+	.option-group {
+		& + .option-group {
+			margin-top: 1em;
+		}
+		h5 {
+			font-size: 12pt;
+			margin: 0 0 .5em;
+		}
+	}
+}
+
+
+
+ul.pagination {	
+	#browse .top-pagination & {
+		margin-top: 0;
+	}
+
+	li > * {
+		font-size: 10pt;
+		padding: .4em .6em;
+	}
 }

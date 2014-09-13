@@ -6,34 +6,97 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 
-	var firstPage = 1;
-	var prevPage = Math.max(1, appState.page - 1);
-	var nextPage = Math.min(appState.numPages, appState.page + 1);
-	var lastPage = appState.numPages;
+	var breakpoints = [
+		{size: 'xs', gap: 1},
+		{size: 'sm', gap: 2},
+		{size: 'md', gap: 5},
+		{size: 'lg', gap: 7},
+	];
+
+
+	var getLink = function(pageNum) {
+		return props.getLink({
+			call_id: props.call_id,
+			page: pageNum,
+		});
+	};
+
+	var getGap = function(pageNum) {
+		return Math.abs(pageNum - props.page);
+	}
+
+	var getClass = function(pageNum, gap) {
+		var className = [];
+
+		if (pageNum == props.page) {
+			className.push('active');
+		}
+
+		if (pageNum !== 1 && pageNum !== props.numPages && pageNum !== props.page) {
+
+			_.each(breakpoints, function(bp) {
+				if (gap <= bp.gap) {
+					className.push('visible-' + bp.size + '-inline');
+				}
+			});
+
+			if (className.length === 0) {
+				className.push('hide');
+			}
+		}
+		
+		return className.join(' ');
+	}
+
+	var getDividerClass = function(pageNum, gap) {
+		var className = [];
+
+		_.each(breakpoints, function(bp) {
+			if (gap > bp.gap) {
+				className.push('visible-' + bp.size + '-inline');
+			}
+		});
+
+		if (className.length === 0) {
+			className.push('hide');
+		}
+
+		return className.join(' ');
+	}
 ;
-__p += '<div class="btn-group text-center"><div class=btn-group><a class="btn btn-sm ' +
-((__t = ( (firstPage === appState.page) ? 'disabled' : '' )) == null ? '' : __t) +
-'" data-page="' +
-((__t = ( firstPage )) == null ? '' : __t) +
-'" title="First Page"><i class="fa fa-angle-double-left"></i></a></div><div class=btn-group><a class="btn btn-sm ' +
-((__t = ( (prevPage === appState.page) ? 'disabled' : '' )) == null ? '' : __t) +
-'" data-page="' +
-((__t = ( prevPage )) == null ? '' : __t) +
-'" title="Previous Page (' +
-((__t = ( prevPage )) == null ? '' : __t) +
-')"><i class="fa fa-angle-left"></i></a></div><div class=btn-group><a class="btn btn-sm ' +
-((__t = ( (nextPage === appState.page) ? 'disabled' : '' )) == null ? '' : __t) +
-'" data-page="' +
-((__t = ( nextPage )) == null ? '' : __t) +
-'" title="Next Page (' +
-((__t = ( nextPage )) == null ? '' : __t) +
-')"><i class="fa fa-angle-right"></i></a></div><div class=btn-group><a class="btn btn-sm ' +
-((__t = ( (lastPage === appState.page) ? 'disabled' : '' )) == null ? '' : __t) +
-'" data-page="' +
-((__t = ( lastPage )) == null ? '' : __t) +
-'" title="Last Page (' +
-((__t = ( lastPage )) == null ? '' : __t) +
-')"><i class="fa fa-angle-double-right"></i></a></div></div>';
+__p += ' <div class=responsive-pagination> <ul class=pagination> <li class="' +
+((__t = ( (props.page <= 1) ? 'disabled' : '' )) == null ? '' : __t) +
+'"> <a href="' +
+((__t = ( getLink(Math.max(1, props.page - 1)) )) == null ? '' : __t) +
+'"> <i class="fa fa-angle-left"></i> </a> </li> ';
+ for(var ixPage = 1; ixPage <= props.numPages; ixPage++) { ;
+__p += ' ';
+ var gap = getGap(ixPage) ;
+__p += ' ';
+ if (ixPage === 2) { ;
+__p += ' <li class="' +
+((__t = ( getDividerClass(ixPage, gap) )) == null ? '' : __t) +
+'"><span>&hellip;</span></li> ';
+ } ;
+__p += ' <li class="' +
+((__t = ( getClass(ixPage, gap) )) == null ? '' : __t) +
+'"> <a href="' +
+((__t = ( getLink(ixPage) )) == null ? '' : __t) +
+'">' +
+((__t = ( ixPage )) == null ? '' : __t) +
+'</a> </li> ';
+ if (props.numPages > 3 && ixPage === props.numPages - 1) { ;
+__p += ' <li class="' +
+((__t = ( getDividerClass(ixPage, gap) )) == null ? '' : __t) +
+'"><span>&hellip;</span></li> ';
+ } ;
+__p += ' ';
+ } ;
+__p += ' <li class="' +
+((__t = ( (props.page >= props.numPages) ? 'disabled' : '' )) == null ? '' : __t) +
+'"> <a href="' +
+((__t = ( getLink(Math.min(props.numPages, props.page + 1)) )) == null ? '' : __t) +
+'"> <i class="fa fa-angle-right"></i> </a> </li> </ul> </div>';
 
 }
 return __p

@@ -1,14 +1,45 @@
-<div id="options" class="well well-sm">
-	<h1>Options</h1>
+<% 
+	var numeral = require('numeral');
+ %>
 
-	<div class="meta"></div>
-	<ul class="offers list-inline"></ul>
+<div id="options" class="alert alert-success">
+
+	<h4 class="meta text-center">
+		<%- numeral(props.appState.totalHits).format('0,0') %> Results
+		&mdash;
+		Page <%- props.appState.page %> of <%- props.appState.numPages %>
+	</h4>
+	
+	<%= props.render('/browse/options/offers', {
+		has_offers: props.appState.has_offers,
+		getLink: props.appState.getLink,
+	}) %>
+	
+	<%= props.render('/browse/options/radius', {
+		radius: props.appState.radius,
+		getLink: props.appState.getLink,
+	}) %>
+	
+	<%= props.render('/browse/options/rpp', {
+		rpp: props.appState.rpp,
+		getLink: props.appState.getLink,
+	}) %>
+	
+	<%= props.render('/browse/options/sort', {
+		sort: props.appState.sort,
+		getLink: props.appState.getLink,
+	}) %>
+
 	<ul class="sorts list-inline"></ul>
 	<ul class="radius list-inline"></ul>
 	<ul class="rpp list-inline"></ul>
-	<ul class="pager"></ul>
 
-	<%= props.render('/util/pager', props) %>
+	<!-- <%= props.render('/browse/options/pager', {
+		page: props.appState.page,
+		numPages: props.appState.numPages,
+		call_id: props.appState.call_id,
+		getLink: props.appState.getLink,
+	}) %> -->
 
-	<pre><%- JSON.stringify(props, null, '\t') %></pre>
+	<!-- <pre><%- JSON.stringify(props, null, '\t') %></pre> -->
 </div>

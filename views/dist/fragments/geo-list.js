@@ -6,29 +6,29 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
  var alpha = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z'.split(',') ;
-__p += '<div class=row><div class=col-lg-24><ul class="nav nav-tabs responsive-col-tabs"><li class=active><a data-initial=All>All</a></li>';
+__p += ' <div class=row> <div class=col-lg-24> <ul class="nav nav-tabs responsive-col-tabs"> <li class="active all"> <a data-initial=All>All</a> </li> ';
  _.each(alpha, function(letter){ ;
-__p += '<li class="tab-' +
+__p += ' <li class="tab-' +
 ((__t = ( letter )) == null ? '' : __t) +
-'"><a data-initial="' +
+'"> <a data-initial="' +
 ((__t = ( letter )) == null ? '' : __t) +
 '">' +
 ((__t = ( letter )) == null ? '' : __t) +
-'</a></li>';
+'</a> </li> ';
  }) ;
-__p += '</ul></div></div><div class=row><div class=col-lg-24><ul class="list-unstyled geo-list responsive-cols">';
+__p += ' </ul> </div> </div> <div class=row> <div class=col-lg-24> <ul class="list-unstyled geo-list responsive-cols"> ';
  _.each(props.places, function(place){ ;
-__p += '<li class="list-' +
+__p += ' <li class="list-' +
 ((__t = ( place.name.charAt(0) )) == null ? '' : __t) +
 '" data-initial="' +
 ((__t = ( place.name.charAt(0) )) == null ? '' : __t) +
-'"><a href="' +
+'"> <a href="' +
 ((__t = ( place.getLink() )) == null ? '' : __t) +
 '">' +
 ((__t = ( place.name )) == null ? '' : __t) +
-'</a></li>';
+' </a></li> ';
  }) ;
-__p += '</ul></div></div>';
+__p += ' </ul> </div> </div>';
 
 }
 return __p

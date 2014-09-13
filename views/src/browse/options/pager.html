@@ -1,0 +1,53 @@
+<%
+	var getLink = function(pageNum) {
+		return props.getLink({
+			call_id: props.call_id,
+			page: pageNum,
+		});
+	};
+
+	var firstPage = 1;
+	var lastPage = props.numPages;
+
+	var prevPage = Math.max(firstPage, props.page - 1);
+	var nextPage = Math.min(lastPage, props.page + 1);
+%>
+
+<ul class="pager">
+	<li class="previous <%= (firstPage == props.page) ? 'disabled' : '' %>">
+		<a 
+			data-page="<%= firstPage %>" 
+			title="First Page"
+			href="<%= getLink(firstPage) %>"
+		>
+			<i class="fa fa-angle-double-left"></i>
+		</a>
+	</li>
+	<li class="previous <%= (prevPage == props.page) ? 'disabled' : '' %>">
+		<a 
+			data-page="<%= prevPage %>" 
+			title="Previous Page"
+			href="<%= getLink(prevPage) %>"
+		>
+			<i class="fa fa-angle-left"></i> Prev
+		</a>
+	</li>
+	<li class="next <%= (lastPage == props.page) ? 'disabled' : '' %>">
+		<a 
+			data-page="<%= lastPage %>" 
+			title="Last Page"
+			href="<%= getLink(lastPage) %>"
+		>
+			<i class="fa fa-angle-double-right"></i>
+		</a>
+	</li>
+	<li class="next <%= (nextPage == props.page) ? 'disabled' : '' %>">
+		<a 
+			data-page="<%= nextPage %>" 
+			title="Next Page"
+			href="<%= getLink(nextPage) %>"
+		>
+			Next <i class="fa fa-angle-right"></i>
+		</a>
+	</li>
+</ul>

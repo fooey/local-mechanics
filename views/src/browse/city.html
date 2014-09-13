@@ -9,11 +9,11 @@
 	</div></div>
 	
 	<div class="row">
-		<div class="col-sm-8">
-			<%= props.optionsHtml %>
+		<div class="col-sm-10 col-md-8 col-sm-push-14 col-md-push-16">
+			<%= props.render('/browse/options', {appState: props.appState}) %>
 		</div>
-		<div class="col-sm-16">
-			<%= props.placesHtml %>
+		<div class="col-sm-14 col-md-16 col-sm-pull-10 col-md-pull-8">
+			<%= props.render('/browse/places', {places: props.places, appState: props.appState}) %>
 		</div>
 	</div>
 </div>

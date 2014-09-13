@@ -1,0 +1,23 @@
+<%
+	var rppOptions = [5,10,15,20,25,30,40,50];
+
+	var getLink = function(rpp) {
+		return props.getLink({
+			rpp: rpp,
+			page: 1,
+		});
+	};
+%>
+
+<div class="option-group">
+	<h5>Results Per Page: <%= props.rpp %></h5>
+	<div class="btn-group btn-group-justified">
+		<% _.each(rppOptions, function(rpp){ %>
+			<div class="btn-group">
+				<a href="<%= getLink(rpp) %>" class="btn btn-sm btn-info <%= (props.rpp === rpp) ? 'active' : '' %>">
+					<%= rpp %>
+				</a>
+			</div>
+		<% }) %>
+	</div>
+</div>

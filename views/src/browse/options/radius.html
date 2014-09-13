@@ -1,0 +1,23 @@
+<%
+	var radii = [1, 5,10,15,20,25,30,40,50];
+
+	var getLink = function(radius) {
+		return props.getLink({
+			radius: radius,
+			page: 1,
+		});
+	};
+%>
+
+<div class="option-group">
+	<h5>Search Radius:  <%= props.radius %></h5>
+	<div class="btn-group btn-group-justified">
+		<% _.each(radii, function(radius){ %>
+			<div class="btn-group">
+				<a href="<%= getLink(radius) %>" class="btn btn-sm btn-info <%= (props.radius === radius) ? 'active' : '' %>">
+					<%= radius %>
+				</a>
+			</div>
+		<% }) %>
+	</div>
+</div>

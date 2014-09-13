@@ -18,7 +18,7 @@ gulp.task('templates', [/*'clean-templates'*/], function(cb) {
 			.pipe(htmlmin({
 				removeComments: true,
 				collapseWhitespace: true,
-				conservativeCollapse: false,
+				conservativeCollapse: true,
 				removeAttributeQuotes: true,
 				removeRedundantAttributes: true,
 				useShortDoctype: true,

@@ -1,0 +1,36 @@
+<%
+	var sorts = [
+		{key: 'alpha', label: 'Alphabetical', icon: 'font'},
+		{key: 'dist', label: 'Distance', icon: 'map-marker'},
+		{key: 'highestrated', label: 'Highest Rated', icon: 'star'},
+		{key: 'mostreviewed', label: 'Most Reviewed', icon: 'comments'},
+		{key: 'topmatches', label: 'Top Matches', icon: 'trophy'},
+		{key: 'offers', label: 'Offers', icon: 'dollar'},
+	];
+
+	var getLink = function(sort) {
+		return props.getLink({
+			sort: sort,
+			page: 1,
+		});
+	};
+%>
+
+
+<div class="option-group">
+	<h5>
+		Sorting:
+		<%= _.find(sorts, function(sort){return sort.key === props.sort}).label %>
+	</h5>
+	<div class="btn-group btn-group-justified">
+		<% _.each(sorts, function(sort) { %>
+			<div class="btn-group">
+				<a class="btn btn-sm btn-info <%= (props.sort === sort.key) ? 'active' : '' %>"
+					title="<%= sort.label %>"
+					href="<%= getLink(sort.key) %>">
+					<i class="fa fa-<%= sort.icon %>"></i>
+				</a>
+			</div>
+		<% }) %>
+	</div>
+</div>

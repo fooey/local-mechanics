@@ -2,9 +2,7 @@
 	<h2>Error!</h2>
 <% } else { %>
 	<div class="place">
-		<h2>
-			<a href="<%= props.place.getLink() %>"><%= props.place.name %></a>
-		</h2>
+		<h2><a href="<%= props.place.getLink() %>"><%= props.place.name %></a></h2>
 
 		<div class="row">
 			<div class="col-sm-12">
@@ -33,7 +31,7 @@
 						Primary Service: 
 						<ul class="list-inline">
 							<% _.each(_.filter(props.place.tags, function(tag){return tag.primary}), function(tag) { %>
-								<li> <%- tag.name %>
+								<li><%- tag.name %></li>
 							<% }) %>
 						</ul>
 					</div>
@@ -41,7 +39,7 @@
 						Additional Services: 
 						<ul class="list-inline">
 							<% _.each(_.filter(props.place.tags, function(tag){return !tag.primary}), function(tag) { %>
-								<li> <%- tag.name %>
+								<li><%- tag.name %></li>
 							<% }) %>
 						</ul>
 					</div>

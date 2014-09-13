@@ -70,8 +70,8 @@ function attachRoute(rootNode, route) {
 
 		var loadStart = Date.now();
 		route.getView(templateRenderer, requestProps, function(err, results) {
-			console.log('requestProps', requestProps);
-			console.log('results', results);
+			// console.log('requestProps', requestProps);
+			// console.log('results', results);
 
 			var $newContent = $($.parseHTML(results.contentHtml)).wrap('<div class="contentWrapper"><div id="content" class="container"></div></div>').closest('.contentWrapper').hide();
 			var loadComplete = Date.now();
