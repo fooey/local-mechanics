@@ -22,9 +22,9 @@ with (obj) {
 		});
 	};
 ;
-__p += ' <div class=option-group> <h5> Sorting: ' +
+__p += ' <div id=sorts class=option-group> <h6> Sorting: ' +
 ((__t = ( _.find(sorts, function(sort){return sort.key === props.sort}).label )) == null ? '' : __t) +
-' </h5> <div class="btn-group btn-group-justified"> ';
+' </h6> <div class="btn-group btn-group-justified"> ';
  _.each(sorts, function(sort) { ;
 __p += ' <div class=btn-group> <a class="btn btn-sm btn-info ' +
 ((__t = ( (props.sort === sort.key) ? 'active' : '' )) == null ? '' : __t) +

@@ -1,14 +1,5 @@
 <div id="places">
 	<% if (props.places.length) { %>
-
-		<div class="top-pagination">
-			<%= props.render('/browse/options/pagination', {
-				page: props.appState.page,
-				numPages: props.appState.numPages,
-				call_id: props.appState.call_id,
-				getLink: props.appState.getLink,
-			}) %>
-		</div>
 		
 	
 		<% var renderPlace = props.render('/browse/place'); %>
@@ -16,17 +7,6 @@
 		<%= _.map(props.places, function(place){
 			return renderPlace({place: place});
 		}).join('') %>
-
-
-
-		<div class="bottom-pagination">
-			<%= props.render('/browse/options/pagination', {
-				page: props.appState.page,
-				numPages: props.appState.numPages,
-				call_id: props.appState.call_id,
-				getLink: props.appState.getLink,
-			}) %>
-		</div>
 
 	<% } else { %>
 

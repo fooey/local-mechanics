@@ -11,11 +11,11 @@
 
 
 <div class="option-group">
-	<h5>Special Offers:  <%= !!props.has_offers %></h5>
+	<h6>Special Offers:  <%= !!props.has_offers %></h6>
 	<div class="btn-group btn-group-justified">
 		<div class="btn-group">
 			<a	
-				class="btn btn-sm btn-<%= (props.has_offers) ? 'info' : 'default' %>"
+				class="btn btn-sm btn-<%= (props.has_offers) ? 'success' : 'default' %>"
 				href="<%= getLink(1) %>"
 				rel="nofollow"
 			>

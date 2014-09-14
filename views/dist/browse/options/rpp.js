@@ -6,7 +6,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 
-	var rppOptions = [5,10,15,20,25,30,40,50];
+	var rppOptions = [5,10,20,30,40,50];
 
 	var getLink = function(rpp) {
 		return props.getLink({
@@ -15,9 +15,9 @@ with (obj) {
 		});
 	};
 ;
-__p += ' <div class=option-group> <h5>Results Per Page: ' +
+__p += ' <div class=option-group> <h6>Results Per Page: ' +
 ((__t = ( props.rpp )) == null ? '' : __t) +
-'</h5> <div class="btn-group btn-group-justified"> ';
+'</h6> <div class="btn-group btn-group-justified"> ';
  _.each(rppOptions, function(rpp){ ;
 __p += ' <div class=btn-group> <a href="' +
 ((__t = ( getLink(rpp) )) == null ? '' : __t) +

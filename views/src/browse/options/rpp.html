@@ -1,5 +1,5 @@
 <%
-	var rppOptions = [5,10,15,20,25,30,40,50];
+	var rppOptions = [5,10,20,30,40,50];
 
 	var getLink = function(rpp) {
 		return props.getLink({
@@ -10,7 +10,7 @@
 %>
 
 <div class="option-group">
-	<h5>Results Per Page: <%= props.rpp %></h5>
+	<h6>Results Per Page: <%= props.rpp %></h6>
 	<div class="btn-group btn-group-justified">
 		<% _.each(rppOptions, function(rpp){ %>
 			<div class="btn-group">

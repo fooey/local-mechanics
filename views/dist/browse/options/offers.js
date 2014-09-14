@@ -15,10 +15,10 @@ with (obj) {
 		});
 	};
 ;
-__p += ' <div class=option-group> <h5>Special Offers: ' +
+__p += ' <div class=option-group> <h6>Special Offers: ' +
 ((__t = ( !!props.has_offers )) == null ? '' : __t) +
-'</h5> <div class="btn-group btn-group-justified"> <div class=btn-group> <a class="btn btn-sm btn-' +
-((__t = ( (props.has_offers) ? 'info' : 'default' )) == null ? '' : __t) +
+'</h6> <div class="btn-group btn-group-justified"> <div class=btn-group> <a class="btn btn-sm btn-' +
+((__t = ( (props.has_offers) ? 'success' : 'default' )) == null ? '' : __t) +
 '" href="' +
 ((__t = ( getLink(1) )) == null ? '' : __t) +
 '" rel=nofollow> On </a> </div> <div class=btn-group> <a class="btn btn-sm btn-' +

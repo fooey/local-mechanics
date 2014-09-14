@@ -6,7 +6,7 @@ function print() { __p += __j.call(arguments, '') }
 with (obj) {
 
 
-	var radii = [1, 5,10,15,20,25,30,40,50];
+	var radii = [1,5,10,20,30,40,50];
 
 	var getLink = function(radius) {
 		return props.getLink({
@@ -15,9 +15,9 @@ with (obj) {
 		});
 	};
 ;
-__p += ' <div class=option-group> <h5>Search Radius: ' +
+__p += ' <div class=option-group> <h6>Search Radius: ' +
 ((__t = ( props.radius )) == null ? '' : __t) +
-'</h5> <div class="btn-group btn-group-justified"> ';
+'</h6> <div class="btn-group btn-group-justified"> ';
  _.each(radii, function(radius){ ;
 __p += ' <div class=btn-group> <a href="' +
 ((__t = ( getLink(radius) )) == null ? '' : __t) +

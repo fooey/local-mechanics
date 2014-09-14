@@ -7,11 +7,30 @@ __p += '<div id=browse class=city> <div class=row><div class=col-lg-24> <header>
 ((__t = ( props.pageTitle )) == null ? '' : __t) +
 '</h1> </header> <div class="alert alert-info"> <p class=description>' +
 ((__t = ( props.description )) == null ? '' : __t) +
-'</p> </div> </div></div> <div class=row> <div class="col-sm-10 col-md-8 col-sm-push-14 col-md-push-16"> ' +
-((__t = ( props.render('/browse/options', {appState: props.appState}) )) == null ? '' : __t) +
-' </div> <div class="col-sm-14 col-md-16 col-sm-pull-10 col-md-pull-8"> ' +
-((__t = ( props.render('/browse/places', {places: props.places, appState: props.appState}) )) == null ? '' : __t) +
-' </div> </div> </div>';
+'</p> </div> </div></div> <div class=row> <div class="col-sm-8 col-md-8 col-md-6"> ' +
+((__t = ( props.render('/browse/options', {
+				appState: props.appState
+			}) )) == null ? '' : __t) +
+' </div> <div class="col-sm-16 col-md-16 col-lg-18"> <div class=top-pagination> ' +
+((__t = ( props.render('/browse/options/pagination', {
+					page: props.appState.page,
+					numPages: props.appState.numPages,
+					call_id: props.appState.call_id,
+					getLink: props.appState.getLink,
+				}) )) == null ? '' : __t) +
+' </div> ' +
+((__t = ( props.render('/browse/places', {
+				places: props.places, 
+				appState: props.appState}
+			) )) == null ? '' : __t) +
+' <div class=bottom-pagination> ' +
+((__t = ( props.render('/browse/options/pagination', {
+					page: props.appState.page,
+					numPages: props.appState.numPages,
+					call_id: props.appState.call_id,
+					getLink: props.appState.getLink,
+				}) )) == null ? '' : __t) +
+' </div> </div> </div> </div>';
 
 }
 return __p

@@ -17,11 +17,11 @@
 %>
 
 
-<div class="option-group">
-	<h5>
+<div id="sorts" class="option-group">
+	<h6>
 		Sorting:
 		<%= _.find(sorts, function(sort){return sort.key === props.sort}).label %>
-	</h5>
+	</h6>
 	<div class="btn-group btn-group-justified">
 		<% _.each(sorts, function(sort) { %>
 			<div class="btn-group">

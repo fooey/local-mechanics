@@ -8,7 +8,7 @@ with (obj) {
  
 	var numeral = require('numeral');
  ;
-__p += ' <div id=options class="alert alert-success"> <h4 class="meta text-center"> ' +
+__p += ' <div id=options> <h4 class="meta text-center"> ' +
 __e( numeral(props.appState.totalHits).format('0,0') ) +
 ' Results &mdash; Page ' +
 __e( props.appState.page ) +
