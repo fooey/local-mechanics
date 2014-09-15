@@ -40,6 +40,15 @@ module.exports = function(render, requestProps, fnCallback){
 			var metaDescription = description;
 
 
+			var props = {
+				meta: {
+					title: metaTitle,
+					description: metaDescription,
+				},
+			};
+
+
+
 			var urlObj = url.parse(requestProps.originalUrl, true);
 
 			var appState = _.defaults(requestProps.query, libCG.defaultBrowseOptions);
@@ -47,11 +56,10 @@ module.exports = function(render, requestProps, fnCallback){
 			// console.log('appState', appState);
 
 			var appState = _.defaults({
-				// city: city,
+				city: city,
 
 				totalHits: results.places.total_hits,
 				numPages: Math.ceil(results.places.total_hits / appState.rpp),
-				// baseLink: city.getLink(),
 				call_id: results.places.call_id,
 
 				getLink: urlSetParams.bind(null, urlObj),
@@ -61,10 +69,9 @@ module.exports = function(render, requestProps, fnCallback){
 			appState.rpp = _.parseInt(appState.rpp);
 			appState.radius = _.parseInt(appState.radius);
 
-			console.log('appState', appState);
 
 
-			var contentHtml = render('/browse/city', {
+			props.contentHtml = render('/browse/city', {
 				pageTitle: pageTitle,
 				description: description,
 
@@ -72,28 +79,33 @@ module.exports = function(render, requestProps, fnCallback){
 				places: places,
 			});
 
-			var appendToHead = ['<link rel="canonical" href="' + city.getLink() + '" />'];
+
+
+			props.appendToHead = ['<link rel="canonical" href="' + city.getLink() + '" />'];
 			if (requestProps.originalUrl !== city.getLink()) {
-				appendToHead.push('<meta name="robots" content="noindex" />');
+				props.appendToHead.push('<meta name="robots" content="noindex" />');
 			}
 			if (appState.numPages > 1) {
 				if (appState.page > 1) {
-					appendToHead.push('<link rel="prev" href="' + urlSetParams(urlObj, {page: appState.page - 1}) + '" />');
+					props.appendToHead.push('<link rel="prev" href="' + urlSetParams(urlObj, {page: appState.page - 1}) + '" />');
 				}
 				if (appState.page < appState.numPages) {
-					appendToHead.push('<link rel="next" href="' + urlSetParams(urlObj, {page: appState.page + 1}) + '" />');
+					props.appendToHead.push('<link rel="next" href="' + urlSetParams(urlObj, {page: appState.page + 1}) + '" />');
 				}
 			}
 
-			var props = {
-				meta: {
-					title: metaTitle,
-					description: metaDescription,
-				},
-				contentHtml: contentHtml,
-				appendToHead: appendToHead,
-				// appState: appState,
-			};
+
+
+			if (appState.page < 1) {
+				props.statusCode = 301;
+				props.location = urlSetParams(urlObj, {page: 1});
+			}
+			else if (appState.page > appState.numPages) {
+				props.statusCode = 301;
+				props.location = urlSetParams(urlObj, {page: appState.numPages});
+			}
+
+
 
 			fnCallback(null, props);
 		}
