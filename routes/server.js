@@ -91,14 +91,21 @@ module.exports = function(app, express) {
 			function(err, props) {
 				var statusCode = props.statusCode || 200;
 
-				res.set({
-					'Cache-Control': 'public, max-age=' + (cacheTime),
-					'Expires': new Date(Date.now() + (cacheTime * 1000)).toUTCString(),
-				});
+				if (statusCode === 301 || statusCode === 302) {
+					res.redirect(statusCode, props.location);
+				}
+				else {
 
-				res.status(statusCode).send(
-					templateRenderer('/layout', props)
-				);
+					res.set({
+						'Cache-Control': 'public, max-age=' + (cacheTime),
+						'Expires': new Date(Date.now() + (cacheTime * 1000)).toUTCString(),
+					});
+
+					res.status(statusCode).send(
+						templateRenderer('/layout', props)
+					);
+					
+				}
 			}
 		);
 	}

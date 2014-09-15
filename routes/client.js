@@ -43,11 +43,11 @@ function attachRoute(rootNode, route) {
 	console.log('attachRoute()', route);
 
 	page(route.path, function(context) {
+
 		if (window.wasPrerendered) {
 			window.wasPrerendered = false;
 			return;
 		}
-
 
 
 		var $oldContent = ($('.contentWrapper').length)
@@ -61,6 +61,7 @@ function attachRoute(rootNode, route) {
 			$(this).remove()
 		}});
 
+
 		var requestProps = {
 			query: qs.parse(context.querystring),
 			params: context.params,
@@ -70,36 +71,48 @@ function attachRoute(rootNode, route) {
 
 		var loadStart = Date.now();
 		route.getView(templateRenderer, requestProps, function(err, results) {
+			var statusCode = results.statusCode || 200;
 			// console.log('requestProps', requestProps);
 			// console.log('results', results);
 
-			var $newContent = $($.parseHTML(results.contentHtml)).wrap('<div class="contentWrapper"><div id="content" class="container"></div></div>').closest('.contentWrapper').hide();
-			var loadComplete = Date.now();
-			var loadingTime = (loadComplete - loadStart);
-
-			// try to match the timing of the fadeout, but require least 50% of the transition time
-			var transitionRemaining = transitionTime - loadingTime;
-			var fadeInTime = Math.max(transitionRemaining, transitionTime / 2);
-
-
-			$('#loading').velocity('stop').velocity('transition.fadeOut', {duration: fadeInTime});
-
-			window.scrollTo(0, 0);
-			$newContent
-				.appendTo('body')
-				.velocity('transition.fadeIn', {duration: fadeInTime});
-
-
-			if (results.exports) {
-				_.assign(window, results.exports);
+			if (statusCode === 301 || statusCode === 302) {
+				page(results.location);
 			}
-			
-			$('title').text(results.meta.title);
-			$('meta[name="description"]').attr('content', results.meta.description);
+			else {
+					
+				var loadComplete = Date.now();
+				var loadingTime = (loadComplete - loadStart);
 
-			$(window).trigger('hashchange');
+				// try to match the timing of the fadeout, but require least 50% of the transition time
+				var transitionRemaining = transitionTime - loadingTime;
+				var fadeInTime = Math.max(transitionRemaining, transitionTime / 2);
 
 
+				$('#loading')
+					.velocity('stop')
+					.velocity('transition.fadeOut', {duration: fadeInTime});
+
+
+				window.scrollTo(0, 0);
+				$(results.contentHtml)
+					.wrap('<div class="contentWrapper"><div id="content" class="container"></div></div>')
+					.closest('.contentWrapper')
+					.hide()
+					.appendTo('body')
+					.velocity('transition.fadeIn', {duration: fadeInTime});
+
+
+				// if (results.exports) {
+				// 	_.assign(window, results.exports);
+				// }
+
+				
+				$('title').text(results.meta.title);
+				$('meta[name="description"]').attr('content', results.meta.description);
+
+				$(window).trigger('hashchange');
+
+			}
 
 		});
 
