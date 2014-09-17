@@ -1,19 +1,39 @@
+<%
+	var numeral = require('numeral');
+%>
+
+
 <% if (!props.place) { %>
 	<h2>Error!</h2>
 <% } else { %>
 	<div class="place">
-		<h2><a href="<%= props.place.getLink() %>"><%= props.place.name %></a></h2>
+		<h2><a href="<%= props.place.getLink() %>"><%- props.place.name %></a></h2>
 
 		<div class="row">
 			<div class="col-sm-12">
+
+
+				<% if(props.place.rating && _.isNumber(props.place.rating)) { %>
+					<div class="rating">
+						<%= props.place.rating %><span> / 10 User Rating</small> 
+					</div>
+				<% } %>
+
+				<% if(props.place.user_review_count) { %>
+					<div class="reviewCount">
+						<%= props.place.user_review_count %> User Reviews
+					</div>
+				<% } %>
+
+
 				<address>
 					<div><%= props.place.address.street %></div>
 
 					<% if(props.place.geo) { %>
 						<div>
 							<a href="<%= props.place.geo.city.getLink() %>"><%= props.place.geo.city.name %></a>, 
-							<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.abbr %></a> 
-							<span><%= props.place.geo.zip %></span>
+							<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.name %></a> 
+							<!-- <span><%= props.place.geo.zip %></span> -->
 						</div>
 					 <% } else { %>
 						<div>
@@ -22,34 +42,55 @@
 							<span><%= props.place.address.postal_code %></span>
 						</div>
 					 <% } %>
+
 				</address>
+
+
 				<% if (props.place.has_offers) { %>
-					<div><span class="label label-danger">Special Offers Available!</span>.</div>
+					<div class="offers">
+						<span class="label label-danger">Special Offers Available!</span>
+					</div>
 				<% } %>
+
+
 				<% if (props.place.tags && props.place.tags.length) { %>
-					<div>
-						Primary Service: 
-						<ul class="list-inline">
-							<% _.each(_.filter(props.place.tags, function(tag){return tag.primary}), function(tag) { %>
-								<li><%- tag.name %></li>
-							<% }) %>
-						</ul>
-					</div>
-					<div>
-						Additional Services: 
-						<ul class="list-inline">
-							<% _.each(_.filter(props.place.tags, function(tag){return !tag.primary}), function(tag) { %>
-								<li><%- tag.name %></li>
-							<% }) %>
-						</ul>
+
+					<div class="services">
+
+						<% var primaryService = _.filter(props.place.tags, function(tag){return tag.primary}) %>
+						<% if (primaryService.length) { %>
+							<div class="primary">
+								<h4>Primary Service:</h4> 
+								<ul class="list-unstyled">
+									<% _.each(primaryService, function(tag) { %>
+										<li><%- tag.name %></li>
+									<% }) %>
+								</ul>
+							</div>
+						<% } %>
+
+						<% var additionalServices = _.filter(props.place.tags, function(tag){return !tag.primary}) %>
+						<% if (additionalServices.length) { %>
+							<div class="additional">
+								<h4>Additional Services: </h4>
+								<ul class="list-unstyled">
+									<% _.each(additionalServices, function(tag) { %>
+										<li title="<%- tag.name %>"><%- tag.name %></li>
+									<% }) %>
+								</ul>
+							</div>
+						<% } %>
+
 					</div>
 				<% } %>
-				<div>
+
+
+				<!-- <div>
 					<ul class="list-inline">
 						<li><a href="<%= props.place.getLink('reviews') %>"> reviews</a></li>
 						<li><a href="<%= props.place.getLink('jobs') %>"> jobs</a></li>
 					</ul>
-				</div>
+				</div> -->
 
 			</div>
 			<div class="col-sm-12 text-center">
