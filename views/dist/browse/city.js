@@ -30,7 +30,7 @@ __p += '<div id=browse class=city> <div class=row><div class=col-lg-24> <header>
 					call_id: props.appState.call_id,
 					getLink: props.appState.getLink,
 				}) )) == null ? '' : __t) +
-' </div> </div> </div> </div>';
+' </div> <div class=attribution> <a href="http://www.citygrid.com/"> <span>Powered by</span> <img src=/img/citygrid.svg> </a> </div> </div> </div> </div>';
 
 }
 return __p

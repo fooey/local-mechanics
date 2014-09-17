@@ -6990,9 +6990,10 @@ input:focus,
 .panel-default .panel-footer {
   color: #98978b;
 }
-/*
-*	pageTitle
-*/
+.navbar-brand img {
+  width: 32px;
+  height: 32px;
+}
 h1.pageTitle {
   margin: .25em 0 .5em;
   padding: 0;
@@ -7028,6 +7029,9 @@ h1.pageTitle a {
   h1.pageTitle nobr {
     white-space: normal;
   }
+}
+.label {
+  font-weight: 500;
 }
 /*
 *	Panels
@@ -7226,9 +7230,25 @@ ul.responsive-cols li {
     font-size: 18pt;
   }
 }
+#browse {
+  margin-bottom: 40px;
+}
 #browse ul.geo-list li {
   line-height: 160%;
   font-size: 12pt;
+}
+#browse .attribution {
+  text-align: right;
+}
+#browse .attribution span {
+  display: block;
+  font-size: 10pt;
+  font-variant: small-caps;
+  margin-right: 12px;
+  font-weight: 500;
+}
+#browse .attribution img {
+  height: 32px;
 }
 #browse #places .place + .place {
   margin-top: 2em;
@@ -7240,6 +7260,49 @@ ul.responsive-cols li {
 }
 #browse #places .place img {
   max-width: 100%;
+}
+#browse #places .place .services h4 {
+  margin: 0 0 8px 0;
+  padding: 0;
+  font-weight: 500;
+}
+#browse #places .place .services ul {
+  padding: 0;
+  margin: 0 0 1em .5em;
+}
+#browse #places .place .services .primary li {
+  font-size: 11pt;
+}
+#browse #places .place .services .additional ul {
+  max-width: 26em;
+  -webkit-columns: 8em auto;
+  -moz-columns: 8em auto;
+  columns: 8em auto;
+}
+#browse #places .place .services .additional ul li {
+  font-size: 8pt;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+#browse #places .place .rating {
+  padding: 0 0 12px;
+  font-size: 32pt;
+  line-height: 100%;
+}
+#browse #places .place .rating span {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 11pt;
+  font-weight: 400;
+  line-height: inherit;
+  vertical-align: baseline;
+}
+#browse #places .place .reviewCount {
+  font-size: 12pt;
+  padding: 0 0 12px;
+}
+#browse #places .place .offers {
+  margin: 0 0 1em 0;
 }
 #browse #options a {
   cursor: pointer;

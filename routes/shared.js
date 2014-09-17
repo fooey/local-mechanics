@@ -11,7 +11,7 @@ module.exports = [{
 	getView: require('./shared/browse/city')
 }, {
 	path: '/:placeId([0-9a-z-]+).html',
-	getView: dump
+	getView: require('./shared/place/home')
 }, {
 	path: '/:placeId([0-9a-z-]+)/:subPage(reviews|jobs).html',
 	getView: dump
