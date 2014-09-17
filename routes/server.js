@@ -30,7 +30,7 @@ module.exports = function(app, express) {
 
 	app.get('/robots.txt', require('./server/robots.js').bind(null, app));
 	app.get('/favicon.ico', function(req, res){
-		res.redirect(301, '/img/car.png');
+		res.redirect(301, '/img/car.svg');
 	});
 	// css maps
 	app.get('/:remap(public|bower_components)/:path(*)', function(req, res) {
@@ -83,6 +83,7 @@ module.exports = function(app, express) {
 			query: req.query,
 			params: req.params,
 			originalUrl: req.originalUrl,
+			ipAddress: req.ip,
 		};
 
 		routeRenderer(
