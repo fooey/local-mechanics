@@ -12,7 +12,7 @@ module.exports = function(app, req, res, next) {
 		: false;
 
 
-	if (req.headers.host === 'local-mechanics.com' || devmode) {
+	if (req.headers.host === 'www.local-mechanics.com' || devmode) {
 		robots.push('');
 		robots.push('User-agent: *');
 		robots.push('Disallow: /api/');
@@ -20,7 +20,7 @@ module.exports = function(app, req, res, next) {
 	}
 	else {
 		robots.push('# Non-canonical domain');
-		robots.push('# Use http://local-mechanics.com');
+		robots.push('# Use http://www.local-mechanics.com');
 		robots.push('');
 		robots.push('User-agent: *');
 		robots.push('Disallow: /');
