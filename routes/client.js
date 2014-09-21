@@ -48,6 +48,8 @@ function attachRoute(rootNode, route) {
 			return;
 		}
 
+		var $footer = $('#footer').hide();
+
 
 		var $oldContent = ($('.contentWrapper').length)
 			? $('.contentWrapper')
@@ -94,14 +96,19 @@ function attachRoute(rootNode, route) {
 
 				window.scrollTo(0, 0);
 				$('<div class="contentWrapper"><div id="content" class="container">' + results.contentHtml + '</div></div>')
+					.append($footer.show())
 					.hide()
 					.appendTo('body')
-					.velocity('transition.fadeIn', {duration: fadeInTime});
+					.velocity('transition.fadeIn', {
+						duration: fadeInTime, 
+						complete: function(e){},
+					});
 
 
 				// if (results.exports) {
 				// 	_.assign(window, results.exports);
 				// }
+
 
 				
 				$('title').text(results.meta.title);

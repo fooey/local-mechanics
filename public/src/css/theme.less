@@ -33,39 +33,41 @@ h1.pageTitle {
 }
 
 
-.label {
-	font-weight: 500;
-}
-
-
 
 
 /*
-*	Definition List
+*	footer
 */
 
 
-dt {
-	font-weight: 500;
-}
-dd {
-	margin-left: 1em;
-}
-dd + dt {
-	margin-top: .5em;
-}
+#footer {
 
+	margin-top: 40px;
+	margin-bottom: 40px;
 
+	p {
+		text-align: center;
+	}
 
-/*
-*	Panels
-*/
+	.row {
+		border-top: 1px solid @gray-lighter;
+		padding: 20px 0;
+	}
 
-.panel {
-	.panel-heading {
-		h1, h2, h3, h4, h5, h6 {
-			margin: 0;
-			padding: 0;
+	.power {
+		@media(min-width: @screen-sm-min) { .columns(auto 2); }
+		@media(min-width: @screen-md-min) { .columns(auto 4); }
+
+		li {
+			display: block;
+			text-align: center;
+			padding: 10px;
+			line-height: 52px;
+
+			img {
+				max-width: 100%;
+				max-height: 32px;
+			}
 		}
 	}
 }

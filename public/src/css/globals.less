@@ -1,8 +1,8 @@
 
-
 /*
 *	Global Overrides
 */
+
 html {
 	overflow-y: scroll;
 	overflow-x: auto;
@@ -17,16 +17,16 @@ body {
 	width: 100%;
 }
 
-.notransition, .notransition * {
-	.transition(none) !important;
+
+
+
+/*
+*	weight
+*/
+
+h1, h2, h3, h4, h5, h6, strong, .strong .label {
+	font-weight: 500;
 }
-
-
-footer {
-	font-size: 10pt;
-	margin: 0 0 2em 0;
-}
-
 
 
 
@@ -57,3 +57,34 @@ ul.responsive-cols {
 }
 
 
+
+
+/*
+*	Definition List
+*/
+
+
+dt {
+	font-weight: 500;
+}
+dd {
+	margin-left: 1em;
+}
+dd + dt {
+	margin-top: .5em;
+}
+
+
+
+/*
+*	Panels
+*/
+
+.panel {
+	.panel-heading {
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0;
+			padding: 0;
+		}
+	}
+}
