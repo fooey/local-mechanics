@@ -1,16 +1,24 @@
 
 
+@navbar-height: 30px;
+
 .navbar {
+	height: @navbar-height;
+	min-height: @navbar-height;
+
 	.navbar-brand {
 		line-height: @navbar-height;
 		padding: 0 12px;
 		margin: 0;
-		font-size: 15pt;
+		font-size: 10pt;
+		font-weight: 400;
 
 		img {
 			margin-right: .5em;
 			position: relative;
 			top: -2px;
+			width: 18px;
+			height: 18px;
 		}
 	}
 }
@@ -26,9 +34,9 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 62px;
+	height: @navbar-height;
 
-	padding: 22px 12px;
+	padding: 4px 8px;
 	margin: 0;
 
 	.progress {

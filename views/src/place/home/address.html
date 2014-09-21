@@ -1,0 +1,72 @@
+<%
+	var name = props.name;
+	var address = props.address;
+	var geo = props.geo;
+	var contact = props.contact_info;
+%>
+
+<div itemprop="location" itemscope itemtype="http://schema.org/Place">
+
+	<div itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+		<meta itemprop="latitude" content="<%- address.latitude %>" />
+		<meta itemprop="longitude" content="<%- address.longitude %>" />
+	</div>
+
+
+	<address itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+
+		<div itemprop="name"><%- name %></div>
+		<div itemprop="streetAddress"><%- address.street %></div>
+
+		<% if(geo) { %>
+			<div>
+				<a href="<%- geo.city.getLink() %>" itemprop="addressLocality"><%- geo.city.name %></a>, 
+				<a href="<%- geo.state.getLink() %>" itemprop="addressRegion"><%- geo.state.name %></a> 
+				<span itemprop="postalCode"><%- geo.zip %></span>
+			</div>
+		<% } else { %>
+			<div>
+				<span><%- address.city %>, </span>
+				<span><%- address.state %> </span>
+				<span><%- address.postal_code %></span>
+			</div>
+		<% } %>
+
+
+
+		<% if(contact) { %>
+
+			<% if(contact.display_phone && !_.isEmpty(contact.display_phone)) { %>
+				<div itemprop="telephone"><%- contact.display_phone %></div>
+			<% } %>
+
+			<% if(contact.display_url && !_.isEmpty(contact.display_url)) { %>
+				<div class="url">
+					<a href="<%- contact.display_url %>" itemprop="url"><%- contact.display_url %></a>
+				</div>
+			<% } %>
+
+			<% if(contact.social_media && !_.isEmpty(contact.social_media) && _.isObject(contact.social_media)) { %>
+
+				<% tw = contact.social_media.twitter_username %>
+				<% if(tw && !_.isEmpty(tw) && _.isObject(tw)) { %>
+					<div class="twitter">
+						<i class="fa fa-twitter"></i> <a href="<%- tw.url %>" itemprop="url"><%- tw.text %></a>
+					</div>
+				<% } %>
+
+				<% fb = contact.social_media.facebook_fanpage %>
+				<% if(fb && !_.isEmpty(fb) && _.isObject(fb)) { %>
+					<div class="facebook">
+						<i class="fa fa-facebook-square"></i> <a href="<%- fb.url %>" itemprop="url"><%- fb.text %></a>
+					</div>
+				<% } %>
+
+			<% } %>
+
+		<% } %>
+
+	</address>
+
+
+</div>

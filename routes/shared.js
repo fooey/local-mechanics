@@ -12,9 +12,9 @@ module.exports = [{
 }, {
 	path: '/:placeId([0-9a-z-]+).html',
 	getView: require('./shared/place/home')
-}, {
-	path: '/:placeId([0-9a-z-]+)/:subPage(reviews|jobs).html',
-	getView: dump
+// }, {
+// 	path: '/:placeId([0-9a-z-]+)/:subPage(reviews|jobs).html',
+// 	getView: dump
 }, {
 	path: '*',
 	getView: require('./shared/errors').bind(null, new Error(404)),

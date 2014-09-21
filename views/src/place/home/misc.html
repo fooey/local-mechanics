@@ -1,0 +1,62 @@
+<%
+	var moment = require('moment');
+
+	var business_hours = props.business_hours;
+	var business_operation_status = props.business_operation_status;
+	var parking = props.parking;
+	var years_in_business = props.years_in_business;
+	var markets = props.markets;
+
+	if (_.isNumber(years_in_business)) {
+		var foundingDate = (moment().get('year') - years_in_business);
+	}
+
+
+	var last_update_time = moment(props.last_update_time);
+%>
+
+<dl>
+
+	<% if (!_.isEmpty(business_hours)) { %>
+		<dt>Business Hours</dt>
+		<dd itemprop="openingHours" style="white-space: pre-wrap"><%- business_hours %></dd>
+	<% } %>
+
+	<% if (!_.isEmpty(business_operation_status)) { %>
+		<dt>Business Operation Status</dt>
+		<dd><%- business_operation_status %></dd>
+	<% } %>
+
+	<% if (!_.isEmpty(parking)) { %>
+		<dt>Parking</dt>
+		<dd><%- parking %></dd>
+	<% } %>
+
+	<% if (!_.isEmpty(years_in_business) || _.isNumber(years_in_business)) { %>
+		<dt>Years In Business</dt>
+
+			<% if (_.isNumber(years_in_business)) { %>
+				<dd itemprop="foundingDate" content="<%- foundingDate %>">
+			<% } else { %>
+				<dd>
+			<% } %>
+				<%- years_in_business %>
+			</dd>
+
+	<% } %>
+
+	<% if (last_update_time.isValid()) { %>
+		<dt>Last Updated</dt>
+		<dd itemprop="foundingDate" content="<%- last_update_time.format() %>"><%- last_update_time.format('MMMM Do, YYYY') %></dd>
+	<% } %>
+
+
+
+	<% if(markets && _.isArray(markets) && !_.isEmpty(markets)) { %>
+		<dt>Service Area</dt>
+		<% _.each(markets, function(market) { %>
+			<dd itemprop="areaServed"><%- market %></dd>
+		<% }) %>
+	<% } %>
+
+</dl>

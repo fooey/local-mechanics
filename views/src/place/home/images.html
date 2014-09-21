@@ -1,0 +1,14 @@
+<%
+	var images = props.images;
+%>
+
+<div id="images">
+	<ul>
+		<% _.each(images, function(i) { %>
+			<li title="Image provided by <%- i.attribution_text %>">
+				<a href="<%- i.image_url %>"><img itemprop="image" src="<%- i.image_url %>" /></a>
+				<a class="attribution" href="<%- i.attribution_url %>"><%- i.attribution_text %></a>
+			</li>
+	 	<% }) %>
+	</ul>
+</div>

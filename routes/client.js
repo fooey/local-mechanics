@@ -12,7 +12,6 @@ var $ = /*global*/require('jquery');
 *	Templates
 */
 var templates = require('../views/dist');
-console.log('templates!', templates);
 var sharedRoutes = require('./shared');
 var libTemplates = require('../lib/templates');
 var templateRenderer = libTemplates(templates);
@@ -40,7 +39,7 @@ module.exports = function(rootNode, prerendered) {
 
 
 function attachRoute(rootNode, route) {
-	console.log('attachRoute()', route);
+	// console.log('attachRoute()', route);
 
 	page(route.path, function(context) {
 
@@ -67,7 +66,7 @@ function attachRoute(rootNode, route) {
 			params: context.params,
 			originalUrl: context.canonicalPath,
 		};
-
+		
 
 		var loadStart = Date.now();
 		route.getView(templateRenderer, requestProps, function(err, results) {
@@ -94,9 +93,7 @@ function attachRoute(rootNode, route) {
 
 
 				window.scrollTo(0, 0);
-				$(results.contentHtml)
-					.wrap('<div class="contentWrapper"><div id="content" class="container"></div></div>')
-					.closest('.contentWrapper')
+				$('<div class="contentWrapper"><div id="content" class="container">' + results.contentHtml + '</div></div>')
 					.hide()
 					.appendTo('body')
 					.velocity('transition.fadeIn', {duration: fadeInTime});

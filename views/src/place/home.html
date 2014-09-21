@@ -1,0 +1,102 @@
+<div id="place" itemscope itemtype="http://schema.org/AutomotiveBusiness">
+
+	<header>
+		<h1 class="pageTitle">
+			<a href="<%= props.place.getLink() %>" itemprop="url">
+				<span itemprop="name"><%- props.place.name %></span>
+			</a>
+		</h1>
+
+		<% if (props.place.teaser && !_.isEmpty(props.place.teaser)) { %>
+			<div class="teaser">
+				<p><%- props.place.teaser %></p>
+			</div>
+		<% } %>
+
+	</header>
+
+
+
+
+
+	<div class="row">
+		<div class="col-sm-24">
+			<%= props.render('/place/home/customer-content', {
+				customerContent: props.place.customer_content,
+			}) %>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-sm-12">
+			<%= props.render('/place/home/address', {
+				business_hours: props.place.business_hours,
+				name: props.place.name,
+				address: props.place.address,
+				geo: props.place.geo,
+				contact_info: props.place.contact_info,
+			}) %>
+		</div>
+		<div class="col-sm-12">
+			<%= props.render('/place/home/misc', {
+				business_hours: props.place.business_hours,
+				parking: props.place.parking,
+				years_in_business: props.place.years_in_business,
+				last_update_time: props.place.last_update_time,
+				business_operation_status: props.place.business_operation_status,
+				markets: props.place.markets,
+			}) %>
+		</div>
+	</div>
+	
+
+
+	<div class="row">
+		<div class="col-sm-12">
+			<%= props.render('/place/home/urls', {
+				urls: props.place.urls,
+			}) %>
+		</div>
+		<div class="col-sm-12">
+			<%= props.render('/place/home/categories', {
+				categories: props.place.categories,
+			}) %>
+		</div>
+	</div>
+
+
+
+	<div class="row">
+		<div class="col-sm-24">
+			<%= props.render('/place/home/reviews', {
+				name: props.place.name,
+				review_info: props.place.review_info,
+			}) %>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-sm-24">
+			<%= props.render('/place/home/images', {
+				images: props.place.images,
+			}) %>
+		</div>
+	</div>
+
+
+
+	<!-- <pre><%= JSON.stringify(props.requestProps, null, '\t') %></pre> -->
+	<!-- <pre><%= JSON.stringify(props.place, null, '\t') %></pre> -->
+
+
+
+
+
+
+	<!-- <% if (props.place.impression_url && !_.isEmpty(props.place.impression_url)) { %>
+		<script src="<%= props.place.impression_url %>"></script>
+	<% } %> -->
+
+</div>

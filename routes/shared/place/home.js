@@ -12,7 +12,8 @@ var errorReroute = require('../errors');
 
 
 module.exports = function(render, requestProps, fnCallback){
-	console.log('place:home:export', requestProps);
+	// console.log('place:home:export', requestProps);
+	// console.log('placeId', requestProps.params.placeId);
 	// var requestUrl = getRequestUrl(params);
 
 	async.auto({
@@ -20,35 +21,47 @@ module.exports = function(render, requestProps, fnCallback){
 		// state: getState.bind(null, requestProps.params.stateSlug),
 		// cities: getCities.bind(null, requestProps.params.stateSlug),
 	}, function(err, results) {
-		console.log('place:home:export', results);
-		var place = results.place.locations[0];
+		var place = (
+				_.has(results, 'place')
+				&& _.has(results.place, 'locations')
+				&& _.isArray(results.place.locations)
+				&& results.place.locations.length
+			)
+			? results.place.locations[0]
+			: null;
+
 		// var state = (_.isArray(results.state) && results.state.length) ? results.state[0] : null;
 		// var cities = (_.isArray(results.cities) && results.cities.length) ? results.cities : null;
 
-		var hasResults = true;//(!!state && !!cities && !!cities.length);
+		// console.log('place:home', place);
+
+		var hasResults = !!place;
 
 		if (err || !hasResults) {
 			err = err || new Error(404);
 			errorReroute(err, render, requestProps, fnCallback);
 		}
 		else {
-			var pageTitle = 'FIXME';
-			var description = 'FIXME';
 
-			var metaTitle = pageTitle;
-			var metaDescription = description;
+			var metaTitle = place.name;
+			var metaDescription = place.name;
+			
+			if (place.teaser && !_.isEmpty(place.teaser)) {
+				metaDescription = place.teaser + ' ' + metaDescription;
+			}
 
-
-			var contentHtml = '<pre>' + JSON.stringify(requestProps, null, '\t') + '</pre>';
-			contentHtml += '<pre>' + JSON.stringify(place, null, '\t') + '</pre>';
 
 			var props = {
 				meta: {
 					title: metaTitle,
 					description: metaDescription,
 				},
-				contentHtml: contentHtml,
 			};
+
+			props.contentHtml = render('/place/home', {
+				place: place,
+				requestProps: requestProps,
+			});
 
 			fnCallback(null, props);
 		}

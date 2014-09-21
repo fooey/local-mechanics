@@ -1,0 +1,47 @@
+<%
+	var customerContent = props.customerContent;
+%>
+
+<% if (
+		customerContent
+		&& customerContent.customer_message
+		&& !_.isEmpty(customerContent.customer_message)
+		&& !_.isEmpty(customerContent.customer_message.value)
+) { %>
+
+	<%
+		var customerMessage = customerContent.customer_message;
+		var customerBullets = customerContent.bullets;
+
+		var messageContent = customerMessage.value.replace(/\\n/gi, String.fromCharCode(13, 10));
+	%>
+
+	<div id="customer-content" class="well">
+		<% if (customerMessage && messageContent && !_.isEmpty(messageContent)) { %>
+			<div id="customer_message" itemprop="description">
+				<p><%- messageContent %></p>
+			</div>
+		<% } %>
+
+
+		<% if (customerBullets && !_.isEmpty(customerBullets)) { %>
+			<ul id="customer_bullets">
+				<% _.each(customerBullets, function(bullet){ %>
+					<li><%- bullet %></li>
+				<% }); %>
+			</ul>
+		<% } %>
+
+
+		<div class="content-attribution">
+			Content provided by
+			<a href="<%= customerMessage.attribution_url %>">
+				<% if (!_.isEmpty(customerMessage.attribution_logo)) { %>
+					<img src="<%= customerMessage.attribution_logo %>" alt="<%- customerContent.attribution_text %>" />
+				<% } else { %>
+					<span class="text"><%- customerMessage.attribution_text %></span>
+				<% } %>
+			</a>
+		</div>
+	</div>
+<% } %>

@@ -44,9 +44,6 @@ module.exports = function(app, express) {
 	});
 
 
-	app.get('/:pubId([a-z-]+)/:page([a-z-]+)?.html', dumpRoute);
-
-
 
 	/*
 	*	mount shared routes
