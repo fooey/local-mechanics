@@ -63,7 +63,7 @@ with (obj) {
 ;
 
  if (categories && _.isArray(categories) && !_.isEmpty(categories)) { ;
-__p += ' <div id=place-categories> <dl class=primary> <dt>Primary Focus</dt> ';
+__p += ' <h3 class=section-header>Categorization</h3> <div id=place-categories> <dl class=primary> <dt>Primary Focus</dt> ';
  _.each(primary, function(c) { ;
 __p += ' <dd itemprop=makesOffer>' +
 __e( c.name ) +

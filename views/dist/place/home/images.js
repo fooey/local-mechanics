@@ -8,6 +8,10 @@ with (obj) {
 
 	var images = props.images;
 ;
+
+ if ((images && images.length)) { ;
+__p += ' <h3 class=section-header>Images</h3> ';
+ } ;
 __p += ' <div id=images> <ul> ';
  _.each(images, function(i) { ;
 __p += ' <li title="Image provided by ' +

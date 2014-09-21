@@ -28,6 +28,10 @@ with (obj) {
 	}
 ;
 __p += ' <div id=reviews> ';
+ if ((reviews && reviews.length) || (reviewInfo.overall_review_rating && _.isNumber(reviewInfo.overall_review_rating))) { ;
+__p += ' <h3 class=section-header>User Reviews</h3> ';
+ } ;
+__p += ' ';
  if (reviewInfo.overall_review_rating && _.isNumber(reviewInfo.overall_review_rating)) { ;
 __p += ' <h4 itemprop=aggregateRating itemscope itemtype=http://schema.org/AggregateRating> <meta itemprop=worstRating content=0> Average rating of <span itemprop=ratingValue>' +
 __e( reviewInfo.overall_review_rating ) +

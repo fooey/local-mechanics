@@ -50,7 +50,7 @@ with (obj) {
 ;
 
  if (urls && _.isObject(urls) && !_.isEmpty(urls)) { ;
-__p += ' <div id=place-urls> <ul class="nav nav-list"> ';
+__p += ' <h3 class=section-header>Links</h3> <div id=place-urls> <ul class="nav nav-list"> ';
  _.each(urlsMeta, function(meta){ ;
 __p += ' ';
  if (_.has(urls, meta.key) && !_.isEmpty(urls[meta.key])) { ;

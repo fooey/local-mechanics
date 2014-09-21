@@ -7145,6 +7145,13 @@ strong,
   font-weight: 500;
 }
 /*
+*	breadcrumb
+*/
+.breadcrumb .active a {
+  font-weight: 500;
+  color: #3e3f3a;
+}
+/*
 *	responsive-cols
 */
 ul.nav-tabs.responsive-col-tabs {
@@ -7403,6 +7410,11 @@ ul.pagination li > * {
   #place header .teaser {
     font-size: 10pt;
   }
+}
+#place .section-header {
+  padding-left: .25em;
+  border-bottom: 1px solid #f8f5f0;
+  padding-bottom: .25em;
 }
 #place #customer-content p {
   white-space: pre-wrap;

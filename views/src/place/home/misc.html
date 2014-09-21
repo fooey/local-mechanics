@@ -15,6 +15,8 @@
 	var last_update_time = moment(props.last_update_time);
 %>
 
+<h3 class="section-header">About</h3>
+
 <dl>
 
 	<% if (!_.isEmpty(business_hours)) { %>
@@ -55,7 +57,7 @@
 	<% if(markets && _.isArray(markets) && !_.isEmpty(markets)) { %>
 		<dt>Service Area</dt>
 		<% _.each(markets, function(market) { %>
-			<dd itemprop="areaServed"><%- market %></dd>
+			<dd><%- market %></dd><!--  itemprop="areaServed" -->
 		<% }) %>
 	<% } %>
 

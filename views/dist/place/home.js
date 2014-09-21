@@ -4,7 +4,11 @@ obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
 with (obj) {
-__p += '<div id=place itemscope itemtype=http://schema.org/AutomotiveBusiness> <header> <h1 class=pageTitle> <a href="' +
+__p +=
+((__t = ( props.render('/fragments/breadcrumbs', {
+	crumbs: props.crumbs,
+}) )) == null ? '' : __t) +
+' <div id=place itemscope itemtype=http://schema.org/AutomotiveBusiness> <header> <h1 class=pageTitle> <a href="' +
 ((__t = ( props.place.getLink() )) == null ? '' : __t) +
 '" itemprop=url> <span itemprop=name>' +
 __e( props.place.name ) +

@@ -21,7 +21,7 @@ with (obj) {
 
 	var last_update_time = moment(props.last_update_time);
 ;
-__p += ' <dl> ';
+__p += ' <h3 class=section-header>About</h3> <dl> ';
  if (!_.isEmpty(business_hours)) { ;
 __p += ' <dt>Business Hours</dt> <dd itemprop=openingHours style="white-space: pre-wrap">' +
 __e( business_hours ) +
@@ -65,7 +65,7 @@ __p += ' ';
  if(markets && _.isArray(markets) && !_.isEmpty(markets)) { ;
 __p += ' <dt>Service Area</dt> ';
  _.each(markets, function(market) { ;
-__p += ' <dd itemprop=areaServed>' +
+__p += ' <dd>' +
 __e( market ) +
 '</dd> ';
  }) ;

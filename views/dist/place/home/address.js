@@ -11,7 +11,7 @@ with (obj) {
 	var geo = props.geo;
 	var contact = props.contact_info;
 ;
-__p += ' <div itemprop=location itemscope itemtype=http://schema.org/Place> <div itemprop=geo itemscope itemtype=http://schema.org/GeoCoordinates> <meta itemprop=latitude content="' +
+__p += ' <h3 class=section-header>Address</h3> <div itemprop=location itemscope itemtype=http://schema.org/Place> <div itemprop=geo itemscope itemtype=http://schema.org/GeoCoordinates> <meta itemprop=latitude content="' +
 __e( address.latitude ) +
 '"> <meta itemprop=longitude content="' +
 __e( address.longitude ) +
