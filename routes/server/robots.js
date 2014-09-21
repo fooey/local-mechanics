@@ -16,6 +16,10 @@ module.exports = function(app, req, res, next) {
 		robots.push('');
 		robots.push('User-agent: *');
 		robots.push('Disallow: /api/');
+		robots.push('Disallow: /*?*has_offers=');
+		robots.push('Disallow: /*?*radius=');
+		robots.push('Disallow: /*?*rpp=');
+		robots.push('Disallow: /*?*sort=');
 		robots.push('');
 	}
 	else {
