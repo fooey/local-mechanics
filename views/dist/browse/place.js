@@ -84,7 +84,9 @@ __p += ' </ul> </div> ';
  } ;
 __p += ' </div> ';
  } ;
-__p += '  </div> <div class="col-sm-12 text-center">  <img src=http://nosrc.net/400x300> </div> </div> </div> ';
+__p += '  </div> <div class="col-sm-12 text-center"> <img src="' +
+((__t = ( props.place.getMapSrc('400x300') )) == null ? '' : __t) +
+'">  </div> </div> </div> ';
  } ;
 
 
