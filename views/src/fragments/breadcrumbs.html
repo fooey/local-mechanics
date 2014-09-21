@@ -1,0 +1,10 @@
+
+<% if (props.crumbs && props.crumbs.length) { %>
+	<ol class="breadcrumb">
+		<% _.each(props.crumbs, function(c) { %>
+			<li itemscope itemtype="https://schema.org/breadcrumb" title="<%- c.title || c.label %>" class="<%- c.active && 'active' %>">
+				<a href="<%- c.href %>"><%- c.label %></a>
+			</li>
+		<% }); %>
+	</ol>
+<% } %>

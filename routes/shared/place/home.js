@@ -18,8 +18,6 @@ module.exports = function(render, requestProps, fnCallback){
 
 	async.auto({
 		place: getPlace.bind(null, requestProps.params.placeId, requestProps.ipAddress),
-		// state: getState.bind(null, requestProps.params.stateSlug),
-		// cities: getCities.bind(null, requestProps.params.stateSlug),
 	}, function(err, results) {
 		var place = (
 				_.has(results, 'place')
@@ -58,7 +56,24 @@ module.exports = function(render, requestProps, fnCallback){
 				},
 			};
 
+			var crumbs =  [
+				{label: 'Home', href: '/', title: 'Local-Mechanics.com'},
+			];
+
+			if (place.geo && place.geo.state) {
+				crumbs.push({label: place.geo.state.name, href: place.geo.state.getLink(), title: place.geo.state.name + ' Mechanics'});
+
+				if (place.geo.city) {
+					crumbs.push({label: place.geo.city.name, href: place.geo.city.getLink(), title: place.geo.city.name + ' Mechanics'});
+				}
+
+			}
+
+			crumbs.push({label: place.name, href: place.getLink(), title: place.name, active: true});
+
 			props.contentHtml = render('/place/home', {
+				crumbs: crumbs,
+
 				place: place,
 				requestProps: requestProps,
 			});

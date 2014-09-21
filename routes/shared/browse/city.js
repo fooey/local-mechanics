@@ -74,6 +74,11 @@ module.exports = function(render, requestProps, fnCallback){
 			props.contentHtml = render('/browse/city', {
 				pageTitle: pageTitle,
 				description: description,
+				crumbs: [
+					{label: 'Home', href: '/', title: 'Local-Mechanics.com'},
+					{label: state.name, href: state.getLink(), title: state.name + ' Mechanics'},
+					{label: city.name, href: city.getLink(), title: city.name + ' Mechanics', active: true},
+				],
 
 				appState: appState,
 				places: places,
