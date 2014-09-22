@@ -44,6 +44,9 @@ if (app.get('env') === 'development') {
 		};
 	});
 }
+else {
+	require('newrelic');
+}
 
 
 
