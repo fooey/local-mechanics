@@ -26,7 +26,7 @@ module.exports = function(render, requestProps, fnCallback){
 		var city = (_.isArray(results.city) && results.city.length) ? results.city[0] : null;
 		var places = (_.isArray(results.places.locations) && results.places.locations.length) ? results.places.locations : [];
 
-		var hasResults = (!!state && !!city && !!places && !!places.length);
+		var hasResults = (!!state && !!city && !!places && places.length > 0);
 
 		if (err) {
 			err = err || new Error(404);
@@ -105,7 +105,7 @@ module.exports = function(render, requestProps, fnCallback){
 				props.statusCode = 301;
 				props.location = urlSetParams(urlObj, {page: 1});
 			}
-			else if (appState.page > appState.numPages) {
+			else if (appState.page !== 1 && appState.page > appState.numPages) {
 				props.statusCode = 301;
 				props.location = urlSetParams(urlObj, {page: appState.numPages});
 			}
