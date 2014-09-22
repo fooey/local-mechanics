@@ -42,10 +42,7 @@ with (obj) {
 
 
 
-	var getChildren = function(parentName, depth) {
-		var depth = depth || 1;
-		console.log(parentName)
-
+	var getChildren = function(parentName) {
 		var children = _
 			.chain(categories)
 			.where({parent: parentName})
