@@ -10,11 +10,15 @@ with (obj) {
  ;
 __p += ' <div id=options> <h4 class="meta text-center"> ' +
 __e( numeral(props.appState.totalHits).format('0,0') ) +
-' Results &mdash; Page ' +
+' Results ';
+ if (props.numPages > 1) { ;
+__p += ' &mdash; Page ' +
 __e( props.appState.page ) +
 ' of ' +
 __e( props.appState.numPages ) +
-' </h4> ' +
+' ';
+ } ;
+__p += ' </h4> ' +
 ((__t = ( props.render('/browse/options/offers', {
 		has_offers: props.appState.has_offers,
 		getLink: props.appState.getLink,

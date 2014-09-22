@@ -6,8 +6,10 @@
 
 	<h4 class="meta text-center">
 		<%- numeral(props.appState.totalHits).format('0,0') %> Results
-		&mdash;
-		Page <%- props.appState.page %> of <%- props.appState.numPages %>
+		<% if (props.numPages > 1) { %>
+			&mdash;
+			Page <%- props.appState.page %> of <%- props.appState.numPages %>
+		<% } %>
 	</h4>
 	
 	<%= props.render('/browse/options/offers', {

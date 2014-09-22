@@ -64,6 +64,8 @@ with (obj) {
 		return className.join(' ');
 	}
 ;
+
+ if (props.numPages > 1) { ;
 __p += ' <div class=responsive-pagination> <ul class=pagination> <li class="' +
 ((__t = ( (props.page <= 1) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a href="' +
@@ -96,7 +98,9 @@ __p += ' <li class="' +
 ((__t = ( (props.page >= props.numPages) ? 'disabled' : '' )) == null ? '' : __t) +
 '"> <a href="' +
 ((__t = ( getLink(Math.min(props.numPages, props.page + 1)) )) == null ? '' : __t) +
-'" rel=nofollow> <i class="fa fa-angle-right"></i> </a> </li> </ul> </div>';
+'" rel=nofollow> <i class="fa fa-angle-right"></i> </a> </li> </ul> </div> ';
+ } ;
+
 
 }
 return __p

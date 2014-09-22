@@ -58,36 +58,38 @@
 	}
 %>
 
-<div class="responsive-pagination">
-	<ul class="pagination">
-		<li class="<%= (props.page <= 1) ? 'disabled' : '' %>">
-			<a href="<%= getLink(Math.max(1, props.page - 1)) %>" rel="nofollow">
-				<i class="fa fa-angle-left"></i>
-			</a>
-		</li>
-
-		<% for(var ixPage = 1; ixPage <= props.numPages; ixPage++) { %>
-			<% var gap = getGap(ixPage) %>
-
-			<% if (ixPage === 2) { %> 
-				<li class="<%= getDividerClass(ixPage, gap) %>"><span>&hellip;</span></li>
-			<% } %>
-
-
-			<li class="<%= getClass(ixPage, gap) %>">
-				<a href="<%= getLink(ixPage) %>" rel="nofollow"><%= ixPage %></a>
+<% if (props.numPages > 1) { %>
+	<div class="responsive-pagination">
+		<ul class="pagination">
+			<li class="<%= (props.page <= 1) ? 'disabled' : '' %>">
+				<a href="<%= getLink(Math.max(1, props.page - 1)) %>" rel="nofollow">
+					<i class="fa fa-angle-left"></i>
+				</a>
 			</li>
 
+			<% for(var ixPage = 1; ixPage <= props.numPages; ixPage++) { %>
+				<% var gap = getGap(ixPage) %>
 
-			<% if (props.numPages > 3 && ixPage === props.numPages - 1) { %> 
-				<li class="<%= getDividerClass(ixPage, gap) %>"><span>&hellip;</span></li>
+				<% if (ixPage === 2) { %> 
+					<li class="<%= getDividerClass(ixPage, gap) %>"><span>&hellip;</span></li>
+				<% } %>
+
+
+				<li class="<%= getClass(ixPage, gap) %>">
+					<a href="<%= getLink(ixPage) %>" rel="nofollow"><%= ixPage %></a>
+				</li>
+
+
+				<% if (props.numPages > 3 && ixPage === props.numPages - 1) { %> 
+					<li class="<%= getDividerClass(ixPage, gap) %>"><span>&hellip;</span></li>
+				<% } %>
 			<% } %>
-		<% } %>
 
-		<li class="<%= (props.page >= props.numPages) ? 'disabled' : '' %>">
-			<a href="<%= getLink(Math.min(props.numPages, props.page + 1)) %>" rel="nofollow">
-				<i class="fa fa-angle-right"></i>
-			</a>
-		</li>
-	</ul>
-</div>
+			<li class="<%= (props.page >= props.numPages) ? 'disabled' : '' %>">
+				<a href="<%= getLink(Math.min(props.numPages, props.page + 1)) %>" rel="nofollow">
+					<i class="fa fa-angle-right"></i>
+				</a>
+			</li>
+		</ul>
+	</div>
+<% } %>
