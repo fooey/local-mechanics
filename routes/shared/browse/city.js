@@ -24,7 +24,14 @@ module.exports = function(render, requestProps, fnCallback){
 	}, function(err, results) {
 		var state = (_.isArray(results.state) && results.state.length) ? results.state[0] : null;
 		var city = (_.isArray(results.city) && results.city.length) ? results.city[0] : null;
-		var places = (_.isArray(results.places.locations) && results.places.locations.length) ? results.places.locations : [];
+		var places = (
+				_.has(results, 'places') 
+				&& _.has(results.places, 'locations') 
+				&& _.isArray(results.places.locations) 
+				&& results.places.locations.length
+			)
+			? results.places.locations
+			: [];
 
 		var hasResults = (!!state && !!city && !!places && places.length > 0);
 
