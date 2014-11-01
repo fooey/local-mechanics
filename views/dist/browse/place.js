@@ -28,9 +28,15 @@ __p += ' <div class=reviewCount> ' +
 ((__t = ( props.place.user_review_count )) == null ? '' : __t) +
 ' User Reviews </div> ';
  } ;
-__p += ' <address> <div>' +
+__p += ' ';
+ if (props.place.address) { ;
+__p += ' <address> ';
+ if (props.place.address.street) { ;
+__p += ' <div>' +
 ((__t = ( props.place.address.street )) == null ? '' : __t) +
 '</div> ';
+ } ;
+__p += ' ';
  if(props.place.geo) { ;
 __p += ' <div> <a href="' +
 ((__t = ( props.place.geo.city.getLink() )) == null ? '' : __t) +
@@ -51,6 +57,8 @@ __p += ' <div> <span>' +
 '</span> </div> ';
  } ;
 __p += ' </address> ';
+ } ;
+__p += ' ';
  if (props.place.has_offers) { ;
 __p += ' <div class=offers> <span class="label label-danger">Special Offers Available!</span> </div> ';
  } ;

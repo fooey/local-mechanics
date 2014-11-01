@@ -26,24 +26,28 @@
 				<% } %>
 
 
-				<address>
-					<div><%= props.place.address.street %></div>
+				<% if (props.place.address) { %>
+					<address>
+						<% if (props.place.address.street) { %>
+							<div><%= props.place.address.street %></div>
+						 <% } %>
 
-					<% if(props.place.geo) { %>
-						<div>
-							<a href="<%= props.place.geo.city.getLink() %>"><%= props.place.geo.city.name %></a>, 
-							<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.name %></a> 
-							<!-- <span><%= props.place.geo.zip %></span> -->
-						</div>
-					 <% } else { %>
-						<div>
-							<span><%= props.place.address.city %>, </span>
-							<span><%= props.place.address.state %> </span>
-							<span><%= props.place.address.postal_code %></span>
-						</div>
-					 <% } %>
+						<% if(props.place.geo) { %>
+							<div>
+								<a href="<%= props.place.geo.city.getLink() %>"><%= props.place.geo.city.name %></a>, 
+								<a href="<%= props.place.geo.state.getLink() %>"><%= props.place.geo.state.name %></a> 
+								<!-- <span><%= props.place.geo.zip %></span> -->
+							</div>
+						 <% } else { %>
+							<div>
+								<span><%= props.place.address.city %>, </span>
+								<span><%= props.place.address.state %> </span>
+								<span><%= props.place.address.postal_code %></span>
+							</div>
+						 <% } %>
 
-				</address>
+					</address> 
+				<% } %>
 
 
 				<% if (props.place.has_offers) { %>
